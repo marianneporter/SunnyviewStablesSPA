@@ -1,0 +1,34 @@
+.login-slider {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 20rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+.close-icon {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.form-element * {
+    width: 95%;
+}
+
+button {
+    height: 2.5rem;
+}

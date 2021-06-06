@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntryPageComponent implements OnInit {
 
-  constructor() { }
+    loginRequested=false;
 
-  ngOnInit(): void {
-  }
+    constructor() { }
+
+    ngOnInit(): void {
+    }
+
+    startLogin() {
+        this.loginRequested=true;
+    }
 
 }
