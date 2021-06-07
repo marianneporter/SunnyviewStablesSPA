@@ -5,6 +5,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { EntryPageComponent } from './entry-page/entry-page.component';
 import { LoginComponent } from './login/login.component';
 
+
 @NgModule({
   declarations: [
     EntryPageComponent,

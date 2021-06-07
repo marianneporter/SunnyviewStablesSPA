@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { EntryStatusService } from '../entry-status.service';
 
 @Component({
   selector: 'app-login',
@@ -14,26 +15,29 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
             right: '-20rem',    
         })), 
         transition('visible <=> invisible', [
-            animate('1s ease')
+            animate('1s linear')
         ])  
     ]),         
 ]
 })
-export class LoginComponent implements OnInit, OnChanges {
+export class LoginComponent implements OnInit {
 
-    loginVisibility="invisible";
 
-    @Input() loginRequested: boolean;
-   
-    constructor() { }
+   get loginVisibility(): string {
+     //  return 'invisible';
+       return this.entryPageState.loginRequested ? 'visible' : 'invisible';       
+   }
+
+
+    constructor(private entryPageState: EntryStatusService) { }
 
     ngOnInit(): void {
+    }    
+
+    closeSlider() {
+   
+        this.entryPageState.loginRequestEnded();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.loginRequested.currentValue) {
-            this.loginVisibility="visible";
-        }
-    }
 
 }

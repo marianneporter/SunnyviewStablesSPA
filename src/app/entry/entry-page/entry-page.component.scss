@@ -2,15 +2,18 @@
 
 @media screen and (min-width: minwidth(medium)) {
     .photo-area {
-        background: url(/assets/manyHorses.jpg) no-repeat center center fixed; 
+        background: url(/assets/manyHorses.jpg) repeat center top fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;  
         width: 100%;
-        height: 100vh;
+        height: 100vh; 
+        
     }
+
 }
+
 
 .main-heading {
     position: absolute;
@@ -21,8 +24,7 @@
 
     h1 {
         font-size: 3rem;
-    }
-    
+    }    
     
     h3 {
         padding-left: 2rem;
@@ -37,5 +39,7 @@
     top: 1rem;
     right: 1rem;
     padding: 0 2rem;
+ 
+   
 }
 

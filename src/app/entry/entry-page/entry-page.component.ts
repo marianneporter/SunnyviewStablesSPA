@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntryStatusService } from '../entry-status.service';
 
 @Component({
   selector: 'app-entry-page',
@@ -7,15 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntryPageComponent implements OnInit {
 
-    loginRequested=false;
-
-    constructor() { }
+    constructor(private entryPageState: EntryStatusService) { }
 
     ngOnInit(): void {
     }
 
     startLogin() {
-        this.loginRequested=true;
+        this.entryPageState.loginRequestStarted();
     }
 
 }
