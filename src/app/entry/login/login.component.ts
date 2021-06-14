@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EntryStatusService } from '../entry-status.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/_services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
     }
 
     constructor(private entryPageState: EntryStatusService,
-                private fb: FormBuilder) { }
+                private fb: FormBuilder,
+                private authService: AuthService) { }
 
     ngOnInit(): void {
         this.loginForm = this.fb.group ({
@@ -53,7 +56,16 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        alert("form submitted!");
+        debugger;
+        this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
+            () => {
+                alert('login success!');             
+            },
+            (error: HttpErrorResponse) => {  
+                console.log(error);             
+                alert('login probs!') 
+            }               
+        )          
     }
 
     getErrorMessage() {
