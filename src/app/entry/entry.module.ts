@@ -4,6 +4,7 @@ import { MaterialModule } from '../shared/material.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { EntryPageComponent } from './entry-page/entry-page.component';
 import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     EntryPageComponent

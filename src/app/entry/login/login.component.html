@@ -8,25 +8,40 @@
     </button>           
 
     <h1>Sign in</h1>
-    <form class="login-form">
+    <form novalidate
+          [formGroup]="loginForm" 
+          class="login-form"
+          #form="ngForm"
+          (ngSubmit)="login()">
         <div class="form-element">
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email">
+                <input matInput 
+                       placeholder="Email"
+                       formControlName="email">
                 <mat-hint>Enter email</mat-hint>
+                <mat-error *ngIf="email.hasError('required')">Please enter your email</mat-error>
+                <mat-error *ngIf="email.hasError('email')">Please enter a valid email</mat-error>
             </mat-form-field>
         </div>
         <div class="form-element">
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput placeholder="Password">
+                <input matInput
+                       type="password" 
+                       placeholder="Password"
+                       formControlName="password">
                 <mat-hint>Enter password</mat-hint>
+                <mat-error *ngIf="password.errors">Please enter your password</mat-error>
             </mat-form-field>   
         </div>
         <div class="form-element">
             <button mat-raised-button 
-                   color="primary">Sign in
+                   color="primary"
+                   [disabled]="loginForm.pristine || loginForm.invalid"
+                   type="submit">Sign in
             </button>
         </div>       
     </form>
+    <h4>form values: {{form.value | json}}</h4>
 </div>
