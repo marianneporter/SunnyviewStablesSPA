@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EntryStatusService } from '../entry-status.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,6 +24,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 ]
 })
 export class LoginComponent implements OnInit {
+
+    @Output() loginSuccess = new EventEmitter<boolean>();
 
     loginForm: FormGroup;
 
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit {
         debugger;
         this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
             () => {
-                alert('login success!');             
+                alert('login success!'); 
+                this.loginSuccess.emit();        
             },
             (error: HttpErrorResponse) => {  
                 console.log(error);             

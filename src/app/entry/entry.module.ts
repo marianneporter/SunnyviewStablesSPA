@@ -5,7 +5,12 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { EntryPageComponent } from './entry-page/entry-page.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
+const entryRoutes: Routes = [
+    { path: 'entry', component: EntryPageComponent},
+    { path: '', component: EntryPageComponent }   
+]
 
 @NgModule({
   declarations: [
@@ -15,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(entryRoutes),
     MaterialModule,
     ReactiveFormsModule
   ],

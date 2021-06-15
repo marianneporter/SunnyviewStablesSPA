@@ -6,19 +6,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EntryModule } from './entry/entry.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { HorseModule } from './horse/horse/horse.module';
  
 export function tokenGetter() {
     return localStorage.getItem("jwtToken");
 }
 
+export const appRoutes: Routes = [
+    { path: '**', redirectTo: 'entry',
+                  pathMatch: 'full' }                                                            
+]
 
 @NgModule({
   declarations: [
-    AppComponent   
+    AppComponent    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     JwtModule.forRoot({
         config: {
@@ -28,6 +35,7 @@ export function tokenGetter() {
         },
     }),
     EntryModule,
+    HorseModule,
     FormsModule,
     ReactiveFormsModule
   ],
