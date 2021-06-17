@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 })
 export class AppComponent {
-  title = 'SunnyviewStablesSPA';
+    title = 'SunnyviewStablesSPA';
+
+    constructor(private router: Router) {}
+  
 }

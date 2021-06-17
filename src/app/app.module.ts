@@ -8,6 +8,7 @@ import { EntryModule } from './entry/entry.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HorseModule } from './horse/horse/horse.module';
+import { SharedModule } from './shared/shared.module';
  
 export function tokenGetter() {
     return localStorage.getItem("jwtToken");
@@ -36,6 +37,7 @@ export const appRoutes: Routes = [
     }),
     EntryModule,
     HorseModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],
