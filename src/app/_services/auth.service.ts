@@ -19,25 +19,37 @@ export class AuthService {
 
     decodedToken: any;
 
+    loggedIn: boolean = false;
+
     login(userLogin: UserLogin) : Observable<any> {
 
         const url = environment.baseUrl + "auth/login";
 
         return this.http.post<LoginResponse>(url, userLogin)
-        .pipe(
-            
-            map((response: LoginResponse) => {    
-            debugger;            
-            if (response) {
-                localStorage.setItem('token', response.token);
-                debugger;
-                localStorage.setItem('user', JSON.stringify(response.user));               
-                this.decodedToken = this.jwtHelper.decodeToken(response.token);     
-   
+        .pipe(            
+            map((response: LoginResponse) => {        
+                if (response) {
+                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('user', JSON.stringify(response.user));               
+                    this.decodedToken = this.jwtHelper.decodeToken(response.token); 
+                    this.loggedIn=true;    
                 }         
             })
         )
-    }   
+    }  
+
+    logout() {
+        this.loggedIn=false;
+        localStorage.removeItem('token');
+    }
+    
+    setLoginStatus() {
+        const token = localStorage.getItem('token');
+
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
+            this.loggedIn=true;
+        }              
+    }
 
 
 }

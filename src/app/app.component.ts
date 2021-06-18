@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from './_services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
     title = 'SunnyviewStablesSPA';
 
-    constructor(private router: Router) {}
+    constructor(private authService: AuthService) {
+                this.authService.setLoginStatus();
+    }
   
 }

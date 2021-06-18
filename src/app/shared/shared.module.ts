@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
+import { MaterialModule } from './material.module';
 
 
 
@@ -9,7 +10,8 @@ import { NavComponent } from './nav/nav.component';
       NavComponent
   ],
   imports: [
-      CommonModule
+      CommonModule,
+      MaterialModule
   ],
   exports: [
       NavComponent

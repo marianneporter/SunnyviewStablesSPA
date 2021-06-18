@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 import { EntryStatusService } from '../entry-status.service';
 
 @Component({
@@ -10,7 +11,12 @@ import { EntryStatusService } from '../entry-status.service';
 export class EntryPageComponent implements OnInit {
 
     constructor(private entryPageState: EntryStatusService,
+                private authService: AuthService,
                 private router: Router ){ }
+
+    get loggedIn(): boolean {
+        return this.authService.loggedIn;
+    }
 
     ngOnInit(): void {
     }
@@ -20,7 +26,7 @@ export class EntryPageComponent implements OnInit {
     }
 
     enterApp() {
-        debugger;
+        this.authService.loggedIn=true;
         this.router.navigate(['/horse']);
     }
 

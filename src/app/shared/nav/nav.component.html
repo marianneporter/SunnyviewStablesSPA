@@ -1,8 +1,34 @@
 <div class="navbar">
-    <ul class="nav">
-        <li>Sunnyview Stables</li>
-        <li>Horses</li>
-        <li>Logout</li>
-    </ul>
+
+    <nav class="nav"> 
+        <ul class="left-nav">
+            <li class="menu-btn" *ngIf="screenWidth < 786">
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon>menu</mat-icon></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Horses</button>
+                    <button mat-menu-item>About</button>
+                    <button mat-menu-item>Contact</button>
+                </mat-menu> 
+            </li>
+                   
+            <li class="title">
+                Sunnyview Stables
+            </li>   
+
+            <ng-container *ngIf="screenWidth >= 768">
+                <li>Horses</li>
+                <li>About</li>
+                <li>Contact</li>               
+            </ng-container>
+
+
+        </ul>
+        <div class="right-nav">            
+            <p class="greeting">Hello Melanie</p>
+            <button (click)="logout()">Sign out?</button>           
+        </div>      
+    </nav>
+    
 </div>
 

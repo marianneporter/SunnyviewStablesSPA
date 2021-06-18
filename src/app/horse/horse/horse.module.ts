@@ -3,10 +3,11 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { HorseListComponent } from "../horse-list/horse-list.component";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 
 const horseRoutes: Routes = [
-    { path: 'horse', component: HorseListComponent}  
+    { path: 'horse', component: HorseListComponent, canActivate: [AuthGuard] }  
 ]
 
 @NgModule({

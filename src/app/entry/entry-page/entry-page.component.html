@@ -6,10 +6,14 @@
         </div>
     
         <div class="login-btn-wrapper">
-            <button mat-raised-button
+            <button *ngIf="!loggedIn"
+                mat-raised-button
                 color="accent"
-                class="login-btn"
+                class="login-btn"                
                 (click)="startLogin()">Login
+           </button>
+           <button *ngIf="loggedIn"
+                   (click)="enterApp()">Enter Site               
            </button>
         </div>
       

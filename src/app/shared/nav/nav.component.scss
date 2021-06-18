@@ -1,6 +1,34 @@
 .nav {
     background-color: blue;
     color: white;
-    height: 4rem;
+    height: 6rem;
     width: 100%;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
 }
+
+.left-nav {
+    display: flex;
+
+    .menu-btn {
+        padding: 0;
+    }
+
+    .title {
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.right-nav {
+    padding-right: 1rem;
+
+    .greeting {
+        font-size: 1.1rem;
+    }
+}
+
+
+
