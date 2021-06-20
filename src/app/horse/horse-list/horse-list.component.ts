@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Horse } from 'src/app/_models/horse';
 
 @Component({
   selector: 'app-horse-list',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorseListComponent implements OnInit {
 
-  constructor() { }
+    horses: Horse[] = [];
 
-  ngOnInit(): void {
-  }
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 
 }
