@@ -13,7 +13,10 @@
                 (click)="startLogin()">Login
            </button>
            <button *ngIf="loggedIn"
-                   (click)="enterApp()">Enter Site               
+                    mat-raised-button
+                   (click)="enterApp()"
+                   class="enter-app-btn"
+                   color="accent">Enter Site               
            </button>
         </div>
       

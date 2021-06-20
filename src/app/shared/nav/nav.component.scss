@@ -1,7 +1,7 @@
 .nav {
-    background-color: blue;
+    background-color: var(--color-primary);
     color: white;
-    height: 6rem;
+    height: 5rem;
     width: 100%;
     display: flex; 
     align-items: center;
@@ -20,15 +20,47 @@
         display: flex;
         align-items: center;
     }
+
+    .desktop-links {
+        li {
+           display: none;
+        }
+    }
 }
 
 .right-nav {
     padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
 
     .greeting {
         font-size: 1.1rem;
+    }
+
+    a {
+        align-self: flex-end;
     }
 }
 
 
 
+@media screen and (min-width: 960px) {
+    .left-nav {
+        .title {
+            display: inline-block;
+            width:15rem;
+            height: auto;
+            font-size: 1.5rem;
+        }
+
+        .mobile-links {
+            display: none;
+        }
+    
+        .desktop-links li {
+            display: inline-block;
+            width:6rem;
+            height: auto;            
+        }             
+    }
+}

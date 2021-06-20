@@ -2,7 +2,7 @@
 
     <nav class="nav"> 
         <ul class="left-nav">
-            <li class="menu-btn" *ngIf="screenWidth < 786">
+            <li class="menu-btn mobile-links">
                 <button mat-button [matMenuTriggerFor]="menu">
                     <mat-icon>menu</mat-icon></button>
                 <mat-menu #menu="matMenu">
@@ -16,17 +16,15 @@
                 Sunnyview Stables
             </li>   
 
-            <ng-container *ngIf="screenWidth >= 768">
+            <div class="desktop-links">
                 <li>Horses</li>
                 <li>About</li>
                 <li>Contact</li>               
-            </ng-container>
-
-
+            </div>
         </ul>
         <div class="right-nav">            
-            <p class="greeting">Hello Melanie</p>
-            <button (click)="logout()">Sign out?</button>           
+            <p class="greeting">Hello Alexander Graham</p>
+            <a (click)="logout()">Sign out?</a>           
         </div>      
     </nav>
     
