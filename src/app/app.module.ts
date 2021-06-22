@@ -11,7 +11,7 @@ import { HorseModule } from './horse/horse/horse.module';
 import { SharedModule } from './shared/shared.module';
  
 export function tokenGetter() {
-    return localStorage.getItem("jwtToken");
+    return localStorage.getItem("token");
 }
 
 export const appRoutes: Routes = [
@@ -32,7 +32,7 @@ export const appRoutes: Routes = [
         config: {
           tokenGetter: tokenGetter,
           allowedDomains: ['localhost:44360'],
-          disallowedRoutes: ['localhost:44340/api/auth'],
+          disallowedRoutes: ['https://localhost:44360/api/auth/login'],
         },
     }),
     EntryModule,

@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <main>
     <h1>Horses</h1>
-    <div *ngFor="horse in horses">
-
+    <div *ngFor="let horse of horses">
+        <p>{{horse.name}}</p>
     </div>
 </main>
