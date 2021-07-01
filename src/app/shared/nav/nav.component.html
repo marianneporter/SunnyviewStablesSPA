@@ -12,16 +12,18 @@
                 </mat-menu> 
             </li>
                    
-            <li class="title">
-                Sunnyview Stables
+            <li class="title"> 
+                &nbsp;<fa-icon [icon]="faHorse"></fa-icon> Sunnyview Stables
             </li>   
 
-            <div class="desktop-links">
-                <li>Horses</li>
-                <li>About</li>
-                <li>Contact</li>               
-            </div>
+            <ng-container >
+                <li class="desktop-link">Horses</li>
+                <li class="desktop-link">About</li>
+                <li class="desktop-link">Contact</li>            
+            </ng-container> 
+  
         </ul>
+        
         <div class="right-nav">            
             <p class="greeting">Hello Alexander Graham</p>
             <a (click)="logout()">Sign out?</a>           

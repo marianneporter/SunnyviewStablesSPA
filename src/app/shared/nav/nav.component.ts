@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/_services/auth.service';
-
+import { faHorse } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class NavComponent {
 
+    faHorse = faHorse;
 
     constructor(private location: Location,
                 private authService: AuthService) { }

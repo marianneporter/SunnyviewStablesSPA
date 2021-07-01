@@ -21,6 +21,8 @@ export class AuthService {
 
     loggedIn: boolean = false;
 
+    userName: string = '';
+
     login(userLogin: UserLogin) : Observable<any> {
 
         const url = environment.baseUrl + "auth/login";
@@ -30,7 +32,8 @@ export class AuthService {
             map((response: LoginResponse) => {        
                 if (response) {
                     localStorage.setItem('token', response.token);
-                    localStorage.setItem('user', JSON.stringify(response.user));               
+                    localStorage.setItem('user', JSON.stringify(response.user)); 
+                    this.userName= `${response.user.firstName} ${response.user.lastName}`;            
                     this.decodedToken = this.jwtHelper.decodeToken(response.token); 
                     this.loggedIn=true;    
                 }         

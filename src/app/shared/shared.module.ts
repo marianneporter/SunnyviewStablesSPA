@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { MaterialModule } from './material.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from './material.module';
   ],
   imports: [
       CommonModule,
-      MaterialModule
+      MaterialModule,
+      FontAwesomeModule
   ],
   exports: [
       NavComponent

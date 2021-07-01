@@ -21,7 +21,7 @@
         align-items: center;
     }
 
-    .desktop-links {
+    .desktop-link {
         li {
            display: none;
         }
@@ -48,7 +48,7 @@
     .left-nav {
         .title {
             display: inline-block;
-            width:15rem;
+            width:17rem;
             height: auto;
             font-size: 1.5rem;
         }
@@ -57,8 +57,9 @@
             display: none;
         }
     
-        .desktop-links li {
+        .desktop-link {
             display: inline-block;
+            padding-top: 0.35rem;
             width:6rem;
             height: auto;            
         }             

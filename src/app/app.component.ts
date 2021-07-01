@@ -11,7 +11,7 @@ export class AppComponent {
     title = 'SunnyviewStablesSPA';
 
     constructor(private authService: AuthService) {
-                this.authService.setLoginStatus();
+        this.authService.setLoginStatus();
     }
   
 }
