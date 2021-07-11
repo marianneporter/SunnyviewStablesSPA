@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit {
         debugger;
         this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
             () => {
-                alert('login success!'); 
                 this.loginSuccess.emit();        
             },
             (error: HttpErrorResponse) => {  

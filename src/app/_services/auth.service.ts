@@ -21,7 +21,11 @@ export class AuthService {
 
     loggedIn: boolean = false;
 
-    userName: string = '';
+    private _userName: string = '';
+
+    public get userName() {
+        return this._userName;
+    }
 
     login(userLogin: UserLogin) : Observable<any> {
 
@@ -33,7 +37,7 @@ export class AuthService {
                 if (response) {
                     localStorage.setItem('token', response.token);
                     localStorage.setItem('user', JSON.stringify(response.user)); 
-                    this.userName= `${response.user.firstName} ${response.user.lastName}`;            
+                    this._userName= `${response.user.firstName}`;            
                     this.decodedToken = this.jwtHelper.decodeToken(response.token); 
                     this.loggedIn=true;    
                 }         
@@ -51,6 +55,8 @@ export class AuthService {
 
         if (token && !this.jwtHelper.isTokenExpired(token)) {
             this.loggedIn=true;
+            let userFromStorage = JSON.parse(localStorage.getItem('user'));
+            this._userName = `${userFromStorage.firstName}`;
         }              
     }
 
