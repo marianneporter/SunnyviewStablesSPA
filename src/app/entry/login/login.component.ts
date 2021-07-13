@@ -1,9 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EntryStatusService } from '../entry-status.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/_services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+export function serverLoginValidator(serverLoginError: boolean) : ValidatorFn {
+
+    return (control: FormGroup): {[key: string]:boolean} | null => { 
+     
+       return serverLoginError ?  { 'serverLoginError': true } : null;
+ 
+    };
+}
+
 
 @Component({
   selector: 'app-login',
@@ -29,6 +40,8 @@ export class LoginComponent implements OnInit {
 
     loginForm: FormGroup;
 
+    serverLoginError: boolean = false;
+
     get email() {
         return this.loginForm.get('email');
     }
@@ -37,20 +50,37 @@ export class LoginComponent implements OnInit {
         return this.loginForm.get('password');
     }
 
-
     get loginVisibility(): string {
         return this.entryPageState.loginRequested ? 'visible' : 'invisible';       
     }
 
     constructor(private entryPageState: EntryStatusService,
                 private fb: FormBuilder,
-                private authService: AuthService) { }
+                private authService: AuthService,
+                private matSnackBar: MatSnackBar) { }
 
     ngOnInit(): void {
         this.loginForm = this.fb.group ({
-            email : [ '', [Validators.required, Validators.email ]],
-            password : [  '', Validators.required ],  
+            email : [ '', [ Validators.required, Validators.email, serverLoginValidator(false) ]],
+            password : [  '', [ Validators.required, serverLoginValidator(false) ] ],  
         })
+    }
+
+    cancelLoginAttempt() {//
+        this.closeSlider();
+        debugger;
+        this.loginForm.reset();
+
+        Object.keys(this.loginForm.controls).forEach(key => {
+            this.loginForm.get(key).setErrors(null);
+            this.loginForm.get(key).setValue(null);
+            this.loginForm.get(key).markAsPristine();
+            this.loginForm.get(key).markAsUntouched();
+            this.loginForm.get(key).updateValueAndValidity();           
+        });  
+       this.loginForm.markAsPristine();
+       this.loginForm.markAsUntouched();
+       this.loginForm.updateValueAndValidity();
     }
     
     closeSlider() {   
@@ -58,25 +88,44 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        debugger;
+      
         this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
             () => {
+                console.log('happy outcome');
+ 
                 this.loginSuccess.emit();        
             },
             (error: HttpErrorResponse) => {  
-                console.log(error);             
-                alert('login probs!') 
+  
+                if (error.status == 401) { 
+                     this.serverLoginError=true;
+                     this.updateValidators(true);
+                } else {
+                    this.openErrorSnackbar();
+                    this.cancelLoginAttempt();
+                }
             }               
         )          
     }
 
-    getErrorMessage() {
-        if (this.email.hasError('required')) {
-            return 'You must enter a value';
-        }
-      
-        return this.email.hasError('email') ? 'Not a valid email' : '';       
+    openErrorSnackbar() {
+        this.matSnackBar.open('Login cannot be completed - please try later', 'Close');
     }
 
+    userInput() {
+        if ( this.serverLoginError) {
+            this.serverLoginError=false;
+            this.updateValidators(false);
+        }
+    }
+
+    updateValidators(status: boolean) {
+        this.email.clearValidators();
+        this.password.clearValidators();
+        this.email.setValidators( [ Validators.required, Validators.email, serverLoginValidator(status)])
+        this.password.setValidators([ Validators.required, serverLoginValidator(status) ])
+        this.email.updateValueAndValidity();
+        this.password.updateValueAndValidity();      
+    }
 
 }

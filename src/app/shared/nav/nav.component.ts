@@ -15,7 +15,7 @@ export class NavComponent  implements OnInit {
     userName = '';
 
     constructor(private location: Location,
-                private authService: AuthService) { }
+                private authService: AuthService ) { }
 
     ngOnInit() {
         this.userName = this.authService.userName;
