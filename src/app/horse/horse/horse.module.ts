@@ -5,6 +5,7 @@ import { HorseListComponent } from "../horse-list/horse-list.component";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { HorseListResolver } from 'src/app/_resolvers/horse-list.resolver';
+import { MaterialModule } from 'src/app/shared/material.module';
 
 
 const horseRoutes: Routes = [
@@ -20,7 +21,8 @@ const horseRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(horseRoutes),
-    SharedModule   
+    SharedModule,
+    MaterialModule   
   ],
   exports: [
     HorseListComponent

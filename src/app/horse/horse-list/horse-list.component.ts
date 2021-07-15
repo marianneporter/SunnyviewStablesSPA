@@ -11,6 +11,8 @@ export class HorseListComponent implements OnInit {
 
     horses: Horse[] = [];
 
+    displayedColumns: string[] = ['name', 'height', 'colour'];
+
     constructor(private route: ActivatedRoute) { }
 
     ngOnInit(): void {
@@ -18,6 +20,10 @@ export class HorseListComponent implements OnInit {
             this.horses=data['horses'];
         })
     }
+
+    // onRowClicked(row) {
+    //     console.log('Row clicked ', row.name);
+    // }
 
    
 

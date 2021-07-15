@@ -1,7 +1,29 @@
 <app-nav></app-nav>
 <main>
     <h1>Horses</h1>
-    <div *ngFor="let horse of horses">
+    <!-- <div *ngFor="let horse of horses">
         <p>{{horse.name}}</p>
-    </div>
+    </div> -->
+    <mat-table class="mat-elevation-z8" [dataSource]="horses">
+  
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef >Name</mat-header-cell>
+            <mat-cell *matCellDef="let horse">{{horse.name}}</mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="height">
+            <mat-header-cell *matHeaderCellDef >Height</mat-header-cell>
+            <mat-cell *matCellDef="let horse">{{horse.heightcm}}</mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="colour">
+            <mat-header-cell *matHeaderCellDef>Colour</mat-header-cell>
+            <mat-cell *matCellDef="let horse">{{horse.colour}}</mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        
+    </mat-table>
 </main>
