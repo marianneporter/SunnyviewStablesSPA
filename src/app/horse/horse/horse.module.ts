@@ -10,7 +10,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
 
 const horseRoutes: Routes = [
     { path: 'horse', component: HorseListComponent,
-                     resolve: { horses:HorseListResolver }, 
+                     resolve: { horseCount:HorseListResolver }, 
                      canActivate: [AuthGuard] }  
 ]
 

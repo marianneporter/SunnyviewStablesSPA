@@ -8,11 +8,11 @@ import { HorseService } from '../_services/horse.service';
     providedIn: 'root'
 })
 
-export class HorseListResolver implements Resolve<Horse[]> {
+export class HorseListResolver implements Resolve<number> {
    
     constructor(private horseService : HorseService ) {}
 
-    resolve(): Observable<Horse[]> {
-        return this.horseService.getHorses();
-    }    
+    resolve(): Observable<number> {
+        return this.horseService.getHorseCount();
+    }     
 }

@@ -4,7 +4,7 @@
     <!-- <div *ngFor="let horse of horses">
         <p>{{horse.name}}</p>
     </div> -->
-    <mat-table class="mat-elevation-z8" [dataSource]="horses">
+    <mat-table class="mat-elevation-z8" [dataSource]="horses$ | async">
   
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef >Name</mat-header-cell>
@@ -26,4 +26,13 @@
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         
     </mat-table>
+
+    <mat-paginator [length]="horseCount"
+                   [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"
+                   (page)=pageChangeEvent($event) #paginator></mat-paginator>
+
+
+
+
 </main>
