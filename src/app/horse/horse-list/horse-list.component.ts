@@ -14,7 +14,8 @@ export class HorseListComponent implements OnInit, AfterViewInit {
 
     horses$: Observable<Horse[]>;
 
-    horseCount: number;
+    horseCount: number = 0 ;
+    displayNoHorsesError = false;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -31,7 +32,11 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.horses$ = this.horseService.getHorses();
+        if (this.horseCount == 0) {
+            this.displayNoHorsesError= true;
+        } else {
+            this.horses$ = this.horseService.getHorses();
+        }    
     }
 
     pageChangeEvent(pageEvent: PageEvent) {

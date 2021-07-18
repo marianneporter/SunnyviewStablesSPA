@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { HorseListResolver } from 'src/app/_resolvers/horse-list.resolver';
 import { MaterialModule } from 'src/app/shared/material.module';
+import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-interceptor';
 
 
 const horseRoutes: Routes = [
@@ -26,6 +27,9 @@ const horseRoutes: Routes = [
   ],
   exports: [
     HorseListComponent
-  ]
+  ],
+  providers: [ 
+    HorseInterceptorProvider
+],
 })
 export class HorseModule { }

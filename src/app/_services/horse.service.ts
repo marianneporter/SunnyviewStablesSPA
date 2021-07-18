@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Horse } from '../_models/horse';
 
@@ -30,7 +31,12 @@ export class HorseService {
 
     getHorseCount() {
         const url = environment.baseUrl + 'horses/count';
-        return this.http.get<number>(url);              
+
+
+        return this.http.get<number>(url)
+            .pipe(
+                catchError(() => of(0))
+            )              
     }  
 
   
