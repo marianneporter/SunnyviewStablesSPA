@@ -29,15 +29,12 @@
         </mat-table>
     
         <mat-paginator [length]="horseCount"
-                       [pageSize]="3"
-                       [pageSizeOptions]="[3, 5, 10]"
+                       [pageSize]="initialPageSize"
+                       [pageSizeOptions]="pageSizeOptions"
                        (page)=pageChangeEvent($event) #paginator></mat-paginator>
     
     
     </ng-container>
 
-    <ng-container *ngIf="displayNoHorsesError">
-        <p>No horses can be found at present - please contact administrator</p>
-    </ng-container>
 
 </main>

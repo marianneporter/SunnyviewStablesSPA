@@ -15,7 +15,9 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     horses$: Observable<Horse[]>;
 
     horseCount: number = 0 ;
-    displayNoHorsesError = false;
+
+    initialPageSize = 2;
+    pageSizeOptions = [2, 4, 6];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -32,17 +34,25 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (this.horseCount == 0) {
-            this.displayNoHorsesError= true;
-        } else {
-            this.horses$ = this.horseService.getHorses();
-        }    
+
+        this.horses$ = this.horseService.getHorses('',
+                                                    'asc',
+                                                    0,
+                                                    this.initialPageSize);
+        
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
         console.log(pageEvent);
-        console.log('horseCount = ' + this.horseCount);
+        console.log('horseCount = ' + this.horseCount);      
+
+        this.horses$ = this.horseService.getHorses('',
+                      'asc',
+                      pageEvent.pageIndex,
+                      pageEvent.pageSize );  
     }
+
+    
 
     // onRowClicked(row) {
     //     console.log('Row clicked ', row.name);

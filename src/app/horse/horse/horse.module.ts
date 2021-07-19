@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { HorseListResolver } from 'src/app/_resolvers/horse-list.resolver';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-interceptor';
+import { HorseListElementComponent } from '../horse-list-element/horse-list-element.component';
 
 
 const horseRoutes: Routes = [
@@ -17,7 +18,8 @@ const horseRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    HorseListComponent   
+    HorseListComponent,
+    HorseListElementComponent   
   ],
   imports: [
     CommonModule,
