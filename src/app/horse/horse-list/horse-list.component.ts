@@ -11,7 +11,7 @@ import { HorseService } from 'src/app/_services/horse.service';
   templateUrl: './horse-list.component.html',
   styleUrls: ['./horse-list.component.scss']
 })
-export class HorseListComponent implements OnInit, AfterViewInit {
+export class HorseListComponent implements OnInit {
 
     horses$: Observable<Horse[]>;
 
@@ -28,16 +28,13 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.route.data.subscribe(data => {
             this.horseCount=data['horseCount'];
-        })
-    }
+        });
 
-    ngAfterViewInit() {
-        
-     this.horses$ = this.horseService.getHorses('',
-                                     'asc',
-                                      0,
-                                      this.initialPageSize);
-   
+        this.horses$ = this.horseService.getHorses('',
+                        'asc',
+                        0,
+                        this.initialPageSize);
+
     }
 
     pageChangeEvent(pageEvent: PageEvent) {

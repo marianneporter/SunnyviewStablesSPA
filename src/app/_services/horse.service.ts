@@ -4,13 +4,16 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Horse } from '../_models/horse';
+import { HorseDto } from '../_models/horseDTO';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorseService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private utility: UtilityService) { }
  
     getHorses(filter='',
               sortDirection='asc',
@@ -23,13 +26,11 @@ export class HorseService {
 
             const url = environment.baseUrl + 'horses';
 
-            return this.http.get<Horse[]>(url, { params: params })
+            return this.http.get<HorseDto[]>(url, { params: params })
                 .pipe(
-                    map(horses => {
-                        return horses.map(horse => {
-                            let amendedHorse: Horse = {...horse};
-                            amendedHorse.displayOwners = amendedHorse.owners.join(', ');
-                            return amendedHorse;
+                    map(horsesDto => {
+                        return horsesDto.map(horseDto => {                                                    
+                            return this.utility.mapHorseDtoToHorse(horseDto);
                         })
                 })
             );   

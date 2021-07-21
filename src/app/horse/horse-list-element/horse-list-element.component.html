@@ -28,9 +28,9 @@
         <mat-cell *matCellDef="let horse">{{horse.sex}}</mat-cell>
     </ng-container>
         
-    <ng-container matColumnDef="DOB">
-        <mat-header-cell *matHeaderCellDef>DOB</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.DOB}}</mat-cell>
+    <ng-container matColumnDef="dob">
+        <mat-header-cell *matHeaderCellDef>dob</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.dob | date: 'd-M-y'}}</mat-cell>
     </ng-container>
          
     <ng-container matColumnDef="owners">

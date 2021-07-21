@@ -16,7 +16,7 @@ export class HorseInterceptor implements HttpInterceptor {
             tap(
                 evt => {
                     if (evt instanceof HttpResponse)  {
-                        debugger;
+                   
                         if(req.url.includes('horses')) {
   
                                 

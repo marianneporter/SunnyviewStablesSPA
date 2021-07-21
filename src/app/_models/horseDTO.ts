@@ -1,13 +1,12 @@
 import { Owner } from "./owner";
 
-export interface Horse {
+export interface HorseDto {
     id: number;
-    name: string;
-    dob: Date;
+    name: string;  
+    dob: string;
     sex: string;
     colour: string;
     heightcm: number;   
     imageUrl: string;       
-    owners: string[]; 
-    displayOwners: string; 
+    owners: string[];        
  }

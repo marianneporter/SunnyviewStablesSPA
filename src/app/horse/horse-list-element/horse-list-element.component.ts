@@ -11,7 +11,7 @@ export class HorseListElementComponent implements OnInit {
 
     @Input() horses$: Observable<Horse[]>;
 
-    displayedColumns: string[] = ['imageUrl', 'name', 'height', 'colour', 'sex', 'DOB', 'owners'];
+    displayedColumns: string[] = ['imageUrl', 'name', 'height', 'colour', 'sex', 'dob', 'owners'];
 
     constructor() { }
 
