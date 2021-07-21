@@ -1,1 +1,47 @@
-<p>horse-list-element works!</p>
+
+<mat-table class="table"  [dataSource]="horses$ | async">
+
+    <ng-container matColumnDef="imageUrl">
+        <mat-header-cell *matHeaderCellDef ></mat-header-cell>
+        <mat-cell *matCellDef="let horse">
+            <img [src]="horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.png'" />
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef >Name</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.name}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="height">
+        <mat-header-cell *matHeaderCellDef >Height</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.heightcm}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="colour">
+        <mat-header-cell *matHeaderCellDef>Colour</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.colour}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="sex">
+        <mat-header-cell *matHeaderCellDef>Sex</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.sex}}</mat-cell>
+    </ng-container>
+        
+    <ng-container matColumnDef="DOB">
+        <mat-header-cell *matHeaderCellDef>DOB</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.DOB}}</mat-cell>
+    </ng-container>
+         
+    <ng-container matColumnDef="owners">
+        <mat-header-cell *matHeaderCellDef>Owners</mat-header-cell>
+        <mat-cell *matCellDef="let horse">{{horse.displayOwners}}</mat-cell>
+    </ng-container>   
+        
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    
+</mat-table>
+
+

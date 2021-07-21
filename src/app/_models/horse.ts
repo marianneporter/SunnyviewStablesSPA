@@ -6,6 +6,8 @@ export interface Horse {
     DOB: string;
     sex: string;
     colour: string;
-    heightcm: number;          
-    owners: Owner[];   
+    heightcm: number;   
+    imageUrl: string;       
+    owners: string[];
+    displayOwners: string;   
  }

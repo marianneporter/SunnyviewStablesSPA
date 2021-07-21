@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { async, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Horse } from 'src/app/_models/horse';
 import { HorseService } from 'src/app/_services/horse.service';
 
@@ -20,10 +21,7 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     pageSizeOptions = [2, 4, 6];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
-
-
-    displayedColumns: string[] = ['name', 'height', 'colour'];
-
+  
     constructor(private route: ActivatedRoute,
                 private horseService: HorseService) { }
 
@@ -34,30 +32,22 @@ export class HorseListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-
-        this.horses$ = this.horseService.getHorses('',
-                                                    'asc',
-                                                    0,
-                                                    this.initialPageSize);
         
+     this.horses$ = this.horseService.getHorses('',
+                                     'asc',
+                                      0,
+                                      this.initialPageSize);
+   
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
-        console.log(pageEvent);
-        console.log('horseCount = ' + this.horseCount);      
-
+ 
         this.horses$ = this.horseService.getHorses('',
                       'asc',
                       pageEvent.pageIndex,
                       pageEvent.pageSize );  
     }
 
-    
 
-    // onRowClicked(row) {
-    //     console.log('Row clicked ', row.name);
-    // }
-
-   
 
 }

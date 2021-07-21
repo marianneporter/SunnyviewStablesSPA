@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Horse } from 'src/app/_models/horse';
 
 @Component({
   selector: 'app-horse-list-element',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorseListElementComponent implements OnInit {
 
-  constructor() { }
+    @Input() horses$: Observable<Horse[]>;
 
-  ngOnInit(): void {
-  }
+    displayedColumns: string[] = ['imageUrl', 'name', 'height', 'colour', 'sex', 'DOB', 'owners'];
 
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 }

@@ -8,6 +8,7 @@ import { HorseListResolver } from 'src/app/_resolvers/horse-list.resolver';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-interceptor';
 import { HorseListElementComponent } from '../horse-list-element/horse-list-element.component';
+import { HorseCardComponent } from '../horse-card/horse-card.component';
 
 
 const horseRoutes: Routes = [
@@ -19,7 +20,8 @@ const horseRoutes: Routes = [
 @NgModule({
   declarations: [
     HorseListComponent,
-    HorseListElementComponent   
+    HorseListElementComponent,
+    HorseCardComponent   
   ],
   imports: [
     CommonModule,
