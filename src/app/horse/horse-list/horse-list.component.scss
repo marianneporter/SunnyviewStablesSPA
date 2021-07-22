@@ -1,0 +1,44 @@
+main {
+    width: 80rem;
+    margin: 0 auto;      
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    
+    .mat-form-field {
+        margin-top: 1rem;
+    }
+}
+
+h1 {
+    margin-top: 1.5rem;
+}
+
+.horse-nav ul{
+    display: flex;
+    list-style-type: none;
+
+    li {
+        padding: 1.5rem  1rem 0.5rem 1rem;
+        font-size: 1.1rem;
+
+        a {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            gap: 0.3rem;
+
+            span {
+                margin-top: 0.2rem;
+            }
+        } 
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}

@@ -1,12 +1,31 @@
 <app-nav></app-nav>
 <main>
-    <h1>Horses</h1>
+    <header>
+        <h1>Horses</h1>
+        <mat-form-field appearance="outline">
+            <mat-label>Filter</mat-label>
+            <mat-icon matPrefix>filter_list</mat-icon>
+            <input matInput placeholder="Filter">                
+            <mat-hint>Filter on something????</mat-hint>
+          </mat-form-field>
+    </header>
+   
+    <nav class="horse-nav">
+        <ul>
+            <li><a href="#"><mat-icon>view_module</mat-icon><span> Card View</span></a></li>
+            <li><a href="#"><mat-icon>view_headline</mat-icon><span>List View</span></a></li>
+            <li><a href="#"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
+        </ul>
+    </nav>
 
     <app-horse-list-element [horses$]="horses$"></app-horse-list-element>
  
-    <mat-paginator [length]="horseCount"
-                    [pageSize]="initialPageSize"
-                    [pageSizeOptions]="pageSizeOptions"
-                    (page)=pageChangeEvent($event) #paginator></mat-paginator>
+    <footer>
+        <mat-paginator [length]="horseCount"
+        [pageSize]="initialPageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)=pageChangeEvent($event) #paginator></mat-paginator>       
+    </footer>
+ 
 
 </main>
