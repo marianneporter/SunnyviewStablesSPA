@@ -1,10 +1,52 @@
-.mat-column-imageUrl {
+.grid {
+    display: grid;     
+    grid-template-columns: repeat(7, minmax(max-content, 10rem)); 
+}
+
+
+.col {   
+    max-width: 10rem;
+    height: 5rem;
+    background-color: lightcyan;
+}
+
+.image-col {
     max-width: 5rem;
     padding-right: 1rem;
     img {
         max-width: 100%;
-        height: auto;
-       
-    }
-  
+        height: auto;       
+    }  
 }
+
+.row:last-child {
+    color: blue;
+}
+
+.responsive {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(max-content, 20rem));
+}
+
+
+.box {
+    height: 7.5rem;
+    max-width: 20rem;
+}
+
+.box1 {
+    background-color: pink;
+}
+
+.box2 {
+    background-color: lightgreen;
+}
+
+.box3 {
+    background-color: yellow;
+}
+
+.box4 {
+    background-color: lightskyblue;
+}
+

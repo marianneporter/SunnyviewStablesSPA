@@ -1,47 +1,31 @@
 
-<mat-table class="table"  [dataSource]="horses$ | async">
+            <!-- <div class="grid">
+                <div class="col"></div>
+                <div class="col">name</div>
+                <div class="col">height</div>
+                <div class="col">colour</div>
+                <div class="col">sex</div>
+                <div class="col">dob</div>
+                <div class="col">owners</div>
+            </div>
+         -->
+            <!-- <div class="grid row" *ngFor="let horse of horses$ | async">
+                <div class="col image-col">
+                    <img [src]="horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.jpg'" />
+                </div>
+           <!--    <div class="col">{{horse.name}}</div>  --> 
+        <!--        <div class="col">Neigh</div>
+                <div class="col">{{horse.heightcm}}</div>
+                <div class="col">{{horse.colour}}</div>
+                <div class="col">{{horse.sex}}</div>
+                <div class="col">{{horse.dob | date: 'd-M-y'}}</div>
+                 <div class="col">{{horse.displayOwners}}</div>
+                <div class="col">esmerelada cox-jones and josephine hamilton smythe </div>
+            </div>         -->
 
-    <ng-container matColumnDef="imageUrl">
-        <mat-header-cell *matHeaderCellDef ></mat-header-cell>
-        <mat-cell *matCellDef="let horse">
-            <img [src]="horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.jpg'" />
-        </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef >Name</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.name}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="height">
-        <mat-header-cell *matHeaderCellDef >Height</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.heightcm}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="colour">
-        <mat-header-cell *matHeaderCellDef>Colour</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.colour}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="sex">
-        <mat-header-cell *matHeaderCellDef>Sex</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.sex}}</mat-cell>
-    </ng-container>
-        
-    <ng-container matColumnDef="dob">
-        <mat-header-cell *matHeaderCellDef>dob</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.dob | date: 'd-M-y'}}</mat-cell>
-    </ng-container>
-         
-    <ng-container matColumnDef="owners">
-        <mat-header-cell *matHeaderCellDef>Owners</mat-header-cell>
-        <mat-cell *matCellDef="let horse">{{horse.displayOwners}}</mat-cell>
-    </ng-container>   
-        
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    
-</mat-table>
-
-
+            <div class="responsive">
+                <div class="box box1">abcdefghijklmnopqrdtuvwxyz</div>
+                <div class="box box2">abcdefghijklmnopqrdtuvwxyz</div>
+                <div class="box box3">abcdefghijklmnopqrdtuvwxyz</div>
+                <div class="box box4">abcdefghijklmnopqrdtuvwxyz</div>       
+            </div>
