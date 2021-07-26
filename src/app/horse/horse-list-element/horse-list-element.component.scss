@@ -22,31 +22,3 @@
 .row:last-child {
     color: blue;
 }
-
-.responsive {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(max-content, 20rem));
-}
-
-
-.box {
-    height: 7.5rem;
-    max-width: 20rem;
-}
-
-.box1 {
-    background-color: pink;
-}
-
-.box2 {
-    background-color: lightgreen;
-}
-
-.box3 {
-    background-color: yellow;
-}
-
-.box4 {
-    background-color: lightskyblue;
-}
-
