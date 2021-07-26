@@ -1,13 +1,23 @@
-.grid {
+.grid { 
     display: grid;     
-    grid-template-columns: repeat(7, minmax(max-content, 10rem)); 
+    grid-template-columns: 5rem repeat(6, minmax(max-content, 10rem)); 
+    justify-content: center;
+    margin-top: 1.5rem;
 }
 
+.grid-data {
+    display: contents;
 
-.col {   
+    .col:not(:first-child) {
+        padding-top: 1.25rem;
+    }
+}
+
+.col {  
+
     max-width: 10rem;
-    height: 5rem;
-    background-color: lightcyan;
+    padding: 0.5rem; 
+    border-bottom: 0.05rem solid #b8b8b8;
 }
 
 .image-col {
