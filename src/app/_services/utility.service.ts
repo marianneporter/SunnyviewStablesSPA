@@ -17,6 +17,7 @@ export class UtilityService {
             sex: horseDto.sex,
             colour: horseDto.colour,
             heightcm: horseDto.heightcm,
+            heightHands: horseDto.heightHands,
             imageUrl: horseDto.imageUrl,
             owners: horseDto.owners,
             displayOwners:  horseDto.owners.join(', ')

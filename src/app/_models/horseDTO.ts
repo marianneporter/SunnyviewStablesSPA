@@ -7,6 +7,7 @@ export interface HorseDto {
     sex: string;
     colour: string;
     heightcm: number;   
+    heightHands: string;
     imageUrl: string;       
     owners: string[];        
  }

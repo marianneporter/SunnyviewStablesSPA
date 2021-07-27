@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col"></div>
     <div class="col">name</div>
-    <div class="col">height</div>
+    <div class="col">height (hands)</div>
     <div class="col">colour</div>
     <div class="col">sex</div>
     <div class="col">dob</div>
@@ -11,7 +11,7 @@
             <img [src]="horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.jpg'" />
         </div>
         <div class="col">{{horse.name}}</div> 
-        <div class="col">{{horse.heightcm}}</div>
+        <div class="col">{{horse.heightHands}}</div>
         <div class="col">{{horse.colour}}</div>
         <div class="col">{{horse.sex}}</div>
         <div class="col">{{horse.dob | date: 'd-M-y'}}</div>

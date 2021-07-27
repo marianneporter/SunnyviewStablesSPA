@@ -6,7 +6,8 @@ export interface Horse {
     dob: Date;
     sex: string;
     colour: string;
-    heightcm: number;   
+    heightcm: number; 
+    heightHands: string;  
     imageUrl: string;       
     owners: string[]; 
     displayOwners: string; 
