@@ -12,9 +12,9 @@
    
     <nav class="horse-nav">
         <ul>
-            <li><a href="#"><mat-icon>view_module</mat-icon><span> Card View</span></a></li>
-            <li><a href="#"><mat-icon>view_headline</mat-icon><span>List View</span></a></li>
-            <li><a href="#"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
+            <li class="non-mobile"><a href="#"><mat-icon>view_module</mat-icon><span> Card View</span></a></li>
+            <li class="non-mobile"><a href="#"><mat-icon>view_headline</mat-icon><span>List View</span></a></li>
+            <li><a [routerLink]="['/horse/add']"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
         </ul>
     </nav>
 

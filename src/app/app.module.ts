@@ -10,7 +10,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HorseModule } from './horse/horse/horse.module';
 import { SharedModule } from './shared/shared.module';
 
- 
 export function tokenGetter() {
     return localStorage.getItem("token");
 }
@@ -22,7 +21,8 @@ export const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
+  
   ],
   imports: [
     BrowserModule,

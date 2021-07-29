@@ -21,20 +21,20 @@
         align-items: center;
     }
 
-    .desktop-link {
-        li {
-           display: none;
-        }
+    .desktop-link, .horse-icon {        
+        display: none;       
     }
 }
 
 .right-nav {
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     display: flex;
     flex-direction: column;
 
     .greeting {
         font-size: 1.1rem;
+        text-align: right;
+        background-color: green;
     }
 
     a {
@@ -58,10 +58,14 @@
         }
     
         .desktop-link {
-            display: inline-block;
+            display: block;
             padding-top: 0.35rem;
             width:6rem;
             height: auto;            
-        }             
+        }   
+        
+        .horse-icon {
+            display: inline-block;
+        }
     }
 }

@@ -9,18 +9,22 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-interceptor';
 import { HorseListElementComponent } from '../horse-list-element/horse-list-element.component';
 import { HorseCardComponent } from '../horse-card/horse-card.component';
+import { HorseAddUpdateComponent } from '../horse-add-update/horse-add-update.component';
 
 
 const horseRoutes: Routes = [
     { path: 'horse', component: HorseListComponent,
                      resolve: { horseCount:HorseListResolver }, 
-                     canActivate: [AuthGuard] }  
+                     canActivate: [AuthGuard] },
+    { path: 'horse/add', component: HorseAddUpdateComponent,
+                     canActivate: [AuthGuard] },                       
 ]
 
 @NgModule({
   declarations: [
     HorseListComponent,
     HorseListElementComponent,
+    HorseAddUpdateComponent,    
     HorseCardComponent   
   ],
   imports: [
@@ -30,7 +34,8 @@ const horseRoutes: Routes = [
     MaterialModule   
   ],
   exports: [
-    HorseListComponent
+    HorseListComponent,
+    HorseAddUpdateComponent
   ],
   providers: [ 
     HorseInterceptorProvider
