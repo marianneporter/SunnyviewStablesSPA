@@ -10,6 +10,7 @@ import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-intercepto
 import { HorseListElementComponent } from '../horse-list-element/horse-list-element.component';
 import { HorseCardComponent } from '../horse-card/horse-card.component';
 import { HorseAddUpdateComponent } from '../horse-add-update/horse-add-update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 const horseRoutes: Routes = [
@@ -31,7 +32,10 @@ const horseRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(horseRoutes),
     SharedModule,
-    MaterialModule   
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ],
   exports: [
     HorseListComponent,

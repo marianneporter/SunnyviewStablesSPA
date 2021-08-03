@@ -5,6 +5,7 @@ import { MaterialModule } from './material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ErrorComponent } from './error/error.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const sharedRoutes: Routes = [
     { path: 'error', component: ErrorComponent }  
@@ -20,9 +21,11 @@ const sharedRoutes: Routes = [
       CommonModule,
       RouterModule.forChild(sharedRoutes),
       MaterialModule,
-      FontAwesomeModule
+      FontAwesomeModule,
+     
   ],
   exports: [
+     
       NavComponent
   ]
 })
