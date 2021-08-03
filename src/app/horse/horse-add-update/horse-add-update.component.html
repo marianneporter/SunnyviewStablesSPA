@@ -1,1 +1,73 @@
-<p>horse-add-update works!</p>
+<app-nav></app-nav>
+<h2>Add Horse</h2>
+<mat-divider></mat-divider>
+<div class="form-wrapper">
+
+    <form class="form" 
+          novalidate
+          [formGroup]="horseForm">
+        <h3 class="sub-heading">
+            Basic Details
+        </h3>        
+        <div class="main-controls">     
+            <div class="form-control">
+                <mat-form-field appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="name" 
+                            matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="form-control">
+                <mat-form-field appearance="fill">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker"
+                           formControlName="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+            </div>
+    
+            <div class="form-control">
+                <mat-form-field appearance="fill">
+                    <mat-label>Sex</mat-label>
+                    <mat-select formControlName="sex">
+                      <mat-option value="one">Gelding</mat-option>
+                      <mat-option value="two">Mare</mat-option>
+                      <mat-option value="two">Stallion</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="form-control">
+                <mat-form-field appearance="fill">
+                    <mat-label>Colour</mat-label>
+                    <mat-select formControlName="colour">
+                      <mat-option value="one">Brown</mat-option>
+                      <mat-option value="two">Bay</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+ 
+            <div class="form-control">
+                <mat-form-field appearance="fill">
+                    <mat-label>Height (hands)</mat-label>
+                    <mat-select formControlName="height">
+                      <mat-option value="one">10.0</mat-option>
+                      <mat-option value="two">10.1</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div> 
+        </div>
+        <mat-divider></mat-divider>
+        <div class="photo-controls">
+    
+        </div>
+        <mat-divider></mat-divider>
+    
+    </form>
+    
+</div>
+
+<h4>Form values: {{ horseForm.value | json }}</h4>
+
+

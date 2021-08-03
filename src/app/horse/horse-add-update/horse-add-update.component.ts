@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-horse-add-update',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorseAddUpdateComponent implements OnInit {
 
-  constructor() { }
+    horseForm: FormGroup;
 
-  ngOnInit(): void {
-  }
+    addMode = true;
 
+    constructor(private fb: FormBuilder) { }
+
+    ngOnInit(): void {
+
+    }
+
+    initialiseForm() {
+ 
+        this.horseForm = this.fb.group({
+            name :  '',
+            dob  : '',
+            sex  : '',
+            colour: '',
+            height: ''
+                       
+        })
+
+    }
 }
