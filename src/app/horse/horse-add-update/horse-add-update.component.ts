@@ -26,6 +26,10 @@ export class HorseAddUpdateComponent implements OnInit {
         return this.formsService.sexes;
     }
 
+    uploadedPhoto : File = null;
+    invalidPhoto = false;
+    previewPhoto: any;
+
 
     constructor(private fb: FormBuilder,
                 private formsService: FormsService) { }
@@ -45,5 +49,36 @@ export class HorseAddUpdateComponent implements OnInit {
                        
         })
 
+    }
+
+    onPhotoAdded(event) {
+        if (event.target.files.length > 0) {
+            var mimeType = event.target.files[0].type;
+            if (mimeType.match(/image\/*/) == null) {
+                this.invalidPhoto=true;
+                return;
+            }
+
+            this.uploadedPhoto=event.target.files[0]; 
+            this.invalidPhoto=false;
+
+            let reader = new FileReader();
+            //start uploading file user selected
+            reader.readAsDataURL(this.uploadedPhoto);
+            //display photo once file uploaded
+            reader.onload = (_event) => { 
+                const img = new Image();
+                img.src = reader.result as string;
+                img.onload = () => {
+                    const height = img.naturalHeight;
+                    const width = img.naturalWidth;
+                    if (height > width) {
+                        this.invalidPhoto=true;
+                        return;
+                    }
+                    this.previewPhoto = reader.result; 
+                };               
+            }
+        }
     }
 }

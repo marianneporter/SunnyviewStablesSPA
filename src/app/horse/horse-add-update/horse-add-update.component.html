@@ -62,8 +62,21 @@
             </div> 
         </div>
         <mat-divider></mat-divider>
-        <div class="photo-controls">
-    
+
+        <div class="photo-controls"> 
+            <label  for="photo" class="">Photo</label>
+            <div class="">
+                <input class="photo" 
+                    type="file"                    
+                    (change)="onPhotoAdded($event)">  
+                <div class="" *ngIf="invalidPhoto">                           
+                    Sorry! photo is not valid
+                </div>  
+            </div>
+            <img class="small-photo"
+                  [src]="previewPhoto"
+                  [ngClass]="{'no-display': !previewPhoto }"
+                  alt=""/>       
         </div>
         <mat-divider></mat-divider>
     
