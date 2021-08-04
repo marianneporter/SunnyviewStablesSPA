@@ -11,6 +11,7 @@ import { HorseListElementComponent } from '../horse-list-element/horse-list-elem
 import { HorseCardComponent } from '../horse-card/horse-card.component';
 import { HorseAddUpdateComponent } from '../horse-add-update/horse-add-update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HorseAddUpdateResolver } from 'src/app/_resolvers/horse-add-update.resolver';
 
 
 const horseRoutes: Routes = [
@@ -18,6 +19,7 @@ const horseRoutes: Routes = [
                      resolve: { horseCount:HorseListResolver }, 
                      canActivate: [AuthGuard] },
     { path: 'horse/add', component: HorseAddUpdateComponent,
+                     resolve: { owners: HorseAddUpdateResolver }, 
                      canActivate: [AuthGuard] },                       
 ]
 
@@ -43,6 +45,6 @@ const horseRoutes: Routes = [
   ],
   providers: [ 
     HorseInterceptorProvider
-],
+  ],
 })
 export class HorseModule { }

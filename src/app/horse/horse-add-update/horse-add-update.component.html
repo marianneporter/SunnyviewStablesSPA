@@ -7,9 +7,7 @@
           *ngIf="horseForm"
           novalidate
           [formGroup]="horseForm">
-        <h3 class="sub-heading">
-            Basic Details
-        </h3>        
+        <h3>Basic Details</h3>        
         <div class="main-controls">     
             <div class="form-control">
                 <mat-form-field appearance="fill">
@@ -34,7 +32,7 @@
                     <mat-label>Sex</mat-label>
                     <mat-select formControlName="sex">
                         <mat-option *ngFor="let sex of sexes"
-                            [value]="sex.value"> {{sex.name}}
+                            [value]="sex.id"> {{sex.name}}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -44,7 +42,7 @@
                     <mat-label>Colour</mat-label>
                     <mat-select formControlName="colour">
                         <mat-option *ngFor="let colour of colours"
-                                   [value]="colour.value"> {{colour.name}}
+                                   [value]="colour.id"> {{colour.name}}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -55,7 +53,7 @@
                     <mat-label>Height (hands)</mat-label>
                     <mat-select formControlName="height">
                         <mat-option *ngFor="let height of heights"
-                                   [value]="height.value"> {{height.name}}
+                                   [value]="height.id"> {{height.name}}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -63,23 +61,42 @@
         </div>
         <mat-divider></mat-divider>
 
-        <div class="photo-controls"> 
-            <label  for="photo" class="">Photo</label>
+        <h4>Owners</h4>
+        <div class="owners-area">
+            <div class="owners-select">
+                <mat-form-field appearance="fill">
+                    <mat-label>Owners</mat-label>
+                    <mat-select multiple formControlName="owners">
+                        <mat-option *ngFor="let owner of ownersSelect"
+                                    [value]="owner.id"> {{owner.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+ 
+        </div>
+
+        <mat-divider></mat-divider>
+        <h3 >Photo</h3>
+        <div class="photo-area">
             <div class="">
-                <input class="photo" 
+                <input 
                     type="file"                    
                     (change)="onPhotoAdded($event)">  
                 <div class="" *ngIf="invalidPhoto">                           
                     Sorry! photo is not valid
                 </div>  
             </div>
-            <img class="small-photo"
-                  [src]="previewPhoto"
-                  [ngClass]="{'no-display': !previewPhoto }"
-                  alt=""/>       
-        </div>
-        <mat-divider></mat-divider>
-    
+            <div class="previewPhotoWrapper">
+                <img class="small-photo"
+                      [src]="previewPhoto"
+                      [ngClass]="{'no-display': !previewPhoto }"
+                      alt=""/>       
+            </div>
+        </div>        
+       
+
+
     </form>
     
 </div>

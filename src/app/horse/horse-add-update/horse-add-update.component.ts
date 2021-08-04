@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
+import { Owner } from 'src/app/_models/owner';
 import { FormsService } from 'src/app/_services/forms.service';
 
 @Component({
@@ -30,11 +32,19 @@ export class HorseAddUpdateComponent implements OnInit {
     invalidPhoto = false;
     previewPhoto: any;
 
+    owners: Owner[];
+    ownersSelect: SelectItem[];
 
-    constructor(private fb: FormBuilder,
-                private formsService: FormsService) { }
+    constructor( private route: ActivatedRoute,
+                 private fb: FormBuilder,
+                 private formsService: FormsService) { }
 
     ngOnInit(): void {
+        this.route.data.subscribe(data => {
+            this.owners=data['owners'];
+        });
+
+        this.populateOwnerSelect();
         this.initialiseForm();
     }
 
@@ -45,10 +55,17 @@ export class HorseAddUpdateComponent implements OnInit {
             dob  : '',
             sex  : '',
             colour: '',
-            height: ''
+            height: '',
+            owners: ''
                        
         })
+    }
 
+    populateOwnerSelect() {
+        this.ownersSelect =this.owners.map(function(owner) {
+            return { id: owner.id.toString(),
+                     name: `${owner.firstName} ${owner.lastName}` }
+        } );                 
     }
 
     onPhotoAdded(event) {

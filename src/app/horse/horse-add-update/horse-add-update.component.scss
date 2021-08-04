@@ -13,4 +13,18 @@
         justify-content: space-evenly;
         gap: 1.5rem;       
     }    
+
+    .photo-area {
+        display: grid;
+        
+    }
+
+    .owners-select {
+        width: 15rem;
+        height: auto;
+
+        display: grid;
+        grid-template-columns: auto;       
+       
+    }
 } 
