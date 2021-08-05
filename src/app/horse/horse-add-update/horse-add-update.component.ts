@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
 import { Owner } from 'src/app/_models/owner';
 import { FormsService } from 'src/app/_services/forms.service';
@@ -35,7 +37,10 @@ export class HorseAddUpdateComponent implements OnInit {
     owners: Owner[];
     ownersSelect: SelectItem[];
 
+
+
     constructor( private route: ActivatedRoute,
+                 private addOwnerDialog: MatDialog,
                  private fb: FormBuilder,
                  private formsService: FormsService) { }
 
@@ -97,5 +102,15 @@ export class HorseAddUpdateComponent implements OnInit {
                 };               
             }
         }
+    }
+
+    openAddOwnerDialog() {
+        const dialogConfig = new MatDialogConfig();
+
+   //     dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;  
+        
+        this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
+        
     }
 }
