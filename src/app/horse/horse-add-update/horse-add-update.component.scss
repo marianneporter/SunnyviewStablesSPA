@@ -1,3 +1,8 @@
+.container {
+    padding: 0.5rem 2rem;
+   
+}
+
 .form-wrapper {
     display: flex;
     justify-content: center;  
@@ -34,3 +39,9 @@
     grid-template-columns: 20rem auto;
    
 }
+
+.photo-area input {
+    display: none;
+}
+
+

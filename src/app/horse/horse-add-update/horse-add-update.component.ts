@@ -31,6 +31,7 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     uploadedPhoto : File = null;
+    fileName ='';
     invalidPhoto = false;
     previewPhoto: any;
 
@@ -74,6 +75,9 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     onPhotoAdded(event) {
+        console.log(event.target.files[0]);
+        console.log(event.target.files[0]);
+        this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
