@@ -4,32 +4,40 @@
 }
 
 .form {
-    margin-top: 1.5rem;     
-    max-width: 50rem;   
+    width: 60rem;
+}
 
-    .main-controls {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        gap: 1.5rem;       
-    }    
+.form-top {
+    display: grid;   
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    column-gap: 0.5rem;
+}
 
-    .photo-area {
-        display: grid;
-        
-    }
+.name-field {
+    grid-column: 1 / -1;
+    width: 30rem;
+}
 
-    .owners-area {
-        display: flex;
-       
-    }
+// .owners-area {
+//     display: grid;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: 3rem 0.5rem;
+// }
 
-    .owners-select {
-        width: 15rem;
-        height: auto;
+.owners-select {
+    width: 18rem;    
+}
 
-        display: grid;
-        grid-template-columns: auto;       
-       
-    }
-} 
+.add-owner-button {
+   position: relative;
+   top: -1.5rem;
+   left: -1rem; 
+   font-weight: 400;
+}
+
+
+.form-bottom {
+    display: grid;
+    grid-template-columns: 20rem auto;
+   
+}
