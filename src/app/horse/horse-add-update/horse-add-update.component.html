@@ -1,106 +1,121 @@
 <app-nav></app-nav>
-<div class="container">
-    <h2>Add Horse</h2>
-    <div class="form-wrapper">
-
-        <form class="form" 
-            *ngIf="horseForm"
-            novalidate
-            [formGroup]="horseForm">
-        
-            <div class="form-top">     
+<div class="add-update-page">
     
-                <mat-form-field appearance="fill" class="name-field">
-                    <mat-label>Name</mat-label>
-                    <input formControlName="name" 
-                            matInput>
-                </mat-form-field>
+    <div class="container">
+       
         
-                <mat-form-field appearance="fill">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker"
-                            formControlName="dob">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>      
+     
+    
+            <form class="form" 
+                *ngIf="horseForm"
+                novalidate
+                [formGroup]="horseForm">
             
-                <mat-form-field appearance="fill">
-                    <mat-label>Sex</mat-label>
-                    <mat-select formControlName="sex">
-                        <mat-option *ngFor="let sex of sexes"
-                                    [value]="sex.id"> {{sex.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>        
-            
-                <mat-form-field appearance="fill">
-                    <mat-label>Colour</mat-label>
-                    <mat-select formControlName="colour">
-                        <mat-option *ngFor="let colour of colours"
-                                    [value]="colour.id"> {{colour.name}}
-                        </mat-option>
-                    </mat-select>
+                <div class="form-top">     
+        
+                    <mat-form-field appearance="fill" class="name-field">
+                        <mat-label>Name</mat-label>
+                        <input formControlName="name" 
+                                matInput>
                     </mat-form-field>
             
-                <mat-form-field appearance="fill">
-                    <mat-label>Height (hands)</mat-label>
-                    <mat-select formControlName="height">
-                        <mat-option *ngFor="let height of heights"
-                                    [value]="height.id"> {{height.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                            
-                <div class="owners-area">
-                    <mat-form-field appearance="fill" class="owners-select">
-                        <mat-label>Owners</mat-label>
-                        <mat-select multiple formControlName="owners">
-                            <mat-option *ngFor="let owner of ownersSelect"
-                                        [value]="owner.id"> {{owner.name}}
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                                formControlName="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>      
+                
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sex</mat-label>
+                        <mat-select formControlName="sex">
+                            <mat-option *ngFor="let sex of sexes"
+                                        [value]="sex.id"> {{sex.name}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>            
+                    </mat-form-field>        
+                
+                    <mat-form-field appearance="fill">
+                        <mat-label>Colour</mat-label>
+                        <mat-select formControlName="colour">
+                            <mat-option *ngFor="let colour of colours"
+                                        [value]="colour.id"> {{colour.name}}
+                            </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                
+                    <mat-form-field appearance="fill">
+                        <mat-label>Height (hands)</mat-label>
+                        <mat-select formControlName="height">
+                            <mat-option *ngFor="let height of heights"
+                                        [value]="height.id"> {{height.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                                
+                    <div class="owners-area">
+                        <mat-form-field appearance="fill" class="owners-select">
+                            <mat-label>Owners</mat-label>
+                            <mat-select multiple formControlName="owners">
+                                <mat-option *ngFor="let owner of ownersSelect"
+                                            [value]="owner.id"> {{owner.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>            
+        
+                        <button mat-button
+                                (click)=openAddOwnerDialog()
+                                class="add-owner-button">
+                                <mat-icon class="icon">add</mat-icon>Add new owner</button>    
+                    </div>          
+                </div>
     
-                    <button mat-button
-                            (click)=openAddOwnerDialog()
-                            class="add-owner-button">
-                            <mat-icon class="icon">add</mat-icon>Add new owner</button>    
-                </div>          
-            </div>
-             
-            <div class="photo-area">
-                <div class="">
+    
+                
+                 
+                <div class="photo-area">
+    
                     <input 
                         type="file"                    
                         (change)="onPhotoAdded($event)"
                         #fileInput>  
-
-                    <div class="photo-upload">                       
-                        
-                        <button mat-raised-button  class="upload-btn"
-                            (click)="fileInput.click()">Add Photo                            
-                        </button>
-
-                        {{fileName || "No file uploaded yet."}}
-
+    
+                    <div class="photo-upload-grid"> 
+    
+                        <div class="photo-upload-button">                       
+                            
+                            <button mat-raised-button  class="upload-btn"
+                                (click)="fileInput.click()">Add Photo                            
+                            </button>
+    
+                            {{fileName || "No file uploaded yet."}}
+    
+                        </div>
+    
+                        <!-- <div class="" *ngIf="invalidPhoto">                           
+                            Sorry! photo is not valid
+                        </div>   -->
+                         
+    
+    
+                        <div class="previewPhotoWrapper">
+                            <img class="small-photo"
+                                    [src]="previewPhoto"
+                                    [ngClass]="{'no-display': !previewPhoto }"
+                                    alt=""/>       
+                        </div>
                     </div>
+    
+                </div>        
+             </form>        
+      
+    
 
-                    <!-- <div class="" *ngIf="invalidPhoto">                           
-                        Sorry! photo is not valid
-                    </div>   -->
-                </div>
-                <div class="previewPhotoWrapper">
-                    <img class="small-photo"
-                            [src]="previewPhoto"
-                            [ngClass]="{'no-display': !previewPhoto }"
-                            alt=""/>       
-                </div>
-            </div>        
-         </form>        
-    </div>
-
-    <h4>Form values: {{ horseForm.value | json }}</h4>
-    <h4>height: {{horseForm.value.height}}</h4>
-
-
-    </div>
+    
+    
+        </div>
+        <h4>Form values: {{ horseForm.value | json }}</h4>
+        <h4>height: {{horseForm.value.height}}</h4>
+    
+</div>

@@ -1,21 +1,36 @@
 .container {
-    padding: 0.5rem 2rem;
-   
-}
-
-.form-wrapper {
+    height: var(--main-area-height);     
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;  
-}
+    align-items: center; 
+   
+}   
+
+// .form-wrapper {
+//     display: flex;
+//     justify-content: center;  
+//     align-items: center;  
+   
+// }
 
 .form {
-    width: 60rem;
+    padding: 1rem;
+    width: 45rem;
+    background-color: white;
+    
 }
+
+h2 {
+   background-color: yellow;
+   width: 100%;
+}
+
 
 .form-top {
     display: grid;   
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    column-gap: 0.5rem;
+    column-gap: 1.5rem;
 }
 
 .name-field {
@@ -24,7 +39,7 @@
 }
 
 .owners-select {
-    width: 18rem;    
+    width: 19rem;    
 }
 
 .add-owner-button {
@@ -34,14 +49,37 @@
    font-weight: 400;
 }
 
-.form-bottom {
-    display: grid;
-    grid-template-columns: 20rem auto;
-   
+.photo-area {
+    input {
+        display: none;
+    }
+
+    .photo-upload-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+     
+        .previewPhotoWrapper {
+            max-width: 15rem;
+            height: auto;
+            background-color: pink;
+    
+            .small-photo {
+                max-width: 100%;
+                height: auto;
+            }
+            
+        } 
+     }
 }
 
-.photo-area input {
-    display: none;
-}
 
+    .add-update-page {
+        background: url(/assets/background-4.jpg) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;  
+        max-width: 100vw;
+        height: 100vh;         
+    }
 

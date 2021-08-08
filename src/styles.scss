@@ -1,17 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
-@import 'scss/theme.scss';
+ /*You can add global styles to this file, and also import other style files */
+ //@import 'scss/_breakpoints';
+ @import 'scss/_globals.scss';
+ @import 'scss/_theme';
+  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 
 * {
     box-sizing: border-box;
     padding: 0; margin: 0;
+    
 }
 
 .container {
     padding: 0.5rem 2rem;
     max-width: 85rem;
     margin: 0 auto;
+
+}
+
+:root {
+    --medium: 96-px;
 }
 
 
