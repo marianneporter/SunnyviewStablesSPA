@@ -7,13 +7,6 @@
    
 }   
 
-// .form-wrapper {
-//     display: flex;
-//     justify-content: center;  
-//     align-items: center;  
-   
-// }
-
 .form {
     padding: 1rem;
     width: 45rem;
@@ -21,13 +14,7 @@
     
 }
 
-h2 {
-   background-color: yellow;
-   width: 100%;
-}
-
-
-.form-top {
+.form-fields {
     display: grid;   
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     column-gap: 1.5rem;
@@ -42,12 +29,12 @@ h2 {
     width: 19rem;    
 }
 
-.add-owner-button {
-   position: relative;
-   top: -1.5rem;
-   left: -1rem; 
-   font-weight: 400;
-}
+// .add-owner-button {
+//    position: relative;
+//    top: -1.5rem;
+//    left: -1rem; 
+//    font-weight: 400;
+// }
 
 .photo-area {
     input {
@@ -61,8 +48,7 @@ h2 {
         .previewPhotoWrapper {
             max-width: 15rem;
             height: auto;
-            background-color: pink;
-    
+         
             .small-photo {
                 max-width: 100%;
                 height: auto;
@@ -74,7 +60,7 @@ h2 {
 
 
     .add-update-page {
-        background: url(/assets/background-4.jpg) no-repeat center center fixed; 
+        background: url(/assets/formBackground2.jpg) no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

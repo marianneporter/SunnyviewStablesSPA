@@ -1,17 +1,15 @@
 <app-nav></app-nav>
 <div class="add-update-page">
-    
-    <div class="container">
-       
-        
-     
+
+    <div class="container">   
     
             <form class="form" 
                 *ngIf="horseForm"
                 novalidate
                 [formGroup]="horseForm">
             
-                <div class="form-top">     
+                <div class="form-fields">   
+                    <h2>Add Horse</h2>  
         
                     <mat-form-field appearance="fill" class="name-field">
                         <mat-label>Name</mat-label>
@@ -68,46 +66,49 @@
                                 (click)=openAddOwnerDialog()
                                 class="add-owner-button">
                                 <mat-icon class="icon">add</mat-icon>Add new owner</button>    
-                    </div>          
+                    </div>   
+                    
+                 
+                    <div class="photo-area">
+    
+                        <input 
+                            type="file"                    
+                            (change)="onPhotoAdded($event)"
+                            #fileInput>  
+        
+                        <div class="photo-upload-grid"> 
+        
+                            <div class="photo-upload-button">                       
+                                
+                                <button mat-raised-button  class="upload-btn"
+                                    (click)="fileInput.click()">
+                                    {{ fileName ? "Change Photo" : "Add Photo" }}                           
+                                </button>
+        
+                                {{fileName || "No file uploaded yet."}}
+        
+                            </div>
+        
+                            <!-- <div class="" *ngIf="invalidPhoto">                           
+                                Sorry! photo is not valid
+                            </div>   -->
+                             
+        
+        
+                            <div class="previewPhotoWrapper">
+                                <img class="small-photo"
+                                        [src]="previewPhoto"
+                                        [ngClass]="{'no-display': !previewPhoto }"
+                                        alt=""/>       
+                            </div>
+                        </div>
+        
+                    </div>                            
                 </div>
     
     
                 
-                 
-                <div class="photo-area">
-    
-                    <input 
-                        type="file"                    
-                        (change)="onPhotoAdded($event)"
-                        #fileInput>  
-    
-                    <div class="photo-upload-grid"> 
-    
-                        <div class="photo-upload-button">                       
-                            
-                            <button mat-raised-button  class="upload-btn"
-                                (click)="fileInput.click()">Add Photo                            
-                            </button>
-    
-                            {{fileName || "No file uploaded yet."}}
-    
-                        </div>
-    
-                        <!-- <div class="" *ngIf="invalidPhoto">                           
-                            Sorry! photo is not valid
-                        </div>   -->
-                         
-    
-    
-                        <div class="previewPhotoWrapper">
-                            <img class="small-photo"
-                                    [src]="previewPhoto"
-                                    [ngClass]="{'no-display': !previewPhoto }"
-                                    alt=""/>       
-                        </div>
-                    </div>
-    
-                </div>        
+
              </form>        
       
     
