@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
@@ -71,7 +71,8 @@ export class HorseAddUpdateComponent implements OnInit {
     owners: Owner[];
     ownersSelect: SelectItem[];
 
-
+    minDob: Date = this.datesService.subtractYearsFromToday(40);
+    maxDob: Date = this.datesService.todaysDate;
 
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
@@ -88,18 +89,19 @@ export class HorseAddUpdateComponent implements OnInit {
 
         this.populateOwnerSelect();
         this.initialiseForm();
+        console.log(this.minDob);
+        console.log(this.maxDob);
     }
 
     initialiseForm() {
  
         this.horseForm = this.fb.group({
-            name :  '',
-            dob  : '',
-            sex  : '',
-            colour: '',
-            height: '',
-            owners: ''
-                       
+            name :  ['', [Validators.required]],
+            dob  : ['', [Validators.required]],
+            sex  : ['', [Validators.required]],
+            colour:['', [Validators.required]],
+            height: ['', [Validators.required]],
+            owners: ['', [Validators.required]]                       
         })
     }
 

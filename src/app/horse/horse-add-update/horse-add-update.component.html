@@ -13,52 +13,61 @@
                     <mat-form-field appearance="fill" class="name-field">
                         <mat-label>Name</mat-label>
                         <input formControlName="name" 
-                                matInput>
+                                matInput 
+                                required>
+                        <mat-error *ngIf="nameFromForm.invalid">Please enter horse's name</mat-error>
                     </mat-form-field>
             
                     <mat-form-field appearance="fill">
                         <mat-label>Date of Birth</mat-label>
                         <input matInput [matDatepicker]="picker"
-                                formControlName="dob">
+                               formControlName="dob"
+                               [min]="minDob" [max]="maxDob" 
+                               required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="dobFromForm.invalid">Please select horse's date of birth</mat-error>
                     </mat-form-field>      
                 
                     <mat-form-field appearance="fill">
                         <mat-label>Sex</mat-label>
-                        <mat-select formControlName="sex">
+                        <mat-select formControlName="sex" required>
                             <mat-option *ngFor="let sex of sexes"
-                                        [value]="sex.id"> {{sex.name}}
+                                        [value]="sex.id" required> {{sex.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="nameFromForm.invalid">Please select horse's sex</mat-error>
                     </mat-form-field>        
                 
                     <mat-form-field appearance="fill">
                         <mat-label>Colour</mat-label>
-                        <mat-select formControlName="colour">
+                        <mat-select formControlName="colour" required>
                             <mat-option *ngFor="let colour of colours"
                                         [value]="colour.id"> {{colour.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="colourFromForm.invalid">Please enter horse's colour</mat-error>
                         </mat-form-field>
                 
                     <mat-form-field appearance="fill">
                         <mat-label>Height (hands)</mat-label>
-                        <mat-select formControlName="height">
+                        <mat-select formControlName="height" required>
                             <mat-option *ngFor="let height of heights"
                                         [value]="height.id"> {{height.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="heightFromForm.invalid">Please enter horse's height</mat-error>
                     </mat-form-field>
                                 
                     <div class="owners-area">
                         <mat-form-field appearance="fill" class="owners-select">
                             <mat-label>Owners</mat-label>
-                            <mat-select multiple formControlName="owners">
+                            <mat-select multiple formControlName="owners" required>
                                 <mat-option *ngFor="let owner of ownersSelect"
                                             [value]="owner.id"> {{owner.name}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="ownersFromForm.invalid">Please enter at least one owner</mat-error>
                         </mat-form-field>            
         
                         <button mat-button

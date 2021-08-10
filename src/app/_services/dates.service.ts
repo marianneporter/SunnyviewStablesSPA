@@ -5,7 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class DatesService {
 
-    constructor() { }
+    todaysDate: Date = null;
+
+    constructor() {
+        this.todaysDate = new Date();
+        this.todaysDate.setHours(0, 0, 0, 0); 
+    }
      
     convertJSDateToYYYYMMDD(jsDate: Date): string {
         let dd=jsDate.getDate().toString();
@@ -15,5 +20,15 @@ export class DatesService {
         if (mm.length == 1) {mm='0' + mm};
         return `${yyyy}-${mm}-${dd}`;
     }
+
+    subtractYearsFromToday(yearsToSubtract) {   
+       
+        return new Date(this.todaysDate.getFullYear() - yearsToSubtract,
+                        this.todaysDate.getMonth(),
+                        this.todaysDate.getDate());
+     
+    }
+
+    
 
 }
