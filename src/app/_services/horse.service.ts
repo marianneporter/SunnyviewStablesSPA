@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AddReturn } from '../_models/addReturn';
 import { Horse } from '../_models/horse';
 import { HorseDto } from '../_models/horseDTO';
 import { UtilityService } from './utility.service';
@@ -45,7 +46,14 @@ export class HorseService {
             .pipe(
                 catchError(() => of(0))
             )              
-    }  
+    } 
+    
+        
+    addHorse(horseFormData: FormData) : Observable<AddReturn> {
+
+        const url = environment.baseUrl + 'horses';     
+        return this.http.post<AddReturn>(url, horseFormData);
+    }
 
   
   

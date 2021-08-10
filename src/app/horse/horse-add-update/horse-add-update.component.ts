@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
+import { AddReturn } from 'src/app/_models/addReturn';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
 import { Owner } from 'src/app/_models/owner';
+import { DatesService } from 'src/app/_services/dates.service';
 import { FormsService } from 'src/app/_services/forms.service';
+import { HorseService } from 'src/app/_services/horse.service';
 
 @Component({
   selector: 'app-horse-add-update',
@@ -16,8 +19,13 @@ export class HorseAddUpdateComponent implements OnInit {
 
     horseForm: FormGroup;
 
+    horseFormData: FormData;
+
     addMode = true;
 
+    addReturn: AddReturn;
+
+    // getters for select lists
     get heights():SelectItem[] {
         return this.formsService.horseHeights;
     }
@@ -28,6 +36,31 @@ export class HorseAddUpdateComponent implements OnInit {
 
     get sexes():SelectItem[] {
         return this.formsService.sexes;
+    }
+
+    //getters for form elements
+    get nameFromForm() {
+        return this.horseForm.get('name');
+    }
+
+    get dobFromForm() {
+        return this.horseForm.get('dob');
+    } 
+
+    get sexFromForm() {
+        return this.horseForm.get('sex');
+    }
+
+    get colourFromForm() {
+        return this.horseForm.get('colour');
+    }
+
+    get heightFromForm() {
+        return this.horseForm.get('height');
+    }
+    
+    get ownersFromForm() {
+        return this.horseForm.get('owners');
     }
 
     uploadedPhoto : File = null;
@@ -43,7 +76,10 @@ export class HorseAddUpdateComponent implements OnInit {
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
                  private fb: FormBuilder,
-                 private formsService: FormsService) { }
+                 private formsService: FormsService,
+                 private horseService: HorseService,
+                 private datesService: DatesService,
+                 private router: Router) { }
 
     ngOnInit(): void {
         this.route.data.subscribe(data => {
@@ -116,5 +152,39 @@ export class HorseAddUpdateComponent implements OnInit {
         
         this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
         
+    }
+
+    submitForm() {
+        debugger;
+        console.log(this.nameFromForm);
+        console.log(this.dobFromForm);
+        this.horseFormData = new FormData();
+        this.horseFormData.append('name', this.nameFromForm.value);
+        this.horseFormData.append('sex', this.sexFromForm.value);
+        this.horseFormData.append('colour', this.colourFromForm.value);
+        this.horseFormData.append('heightHands', this.heightFromForm.value);
+        this.horseFormData.append('dob', this.datesService.convertJSDateToYYYYMMDD(this.dobFromForm.value))
+
+        this.ownersFromForm.value.forEach(ownerId => {
+            this.horseFormData.append('ownerIds', ownerId )
+        });
+
+        this.horseFormData.append('imageFile', this.uploadedPhoto);
+        
+        debugger;
+        this.horseService.addHorse(this.horseFormData)
+        .subscribe({
+          next: (data: AddReturn) => {
+              debugger;
+              this.addReturn= { ...data };          
+              alert(`Horse Added Successfully ${this.addReturn.name}`);
+              this.router.navigate(['/horses']);
+          },
+          error: err => {
+              console.log("error occurred while adding cottage");
+          }
+        });
+
+
     }
 }
