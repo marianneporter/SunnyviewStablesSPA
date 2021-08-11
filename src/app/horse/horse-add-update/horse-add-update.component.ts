@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
 import { AddReturn } from 'src/app/_models/addReturn';
@@ -70,9 +70,12 @@ export class HorseAddUpdateComponent implements OnInit {
 
     owners: Owner[];
     ownersSelect: SelectItem[];
+    addedOwner: Owner;
 
     minDob: Date = this.datesService.subtractYearsFromToday(40);
     maxDob: Date = this.datesService.todaysDate;
+
+    addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;
 
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
@@ -152,8 +155,22 @@ export class HorseAddUpdateComponent implements OnInit {
    //     dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;  
         
-        this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
+        this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
         
+        this.addOwnerDialogRef.afterClosed().subscribe(
+            (result) => {
+                if (result) {
+                    alert("owner added!");
+                    this.addedOwner = {...result};
+                    console.log(this.addedOwner);
+                    this.ownersSelect.unshift({id: this.addedOwner.id.toString(),
+                                               name: `${this.addedOwner.firstName} ${this.addedOwner.lastName}`});
+                    alert('no owner added');
+                }
+            }
+        )
+
+
     }
 
     submitForm() {

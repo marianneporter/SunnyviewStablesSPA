@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         })
     }
 
-    cancelLoginAttempt() {//
+    cancelLoginAttempt() {
         this.closeSlider();
         debugger;
         this.loginForm.reset();
@@ -91,7 +91,6 @@ export class LoginComponent implements OnInit {
       
         this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
             () => {
-                console.log('happy outcome');
  
                 this.loginSuccess.emit();        
             },

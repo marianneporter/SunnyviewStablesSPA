@@ -1,28 +1,40 @@
-<h2 mat-dialog-title>Add Owner</h2>
-
-<mat-dialog-content>
-  
-    <mat-form-field>
-        <input matInput
-                placeholder="Email"
-               formControlName="email">
-    </mat-form-field>
-  
-    <mat-form-field>
-        <input matInput
-                placeholder="First Name"
-               formControlName="firstName">
-    </mat-form-field>  
+<div class="dialog-container">
+    <h2 mat-dialog-title>Add Owner</h2>
+    <form novalidate
+          [formGroup]="ownerForm">
+        <mat-dialog-content>
       
-    <mat-form-field>
-        <input matInput
-                placeholder="Last Name"
-               formControlName="lastName">
-    </mat-form-field>  
-
-</mat-dialog-content>
-
-<mat-dialog-actions>
-    <button class="mat-raised-button"(click)="close()">Close</button>
-    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
-</mat-dialog-actions>
+            <mat-form-field>
+                <input matInput
+                        placeholder="Email"
+                       formControlName="email">
+                 <mat-error *ngIf="emailFromForm.invalid">Please enter email</mat-error>
+            </mat-form-field>
+          
+            <mat-form-field>
+                <input matInput
+                        placeholder="First Name"
+                       formControlName="firstName">
+                <mat-error *ngIf="emailFromForm.invalid">Please enter first name</mat-error>      
+            </mat-form-field>  
+              
+            <mat-form-field>
+                <input matInput
+                        placeholder="Last Name"
+                       formControlName="lastName">
+                <mat-error *ngIf="emailFromForm.invalid">Please enter last name</mat-error>
+            </mat-form-field>  
+        
+        </mat-dialog-content>
+        
+        <mat-dialog-actions>
+            <button class="mat-raised-button" (click)="close()">Close</button>
+            <button class="mat-raised-button mat-primary" type="button" (click)="addOwner()">Save</button>
+        </mat-dialog-actions>
+    
+    </form>
+    <h4>Form values: {{ ownerForm.value | json }}</h4>
+     
+    
+    
+</div>
