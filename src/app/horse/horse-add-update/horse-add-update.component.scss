@@ -39,6 +39,7 @@
     column-gap: 1.5rem;
 }
 
+
 .name-field {
     grid-column: 1 / -1;
     width: 30rem;
@@ -78,10 +79,20 @@
 
 .submit-area {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    column-gap: 3rem;
     padding: 1.5rem 0;
 
-    button  {
+    button {
+        background-color: var(--color-success);
+    }
+
+    a {
+        background-color: var(--color-secondary);
+        color: white;
+    }
+
+    button, a  {
         padding: 0.25rem 2rem;
     }
 }

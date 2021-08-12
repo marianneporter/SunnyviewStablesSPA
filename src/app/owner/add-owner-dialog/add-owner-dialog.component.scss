@@ -1,8 +1,25 @@
 .dialog-container {
     height: 40rem;
-    width: 30rem;
+    width: 25rem;
 }
 
 .mat-form-field {
     display: block;   
 }
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+
+    a {
+        background-color: var(--color-secondary);
+        color: white;
+    }
+
+    button {
+        background-color: var(--color-success);
+    }
+
+}
+

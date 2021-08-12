@@ -13,13 +13,6 @@ export class AddOwnerDialogComponent implements OnInit {
 
     ownerForm: FormGroup;
 
-    // ownerToAdd: OwnerDto = {
-    //     id: 0,
-    //     email: '',
-    //     firstName: '',
-    //     lastName: ''
-    // };
-
     ownerToAdd: OwnerDto;
 
         //getters for form elements

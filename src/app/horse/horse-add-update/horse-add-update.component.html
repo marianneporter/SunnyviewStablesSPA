@@ -70,10 +70,10 @@
                             <mat-error *ngIf="ownersFromForm.invalid">Please enter at least one owner</mat-error>
                         </mat-form-field>            
         
-                        <button mat-button
+                        <a mat-button
                                 (click)=openAddOwnerDialog()
                                 class="add-owner-button">
-                                <mat-icon class="icon">add</mat-icon>Add new owner</button>    
+                                <mat-icon class="icon">add</mat-icon>Add new owner</a>    
                     </div>   
                     
                  
@@ -114,16 +114,18 @@
                 </div>
                 <mat-divider></mat-divider>
                 <div class="submit-area">
+                    <a mat-raised-button
+                       [routerLink]="['/horse']">Cancel</a>
                     <button mat-raised-button 
                             color="primary"
                             type="button"
                             (click)="submitForm()">Add Horse</button>
                 </div>
                
-
+<!-- 
 
                 <h4>Form values: {{ horseForm.value | json }}</h4>
-                <h4>height: {{horseForm.value.height}}</h4>     
+                <h4>height: {{horseForm.value.height}}</h4>      -->
             </form>           
         </div>  
 </div>
