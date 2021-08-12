@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { async, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Horse } from 'src/app/_models/horse';
@@ -23,6 +23,7 @@ export class HorseListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
   
     constructor(private route: ActivatedRoute,
+                private router: Router,
                 private horseService: HorseService) { }
 
     ngOnInit(): void {
@@ -35,6 +36,11 @@ export class HorseListComponent implements OnInit {
                         0,
                         this.initialPageSize);
 
+    }
+
+    onHorseSelected(id: number) {
+        console.log('in parent id is ' + id);
+        this.router.navigate(['horse', id]);
     }
 
     pageChangeEvent(pageEvent: PageEvent) {

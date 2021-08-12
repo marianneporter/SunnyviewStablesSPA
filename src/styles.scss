@@ -1,7 +1,9 @@
  /*You can add global styles to this file, and also import other style files */
  //@import 'scss/_breakpoints';
- @import 'scss/_globals.scss';
- @import 'scss/_theme';
+ @import 'scss/theme';
+ @import 'scss/globals';
+ @import 'scss/mixins';
+ @import 'scss/breakpoints';
   
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

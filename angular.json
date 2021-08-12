@@ -36,7 +36,7 @@
             ],
             "stylePreprocessorOptions": {
                 "includePaths": [
-                  "src/scss/_common-scss/_breakpoints"
+                  "src/scss"
                 ]
               },
             "scripts": []

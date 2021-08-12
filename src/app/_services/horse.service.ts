@@ -41,12 +41,16 @@ export class HorseService {
     getHorseCount() {
         const url = environment.baseUrl + 'horses/count';
 
-
         return this.http.get<number>(url)
             .pipe(
                 catchError(() => of(0))
             )              
     } 
+
+    getHorse(id: number): Observable<Horse> {
+        const url = environment.baseUrl + 'horses/' + id; 
+        return this.http.get<Horse>(url);  
+    }
     
         
     addHorse(horseFormData: FormData) : Observable<AddReturn> {

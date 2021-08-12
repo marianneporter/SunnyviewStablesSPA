@@ -37,7 +37,6 @@ export function serverLoginValidator(serverLoginError: boolean) : ValidatorFn {
 export class LoginComponent implements OnInit {
 
     @Output() loginSuccess = new EventEmitter<boolean>();
-
     loginForm: FormGroup;
 
     serverLoginError: boolean = false;

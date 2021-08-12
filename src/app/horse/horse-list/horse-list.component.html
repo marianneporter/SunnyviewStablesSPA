@@ -18,7 +18,8 @@
         </ul>
     </nav>
 
-    <app-horse-list-element [horses$]="horses$"></app-horse-list-element>
+    <app-horse-list-element [horses$]="horses$"
+                            (selectedId)="onHorseSelected($event)"></app-horse-list-element>
  
     <footer>
         <mat-paginator [length]="horseCount"

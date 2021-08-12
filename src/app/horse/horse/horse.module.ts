@@ -12,6 +12,8 @@ import { HorseCardComponent } from '../horse-card/horse-card.component';
 import { HorseAddUpdateComponent } from '../horse-add-update/horse-add-update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HorseAddUpdateResolver } from 'src/app/_resolvers/horse-add-update.resolver';
+import { HorseDetailComponent } from '../horse-detail/horse-detail.component';
+import { HorseDetailResolver } from 'src/app/_resolvers/horse-detail.resolver';
 
 
 const horseRoutes: Routes = [
@@ -19,8 +21,11 @@ const horseRoutes: Routes = [
                      resolve: { horseCount:HorseListResolver }, 
                      canActivate: [AuthGuard] },
     { path: 'horse/add', component: HorseAddUpdateComponent,
-                     resolve: { owners: HorseAddUpdateResolver }, 
-                     canActivate: [AuthGuard] },                       
+                         resolve: { owners: HorseAddUpdateResolver }, 
+                         canActivate: [AuthGuard] }, 
+    { path: 'horse/:id', component: HorseDetailComponent,
+                         resolve: { horse: HorseDetailResolver }, 
+                         canActivate: [AuthGuard] },                        
 ]
 
 @NgModule({
@@ -28,7 +33,8 @@ const horseRoutes: Routes = [
     HorseListComponent,
     HorseListElementComponent,
     HorseAddUpdateComponent,    
-    HorseCardComponent   
+    HorseCardComponent, 
+    HorseDetailComponent   
   ],
   imports: [
     CommonModule,
