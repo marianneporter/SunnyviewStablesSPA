@@ -49,7 +49,12 @@ export class HorseService {
 
     getHorse(id: number): Observable<Horse> {
         const url = environment.baseUrl + 'horses/' + id; 
-        return this.http.get<Horse>(url);  
+        return this.http.get<HorseDto>(url)
+            .pipe(
+                map(horseDto=> {
+                    return this.utility.mapHorseDtoToHorse(horseDto);
+                })
+            )   
     }
     
         

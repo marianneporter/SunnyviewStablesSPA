@@ -1,0 +1,119 @@
+@import "../../../scss/mixins";
+
+
+
+.horse-detail {
+    max-width: 45rem;
+    background-color: white;
+    padding: 0.5rem;    
+     
+    display: grid;    
+    grid-template-columns: 1fr;
+    grid-template-rows : repeat(8, min-content);  
+    background-color: white;
+   
+    .image-area {
+        img {
+            max-width: 100%;
+            height: auto;           
+        }     
+    } 
+
+    .button-area {
+        display: flex;
+        justify-content: center;
+
+        button {
+            margin-top: 1.5rem;
+            width: 95%;
+        }
+    }
+
+    .detail-item {
+        display: grid;
+        grid-template-columns:  4fr 8fr;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    @media  (min-height: 400px) {
+        .whole-page {
+            @include grazing-horse-background;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }        
+    }
+
+    .horse-detail {
+        grid-template-columns: 4fr 8fr;
+        grid-template-rows: repeat(7, min-content);   
+        padding: 3.5rem;       
+    }
+
+    h2 {
+        margin: 0;
+    }
+
+    .detail-item {
+        grid-template-columns: 3fr 9fr;
+    }
+
+    .detail-item {
+        grid-column: span 2;
+    }
+
+    .button-area {
+        grid-column: span 2;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            width: 15rem;
+        }
+    } 
+
+    .image-area {
+        margin-top: 2rem;
+
+        img {
+            max-width: 50%;
+            height: auto;  
+
+            border: .1rem ridge var(--color-primary);
+            border-radius: 1rem;
+        }     
+    } 
+ 
+}
+
+
+
+
+
+
+
+// .label {
+//     height: auto;
+//     width: 20rem;
+// }
+
+// .detail-item {
+//     display: grid;
+//     grid-template-columns: 20rem auto;
+// } 
+
+
+// .buttons-row {
+//     grid-column: col-1-start / col-2-end;
+//     display: flex;
+//     align-items: flex-start;
+//     justify-content: center;
+//     column-gap: 3rem;
+//     .mat-raised-button {
+//         padding: 0.25rem 2.5rem;
+//     }
+    
+
+// }

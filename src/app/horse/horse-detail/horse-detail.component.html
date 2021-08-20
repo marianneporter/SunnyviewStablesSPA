@@ -1,2 +1,44 @@
-<p>horse-detail works!</p>
-<p>{{horse.name}}</p>
+<div class="whole-page">
+    <div class="horse-detail">
+      
+            <h2>{{horse.name}}</h2>
+
+            <div class="image-area">
+                <img [src]="horse.imageUrl" alt="image of {{horse.name}}">
+            </div>
+      
+ 
+            <div class="detail-item">
+                <div class="label">Height:</div>
+                <div class="value">{{horse.heightHands}}</div>
+            </div>
+
+            <div class="detail-item">
+                <div class="label">Sex:</div>
+                <div class="value">{{horse.sex}}</div>
+            </div>        
+       
+            <div class="detail-item">
+                <div class="label">Colour:</div>
+                <div class="value">{{horse.colour}}</div>
+            </div>
+
+            <div class="detail-item">
+                <div class="label">Date of Birth:</div>
+                <div class="value">{{horse.dob}}</div>
+            </div>
+       
+            <div class="detail-item">
+                <div class="label">Owners:</div>
+                <div class="value">{{horse.displayOwners}}</div>           
+            </div>
+ 
+            <div class="button-area">
+                <button mat-raised-button color="primary">Update</button>
+            </div>
+           
+            
+   
+            </div>
+</div>
+

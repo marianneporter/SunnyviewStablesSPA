@@ -15,9 +15,8 @@ export class HorseDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.activatedRoute.data.subscribe(data => {
-            debugger;
-            this.horse=data['horse'];
-       
+        
+            this.horse=data['horse'];       
         })   
     }
 

@@ -15,7 +15,7 @@ export class HorseDetailResolver implements Resolve<Horse> {
     constructor(private horseService : HorseService ) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Horse> {
-
+     
         const id=+route.params['id'];
         return this.horseService.getHorse(id);
     }     
