@@ -1,3 +1,16 @@
 .mat-card {
     margin-top: 2rem;
+
+    img[alt] {
+        padding-left: 1rem;
+    }
+
+    .mat-card-actions {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            background-color: var(--color-success);
+        }
+    }
 }

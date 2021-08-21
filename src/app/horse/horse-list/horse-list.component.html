@@ -2,12 +2,16 @@
 <main class="container">
     <header>
         <h1>Horses</h1>
-        <mat-form-field appearance="outline">
+        <div class="search-box">
+            <input placeholder="search by horse's name"><button><mat-icon>search</mat-icon></button>
+        </div>
+
+        <!-- <mat-form-field appearance="outline" color="accent">
             <mat-label>Filter</mat-label>
             <mat-icon matPrefix>filter_list</mat-icon>
             <input matInput placeholder="Filter">                
             <mat-hint>Filter on something????</mat-hint>
-          </mat-form-field>
+          </mat-form-field> -->
     </header>
    
     <nav class="horse-nav">
@@ -34,7 +38,9 @@
             [pageSizeOptions]="pageSizeOptions"
             (page)=pageChangeEvent($event) #paginator></mat-paginator>   
         
-        <button *ngIf="innerWidth <= 600"
+        <button *ngIf="innerWidth <= 600
+                      && horses
+                      && horses.length < horseCount"
                  mat-raised-button color="primary"
                  (click)="loadMore()">Load more</button>
     </footer>

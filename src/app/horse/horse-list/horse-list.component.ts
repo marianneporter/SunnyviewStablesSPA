@@ -28,7 +28,7 @@ export class HorseListComponent implements OnInit {
 
     mobilePageIndex = 0;
     mobilePageSize = 3;
-
+ 
    
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,6 +42,8 @@ export class HorseListComponent implements OnInit {
         
         this.route.data.subscribe(data => {
             this.horseCount=data['horseCount'];
+          
+
         });     
       
         this.horseService.getHorses('',
@@ -75,7 +77,7 @@ export class HorseListComponent implements OnInit {
     }
 
     loadMore() {
-        debugger;
+      
         this.mobilePageIndex++;
         let additionalHorses: Horse[];
         this.horseService.getHorses('',
@@ -84,11 +86,18 @@ export class HorseListComponent implements OnInit {
                       this.mobilePageSize ).subscribe(
             (data: Horse[]) => {
                 additionalHorses = data;
-                this.horses = this.horses.concat(additionalHorses);
+                this.horses = this.horses.concat(additionalHorses);                
                 console.log(additionalHorses);
                 console.log(this.horses);
+                console.log(this.horses.length);
+                console.log(this.horseCount);
+                
             } );
      
+    }
+
+    search() {
+        alert("hello");
     }
 
 
