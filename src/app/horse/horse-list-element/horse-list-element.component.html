@@ -7,7 +7,7 @@
     <div class="col">dob</div>
     <div class="col">owners</div>
     <div class="grid-data"
-         *ngFor="let horse of horses$ | async"
+         *ngFor="let horse of horses"
          (click)="horseSelected(horse.id)">
         <div class="col image-col">
             <img [src]= "horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.jpg'" />

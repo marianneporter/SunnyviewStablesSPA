@@ -18,14 +18,25 @@
         </ul>
     </nav>
 
-    <app-horse-list-element [horses$]="horses$"
+    
+    <app-horse-list-element *ngIf="innerWidth > 600"
+                             [horses]="horses"
                             (selectedId)="onHorseSelected($event)"></app-horse-list-element>
+
+
+    <app-horse-cards *ngIf="innerWidth <= 600"
+                     [horses]="horses"></app-horse-cards>                        
  
     <footer>
-        <mat-paginator [length]="horseCount"
+        <mat-paginator *ngIf="innerWidth > 600" 
+            [length]="horseCount"
             [pageSize]="initialPageSize"
             [pageSizeOptions]="pageSizeOptions"
-            (page)=pageChangeEvent($event) #paginator></mat-paginator>       
+            (page)=pageChangeEvent($event) #paginator></mat-paginator>   
+        
+        <button *ngIf="innerWidth <= 600"
+                 mat-raised-button color="primary"
+                 (click)="loadMore()">Load more</button>
     </footer>
  
 

@@ -10,7 +10,7 @@ import { Horse } from 'src/app/_models/horse';
 })
 export class HorseListElementComponent implements OnInit {
 
-    @Input() horses$: Observable<Horse[]>;  
+    @Input() horses: Horse[];
 
     @Output() selectedId = new EventEmitter<number>();
 
@@ -20,7 +20,6 @@ export class HorseListElementComponent implements OnInit {
     }
 
     horseSelected(id: number) {
-        console.log(id);
         this.selectedId.emit(id);
     }
 
