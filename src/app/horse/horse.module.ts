@@ -20,7 +20,7 @@ import { HorseCardsComponent } from './horse-cards/horse-cards.component';
 const horseRoutes: Routes = [
     { path: 'horse', component: HorseListComponent,
                      resolve: { horseCount:HorseListResolver }, 
-                     canActivate: [AuthGuard] },
+                     canActivate: [AuthGuard] },    
     { path: 'horse/add', component: HorseAddUpdateComponent,
                          resolve: { owners: HorseAddUpdateResolver }, 
                          canActivate: [AuthGuard] }, 

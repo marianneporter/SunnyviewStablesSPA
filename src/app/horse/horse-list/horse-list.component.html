@@ -3,42 +3,37 @@
     <header>
         <h1>Horses</h1>
         <div class="search-box">
-            <input placeholder="search by horse's name"><button><mat-icon>search</mat-icon></button>
+            <input placeholder=" search by horse's name"><button><mat-icon>search</mat-icon></button>
         </div>
-
-        <!-- <mat-form-field appearance="outline" color="accent">
-            <mat-label>Filter</mat-label>
-            <mat-icon matPrefix>filter_list</mat-icon>
-            <input matInput placeholder="Filter">                
-            <mat-hint>Filter on something????</mat-hint>
-          </mat-form-field> -->
     </header>
    
     <nav class="horse-nav">
         <ul>
-            <li class="non-mobile"><a href="#"><mat-icon>view_module</mat-icon><span> Card View</span></a></li>
-            <li class="non-mobile"><a href="#"><mat-icon>view_headline</mat-icon><span>List View</span></a></li>
+            <li class="non-mobile"><button [disabled]="listMode=='Card'"
+                                    (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
+            <li class="non-mobile"><button [disabled]="listMode=='List'"
+                                    (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
             <li><a [routerLink]="['/horse/add']"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
         </ul>
     </nav>
 
     
-    <app-horse-list-element *ngIf="innerWidth > 600"
+    <app-horse-list-element *ngIf="listMode=='List'"
                              [horses]="horses"
                             (selectedId)="onHorseSelected($event)"></app-horse-list-element>
 
 
-    <app-horse-cards *ngIf="innerWidth <= 600"
+    <app-horse-cards *ngIf="listMode=='Card'"
                      [horses]="horses"></app-horse-cards>                        
  
     <footer>
-        <mat-paginator *ngIf="innerWidth > 600" 
+        <mat-paginator *ngIf="listMode=='List'"
             [length]="horseCount"
-            [pageSize]="initialPageSize"
+            [pageSize]="initialListPageSize"
             [pageSizeOptions]="pageSizeOptions"
             (page)=pageChangeEvent($event) #paginator></mat-paginator>   
         
-        <button *ngIf="innerWidth <= 600
+        <button *ngIf="listMode=='Card'
                       && horses
                       && horses.length < horseCount"
                  mat-raised-button color="primary"

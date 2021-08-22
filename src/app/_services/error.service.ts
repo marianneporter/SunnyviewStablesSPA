@@ -16,7 +16,6 @@ export class ErrorService {
     }
 
     routeToErrorPage(errorMessage: string) {
-        debugger;
         this.router.navigate(['/error'], { queryParams: { error: errorMessage } });
     }
 }

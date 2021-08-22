@@ -21,13 +21,15 @@ export class HorseListComponent implements OnInit {
 
     horses: Horse[];
 
+    listMode = "Card";
+
     horseCount: number = 0 ;
 
-    initialPageSize = 2;
+    initialListPageSize = 2;
     pageSizeOptions = [2, 4, 6];
 
-    mobilePageIndex = 0;
-    mobilePageSize = 3;
+    cardPageIndex = 0;
+    cardPageSize = 3;
  
    
 
@@ -39,23 +41,15 @@ export class HorseListComponent implements OnInit {
 
     ngOnInit(): void {
         this.innerWidth = window.innerWidth;
+
+        this.listMode = this.innerWidth > 600 ? "List" : "Card";
         
         this.route.data.subscribe(data => {
-            this.horseCount=data['horseCount'];
-          
+            this.horseCount=data['horseCount'];         
 
-        });     
+        });   
       
-        this.horseService.getHorses('',
-                        'asc',
-                        0,
-                        this.innerWidth > 600 ? this.initialPageSize 
-                                              : this.mobilePageSize )
-            .subscribe(
-                (data) => {
-                    this.horses = data;
-                }
-            ) 
+        this.loadHorses(0, (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize), false);
         
     }
 
@@ -64,42 +58,41 @@ export class HorseListComponent implements OnInit {
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
+
+        this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false); 
  
-        this.horseService.getHorses('',
-                                    'asc',
-                                    pageEvent.pageIndex,
-                                    pageEvent.pageSize )
-            .subscribe(
-                (data) => {
-                    this.horses = data;
-                }
-            )  
     }
 
     loadMore() {
       
-        this.mobilePageIndex++;
-        let additionalHorses: Horse[];
-        this.horseService.getHorses('',
-                      'asc',
-                      this.mobilePageIndex,
-                      this.mobilePageSize ).subscribe(
-            (data: Horse[]) => {
-                additionalHorses = data;
-                this.horses = this.horses.concat(additionalHorses);                
-                console.log(additionalHorses);
-                console.log(this.horses);
-                console.log(this.horses.length);
-                console.log(this.horseCount);
-                
-            } );
+        this.cardPageIndex++;
+
+        this.loadHorses(this.cardPageIndex, this.cardPageSize, true);
+      
+    }
+
+    switchToCard() {
+        this.cardPageIndex = 0;
+        this.listMode = 'Card';
+        this.loadHorses(this.cardPageIndex, this.cardPageSize, false);
+    }
+
+    switchToList() {
+        this.cardPageIndex = 0;
+        this.listMode = 'List';
+        this.loadHorses(0, this.initialListPageSize, false);       
+    }
+
+    loadHorses(pageIndex: number, pageSize: number, concatHorses: boolean) {
      
+        let horsesFromApi: Horse[];
+        this.horseService.getHorses('',
+            'asc',
+            pageIndex,
+            pageSize ).subscribe(
+                (data: Horse[]) => {                    
+                    horsesFromApi = data;
+                    this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                               
+                } );       
     }
-
-    search() {
-        alert("hello");
-    }
-
-
-
 }

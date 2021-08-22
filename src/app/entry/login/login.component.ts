@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
 
     cancelLoginAttempt() {
         this.closeSlider();
-        debugger;
         this.loginForm.reset();
 
         Object.keys(this.loginForm.controls).forEach(key => {

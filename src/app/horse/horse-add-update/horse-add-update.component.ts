@@ -152,7 +152,6 @@ export class HorseAddUpdateComponent implements OnInit {
     openAddOwnerDialog() {
         const dialogConfig = new MatDialogConfig();
 
-   //     dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;  
         
         this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
@@ -173,10 +172,7 @@ export class HorseAddUpdateComponent implements OnInit {
 
     }
 
-    submitForm() {
-        debugger;
-        console.log(this.nameFromForm);
-        console.log(this.dobFromForm);
+    submitForm() {       
         this.horseFormData = new FormData();
         this.horseFormData.append('name', this.nameFromForm.value);
         this.horseFormData.append('sex', this.sexFromForm.value);
@@ -190,12 +186,10 @@ export class HorseAddUpdateComponent implements OnInit {
 
         this.horseFormData.append('imageFile', this.uploadedPhoto);
         
-        debugger;
         this.horseService.addHorse(this.horseFormData)
         .subscribe({
           next: (data: AddReturn) => {
-              debugger;
-              this.addReturn= { ...data };          
+                 this.addReturn= { ...data };          
               alert(`Horse Added Successfully ${this.addReturn.name}`);
               this.router.navigate(['/horses']);
           },
