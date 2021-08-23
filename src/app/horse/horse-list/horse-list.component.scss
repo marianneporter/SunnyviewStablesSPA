@@ -1,7 +1,3 @@
-.container {
-    background-color: light-green; 
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -29,9 +25,7 @@ h1 {
     display: flex;
     list-style-type: none;
 
-    li {
- 
-       
+    li {       
         button, a {
             background-color: white;
             border: none;  

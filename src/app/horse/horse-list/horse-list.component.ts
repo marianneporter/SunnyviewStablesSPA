@@ -29,7 +29,7 @@ export class HorseListComponent implements OnInit {
     pageSizeOptions = [2, 4, 6];
 
     cardPageIndex = 0;
-    cardPageSize = 3;
+    cardPageSize = 12;
  
    
 
