@@ -92,8 +92,7 @@ export class HorseAddUpdateComponent implements OnInit {
 
         this.populateOwnerSelect();
         this.initialiseForm();
-        console.log(this.minDob);
-        console.log(this.maxDob);
+
     }
 
     initialiseForm() {

@@ -34,7 +34,13 @@
             </div>
  
             <div class="button-area">
-                <button mat-raised-button color="primary">Update</button>
+                <button mat-raised-button class="back-button">
+                    <mat-icon>arrow_back</mat-icon>Back to list
+                </button>
+                <a mat-raised-button
+                        class="edit-button"
+                        [routerLink]="['/horse/add-edit', horse.id]" 
+                        >Edit</a>
             </div>
            
             

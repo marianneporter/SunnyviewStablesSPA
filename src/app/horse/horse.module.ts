@@ -21,7 +21,7 @@ const horseRoutes: Routes = [
     { path: 'horse', component: HorseListComponent,
                      resolve: { horseCount:HorseListResolver }, 
                      canActivate: [AuthGuard] },    
-    { path: 'horse/add', component: HorseAddUpdateComponent,
+    { path: 'horse/add-edit/:id', component: HorseAddUpdateComponent,
                          resolve: { owners: HorseAddUpdateResolver }, 
                          canActivate: [AuthGuard] }, 
     { path: 'horse/:id', component: HorseDetailComponent,
