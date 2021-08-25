@@ -10,6 +10,8 @@ export class UtilityService {
     constructor() { }
 
     mapHorseDtoToHorse(horseDto: HorseDto):Horse {
+  
+
         return {
             id: horseDto.id,
             name: horseDto.name,
@@ -20,7 +22,7 @@ export class UtilityService {
             heightHands: horseDto.heightHands,
             imageUrl: horseDto.imageUrl,
             owners: horseDto.owners,
-            displayOwners:  horseDto.owners.join(', ')
+            displayOwners:  horseDto.owners.map(o => `${o.firstName} ${o.lastName}`).join(', ')
         }
     }
 }

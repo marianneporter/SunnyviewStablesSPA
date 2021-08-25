@@ -9,6 +9,6 @@ export interface Horse {
     heightcm: number; 
     heightHands: string;  
     imageUrl: string;       
-    owners: string[]; 
+    owners: Owner[]; 
     displayOwners: string; 
  }

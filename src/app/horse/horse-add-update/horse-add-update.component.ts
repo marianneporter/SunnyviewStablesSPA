@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
 import { AddReturn } from 'src/app/_models/addReturn';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
+import { Horse } from 'src/app/_models/horse';
 import { Owner } from 'src/app/_models/owner';
 import { DatesService } from 'src/app/_services/dates.service';
 import { FormsService } from 'src/app/_services/forms.service';
@@ -20,6 +21,8 @@ export class HorseAddUpdateComponent implements OnInit {
     horseForm: FormGroup;
 
     horseFormData: FormData;
+
+    horse: Horse;
 
     addMode = true;
 
@@ -87,7 +90,14 @@ export class HorseAddUpdateComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.data.subscribe(data => {
-            this.owners=data['owners'];
+
+            this.owners = data['addUpdateData'][0];
+
+            if (+this.route.snapshot.params['id'] !== 0) {
+                this.horse = data['addUpdateData'][1];
+                this.addMode = false;
+            }
+           
         });
 
         this.populateOwnerSelect();

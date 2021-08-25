@@ -1,4 +1,5 @@
 import { Owner } from "./owner";
+import { OwnerDto } from "./ownerDTO";
 
 export interface HorseDto {
     id: number;
@@ -9,5 +10,5 @@ export interface HorseDto {
     heightcm: number;   
     heightHands: string;
     imageUrl: string;       
-    owners: string[];        
+    owners: OwnerDto[];        
  }

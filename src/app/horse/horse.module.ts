@@ -22,7 +22,7 @@ const horseRoutes: Routes = [
                      resolve: { horseCount:HorseListResolver }, 
                      canActivate: [AuthGuard] },    
     { path: 'horse/add-edit/:id', component: HorseAddUpdateComponent,
-                         resolve: { owners: HorseAddUpdateResolver }, 
+                         resolve: { addUpdateData: HorseAddUpdateResolver }, 
                          canActivate: [AuthGuard] }, 
     { path: 'horse/:id', component: HorseDetailComponent,
                          resolve: { horse: HorseDetailResolver }, 
