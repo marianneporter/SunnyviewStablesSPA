@@ -17,7 +17,7 @@ export class HorseDetailComponent implements OnInit {
         this.activatedRoute.data.subscribe(data => {
         
             this.horse=data['horse'];    
-            debugger;   
+          
         })   
     }
 

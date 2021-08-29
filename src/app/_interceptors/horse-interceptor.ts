@@ -17,25 +17,17 @@ export class HorseInterceptor implements HttpInterceptor {
                 evt => {
                     if (evt instanceof HttpResponse)  {
                    
-                        if(req.url.includes('horses')) {
-  
+                        if(req.url.includes('horses')) {  
                                 
                                 if (req.url.includes('count')  ) {
                                     let count = evt.body;  
 
                                     if (count == 0) {
-                                        this.errorService.noHorsesError();
-                                    } else {
-                                        return;
+                                        this.errorService.noHorsesError(); 
                                     }
                                 }
-
-                                if (evt.body.length == 0) {
-                                    this.errorService.noHorsesError();
-                                }  
-                                
-                                return;
-                                                        
+                               
+                                return;                                                        
                         } 
                     }                    
                     

@@ -1,5 +1,6 @@
 import {  Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Observable, of } from 'rxjs';
 import { Horse } from 'src/app/_models/horse';
@@ -19,6 +20,8 @@ export class HorseListComponent implements OnInit {
             this.innerWidth = window.innerWidth;
     }
 
+    statusMessage : string;
+
     horses: Horse[];
 
     listMode = "Card";
@@ -37,9 +40,12 @@ export class HorseListComponent implements OnInit {
   
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private horseService: HorseService) { }
+                private horseService: HorseService,
+                private snackbar: MatSnackBar) { }
 
     ngOnInit(): void {
+        this.checkForMessage();
+
         this.innerWidth = window.innerWidth;
 
         this.listMode = this.innerWidth > 600 ? "List" : "Card";
@@ -94,5 +100,21 @@ export class HorseListComponent implements OnInit {
                     horsesFromApi = data;
                     this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                               
                 } );       
+    }
+
+    checkForMessage() {
+
+        if (sessionStorage.getItem('message')) {
+            this.statusMessage = sessionStorage.getItem('message');
+        } else {
+            return;
+        };
+
+        this.snackbar.open(this.statusMessage, 'dismiss', {
+            duration: 5000
+        });
+
+        sessionStorage.removeItem('message');
+       
     }
 }

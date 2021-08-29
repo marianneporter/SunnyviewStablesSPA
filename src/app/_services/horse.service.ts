@@ -59,10 +59,14 @@ export class HorseService {
     
         
     addHorse(horseFormData: FormData) : Observable<AddReturn> {
-
         const url = environment.baseUrl + 'horses';     
         return this.http.post<AddReturn>(url, horseFormData);
     }
+         
+    updateHorse(horseFormData: FormData) : Observable<any> {   
+        const url = environment.baseUrl + 'horses';     
+        return this.http.patch<any>(url, horseFormData);
+    }   
 
   
   

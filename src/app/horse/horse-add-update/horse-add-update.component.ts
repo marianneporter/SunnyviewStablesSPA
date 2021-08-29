@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,8 @@ import { HorseService } from 'src/app/_services/horse.service';
   styleUrls: ['./horse-add-update.component.scss']
 })
 export class HorseAddUpdateComponent implements OnInit {
+
+    @ViewChild("fileInput")  fileInput: ElementRef;
 
     horseForm: FormGroup;
 
@@ -89,35 +91,41 @@ export class HorseAddUpdateComponent implements OnInit {
                  private router: Router) { }
 
     ngOnInit(): void {
+        debugger;
         this.route.data.subscribe(data => {
 
-            this.owners = data['addUpdateData'][0];
+           
 
             if (+this.route.snapshot.params['id'] !== 0) {
+                this.owners = data['addUpdateData'][0];
                 this.horse = data['addUpdateData'][1];
                 this.addMode = false;
+            } else {
+                this.owners = data['addUpdateData'];
             }
-           
-        });
 
-        this.populateOwnerSelect();
-        this.initialiseForm();
+            debugger;
+            this.populateOwnerSelect();
+            this.initialiseForm();          
+        });
+       
 
     }
 
     initialiseForm() {
  
         this.horseForm = this.fb.group({
-            name :  ['', [Validators.required]],
-            dob  : ['', [Validators.required]],
-            sex  : ['', [Validators.required]],
-            colour:['', [Validators.required]],
-            height: ['', [Validators.required]],
-            owners: ['', [Validators.required]]                       
+            name :  [ this.addMode ? '' : this.horse.name, [Validators.required]],
+            dob  :  [ this.addMode ? '' : this.horse.dob, [Validators.required]],
+            sex  :  [ this.addMode ? '' : this.horse.sex, [Validators.required]],
+            colour: [ this.addMode ? '' : this.horse.colour, [Validators.required]],
+            height: [ this.addMode ? ''  : this.horse.heightHands, [Validators.required]],
+            owners: [ this.addMode ? '' : this.horse.owners.map(o => o.id.toString()), [Validators.required]]                       
         })
     }
 
     populateOwnerSelect() {
+    
         this.ownersSelect =this.owners.map(function(owner) {
             return { id: owner.id.toString(),
                      name: `${owner.firstName} ${owner.lastName}` }
@@ -125,8 +133,7 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     onPhotoAdded(event) {
-        console.log(event.target.files[0]);
-        console.log(event.target.files[0]);
+    
         this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
             var mimeType = event.target.files[0].type;
@@ -158,6 +165,12 @@ export class HorseAddUpdateComponent implements OnInit {
         }
     }
 
+    clearUploadPhoto() {
+        this.fileInput.nativeElement.value="";
+        this.previewPhoto = null;
+        this.uploadedPhoto = null;
+    }
+
     openAddOwnerDialog() {
         const dialogConfig = new MatDialogConfig();
 
@@ -177,8 +190,6 @@ export class HorseAddUpdateComponent implements OnInit {
                 }
             }
         )
-
-
     }
 
     submitForm() {       
@@ -194,19 +205,39 @@ export class HorseAddUpdateComponent implements OnInit {
         });
 
         this.horseFormData.append('imageFile', this.uploadedPhoto);
-        
-        this.horseService.addHorse(this.horseFormData)
-        .subscribe({
-          next: (data: AddReturn) => {
-                 this.addReturn= { ...data };          
-              alert(`Horse Added Successfully ${this.addReturn.name}`);
-              this.router.navigate(['/horses']);
-          },
-          error: err => {
-              console.log("error occurred while adding cottage");
-          }
-        });
 
-
+        if (this.addMode) {
+            this.horseService.addHorse(this.horseFormData)
+            .subscribe({
+              next: (data: AddReturn) => {
+                     this.addReturn= { ...data };          
+                  alert(`Horse Added Successfully ${this.addReturn.name}`);
+                  sessionStorage.setItem('message', `Horse Added Successfully ${this.addReturn.name}`)
+                  this.router.navigate(['/horse']);
+              },
+              error: err => {
+                  console.log("error occurred while adding horse");
+              }
+            });
+        } else {
+            debugger;
+            this.horseFormData.append('id', this.horse.id.toString());
+            debugger;
+            this.horseService.updateHorse(this.horseFormData)
+            .subscribe({
+              next: () => {    
+                  debugger;          
+                  sessionStorage.setItem('message', `Horse Updated Successfully ${this.nameFromForm.value}`);
+                  this.router.navigate(['/horse']);
+              },
+              error: err => {
+                  debugger;
+                  console.log(err);
+                  console.log("error occurred while updating horse");
+              }
+            });            
+        }
     }
+
+    
 }
