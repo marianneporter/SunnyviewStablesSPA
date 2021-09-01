@@ -84,18 +84,14 @@
                             (change)="onPhotoAdded($event)"
                             #fileInput>  
         
-                        <div class="add-photo-upload-grid" style="background-color: yellow;"
+                        <div class="add-photo-upload-grid"
                              *ngIf="addMode"> 
         
-                            <div class="photo-upload-button">                       
-                                
+                            <div class="photo-upload-button">                               
                                 <button mat-raised-button  class="upload-btn"
                                     (click)="fileInput.click()">
-                                    {{ fileName ? "Change Photo" : "Add Photo" }}                           
-                                </button>
-        
-                                {{fileName || "No file uploaded yet."}}
-        
+                                    {{ uploadedPhoto ? "Change Photo" : "Add Photo" }}                           
+                                </button>   
                             </div>
         
                             <!-- <div class="" *ngIf="invalidPhoto">                           
@@ -113,7 +109,7 @@
                         <div class="update-photo-upload-area" 
                               *ngIf="!addMode"> 
 
-                             <div class="previewPhotoWrapper">
+                             <div *ngIf="previewPhoto || horse.imageUrl" class="previewPhotoWrapper">
                                 <img class="small-photo"
                                         [src]="previewPhoto ? previewPhoto : horse.imageUrl"
                                          alt=""/>       
@@ -123,7 +119,7 @@
                             <div class="photo-upload-button-group">                 
                                 <button mat-raised-button  class="upload-btn"
                                     (click)="fileInput.click()"  >
-                                        {{horse.imageUrl ? 'Change Photo' : 'Add Photo' }}                         
+                                        {{horse.imageUrl || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
                                     </button>   
                                     <button mat-raised-button 
                                         class="reset-btn"
@@ -155,7 +151,7 @@
 
                 <h4>Form values: {{ horseForm.value | json }}</h4>
                 <h4>height: {{horseForm.value.height}}</h4>      -->
-                <div>{{fileInput}}</div>
+
             </form>           
         </div>  
       

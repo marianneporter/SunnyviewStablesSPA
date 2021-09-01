@@ -148,6 +148,7 @@ export class HorseAddUpdateComponent implements OnInit {
             let reader = new FileReader();
             //start uploading file user selected
             reader.readAsDataURL(this.uploadedPhoto);
+        
             //display photo once file uploaded
             reader.onload = (_event) => { 
                 const img = new Image();
@@ -162,6 +163,9 @@ export class HorseAddUpdateComponent implements OnInit {
                     this.previewPhoto = reader.result; 
                 };               
             }
+
+            console.log(this.uploadedPhoto);
+            console.log(this.previewPhoto);
         }
     }
 
