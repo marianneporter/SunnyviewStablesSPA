@@ -8,7 +8,7 @@ import { HorseListResolver } from 'src/app/_resolvers/horse-list.resolver';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { HorseInterceptorProvider } from 'src/app/_interceptors/horse-interceptor';
 import { HorseListElementComponent } from './horse-list-element/horse-list-element.component';
-import { HorseCardComponent } from './horse-card/horse-card.component';
+
 import { HorseAddUpdateComponent } from './horse-add-update/horse-add-update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HorseAddUpdateResolver } from 'src/app/_resolvers/horse-add-update.resolver';
@@ -34,8 +34,8 @@ const horseRoutes: Routes = [
     HorseListComponent,
     HorseListElementComponent,
     HorseAddUpdateComponent,    
-    HorseCardComponent, 
-    HorseDetailComponent, HorseCardsComponent   
+    HorseDetailComponent,
+    HorseCardsComponent   
   ],
   imports: [
     CommonModule,
