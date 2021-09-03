@@ -8,7 +8,7 @@
                 [formGroup]="horseForm">
             
                 <div class="form-fields">   
-                    <h2>{{addMode ? 'Add Horse' : 'Edit Horse'}}</h2>  
+                    <h2 class="title">{{addMode ? 'Add Horse' : 'Edit Horse'}}</h2>  
         
                     <mat-form-field appearance="fill" class="name-field form-field">
                         <mat-label>Name</mat-label>
@@ -18,7 +18,7 @@
                         <mat-error *ngIf="nameFromForm.invalid">Please enter horse's name</mat-error>
                     </mat-form-field>
             
-                    <mat-form-field appearance="fill" class="form-field">
+                    <mat-form-field appearance="fill" class="dob-field form-field">
                         <mat-label>Date of Birth</mat-label>
                         <input matInput [matDatepicker]="picker"
                                formControlName="dob"
@@ -29,7 +29,7 @@
                         <mat-error *ngIf="dobFromForm.invalid">Please select horse's date of birth</mat-error>
                     </mat-form-field>      
                 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="sex-field">
                         <mat-label>Sex</mat-label>
                         <mat-select formControlName="sex" required>
                             <mat-option *ngFor="let sex of sexes"
@@ -39,7 +39,7 @@
                         <mat-error *ngIf="nameFromForm.invalid">Please select horse's sex</mat-error>
                     </mat-form-field>        
                 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="colour-field">
                         <mat-label>Colour</mat-label>
                         <mat-select formControlName="colour" required>
                             <mat-option *ngFor="let colour of colours"
@@ -47,9 +47,9 @@
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="colourFromForm.invalid">Please enter horse's colour</mat-error>
-                        </mat-form-field>
+                    </mat-form-field>
                 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="height-field">
                         <mat-label>Height (hands)</mat-label>
                         <mat-select formControlName="height" required>
                             <mat-option *ngFor="let height of heights"
@@ -69,7 +69,7 @@
                         <mat-error *ngIf="ownersFromForm.invalid">Please enter at least one owner</mat-error>
                     </mat-form-field>            
  
-                    <div class="add-new-owner-area">
+                    <div class="add-new-owner-wrapper">
                         <a mat-button
                             (click)=openAddOwnerDialog()
                             class="add-owner-button">
@@ -77,81 +77,51 @@
                         </a>  
                     </div>
     
-                    
-                 
-                    <div class="photo-area">
-    
-                        <input 
-                            type="file"                    
-                            (change)="onPhotoAdded($event)"
-                            #fileInput>  
-        
-                        <div class="add-photo-upload-grid"
-                             *ngIf="addMode"> 
-        
-                            <div class="photo-upload-button">                               
-                                <button mat-raised-button  class="upload-btn"
-                                    (click)="fileInput.click()">
-                                    {{ uploadedPhoto ? "Change Photo" : "Add Photo" }}                           
-                                </button>   
-                            </div>
-        
-                            <!-- <div class="" *ngIf="invalidPhoto">                           
-                                Sorry! photo is not valid
-                            </div>   -->        
-        
-                            <div class="previewPhotoWrapper">
-                                <img class="small-photo"
-                                        [src]="previewPhoto"
-                                        [ngClass]="{'no-display': !previewPhoto }"
-                                        alt=""/>       
-                            </div>
-                        </div>
- 
-                        <div class="update-photo-upload-area" 
-                              *ngIf="!addMode"> 
+                    <input 
+                        type="file"                    
+                        (change)="onPhotoAdded($event)"
+                        #fileInput>    
 
-                            <div *ngIf="previewPhoto || horse.imageUrl" class="previewPhotoWrapper">
-                                <img class="small-photo"
-                                        [src]="previewPhoto ? previewPhoto : horse.imageUrl"
-                                         alt=""/>       
-                            </div>        
+                    <div *ngIf="(addMode && previewPhoto) || (!addMode && (horse.imageUrl || uploadedPhoto ))"
+                            class="previewPhotoWrapper">
+                        <img class="small-photo"
+                                [src]="previewPhoto ? previewPhoto : (addMode ? null : horse.imageUrl)"
+                                    alt=""/>       
+                    </div>     
             
-                            <button mat-raised-button
-                                    class="upload-btn btn"
-                                    (click)="fileInput.click()"  >
-                                    {{horse.imageUrl || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
-                            </button>   
+                    <button mat-raised-button
+                            class="upload-btn btn"
+                            (click)="fileInput.click()"  >
+                            {{ (!addMode && horse.imageUrl) || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
+                    </button>   
 
-                            <button mat-raised-button 
-                                    class="reset-btn btn"
-                                    *ngIf="previewPhoto"
-                                (click)="clearUploadPhoto()">
-                                Reset Photo                          
-                            </button>                          
+                    <button mat-raised-button 
+                            class="reset-btn btn"
+                            *ngIf="previewPhoto"
+                        (click)="clearUploadPhoto()">
+                        Reset Photo                          
+                    </button>                          
         
                             <!-- <div class="" *ngIf="invalidPhoto">                           
                                 Sorry! photo is not valid
                             </div>   -->        
-        
-  
+       
+                    
+                    <div class="submit-area">   
+                        <br>                         
+                        <mat-divider></mat-divider>
+                        <div class="buttons-area">
+                            <a mat-raised-button
+                            [routerLink]="['/horse']">Cancel</a>
+                         <button mat-raised-button 
+                                 color="primary"
+                                 type="button"
+                                 (click)="submitForm()">{{addMode ? 'Add Horse' : 'Edit Horse'}}</button>
                         </div>
 
-                        <div class="submit-area">   
-                            <br>                         
-                            <mat-divider></mat-divider>
-                            <div class="buttons-area">
-                                <a mat-raised-button
-                                [routerLink]="['/horse']">Cancel</a>
-                             <button mat-raised-button 
-                                     color="primary"
-                                     type="button"
-                                     (click)="submitForm()">{{addMode ? 'Add Horse' : 'Edit Horse'}}</button>
-                            </div>
+                    </div>
 
-                        </div>
 
-                    </div>                            
                 </div>
                
 
