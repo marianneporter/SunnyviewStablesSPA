@@ -24,6 +24,9 @@
     align-items: center; 
 }   
 
+
+
+
 .horse-form {
     .form-fields {  
         @include grid-names();      
@@ -60,6 +63,11 @@
                 max-width: 100%;
                 max-height: 7rem;
             }            
+        } 
+
+        .btn {
+            height: 2.5rem;
+            width: 7.5rem;               
         } 
         
         .buttons-area {

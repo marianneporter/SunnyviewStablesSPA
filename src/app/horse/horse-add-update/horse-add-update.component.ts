@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
 import { AddReturn } from 'src/app/_models/addReturn';
@@ -71,6 +72,8 @@ export class HorseAddUpdateComponent implements OnInit {
     uploadedPhoto : File = null;
     fileName ='';
     invalidPhoto = false;
+    photoErrorInvalidFile = 'The file you attempted to upload was not a valid photo file';
+    photoErrorNotLandscape = 'Photo must be in landscape format';
     previewPhoto: any;
 
     owners: Owner[];
@@ -82,8 +85,11 @@ export class HorseAddUpdateComponent implements OnInit {
 
     addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;
 
+    
+
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
+                 private snackbar: MatSnackBar,
                  private fb: FormBuilder,
                  private formsService: FormsService,
                  private horseService: HorseService,
@@ -91,10 +97,8 @@ export class HorseAddUpdateComponent implements OnInit {
                  private router: Router) { }
 
     ngOnInit(): void {
-        debugger;
-        this.route.data.subscribe(data => {
 
-           
+        this.route.data.subscribe(data => {
 
             if (+this.route.snapshot.params['id'] !== 0) {
                 this.owners = data['addUpdateData'][0];
@@ -104,7 +108,6 @@ export class HorseAddUpdateComponent implements OnInit {
                 this.owners = data['addUpdateData'];
             }
 
-            debugger;
             this.populateOwnerSelect();
             this.initialiseForm();          
         });
@@ -133,12 +136,12 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     onPhotoAdded(event) {
-    
-        this.fileName = event.target.files[0].name;
+         this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
                 this.invalidPhoto=true;
+                this.displayInvalidPhotoSnackbar(this.photoErrorInvalidFile);
                 return;
             }
 
@@ -158,14 +161,13 @@ export class HorseAddUpdateComponent implements OnInit {
                     const width = img.naturalWidth;
                     if (height > width) {
                         this.invalidPhoto=true;
+                        this.displayInvalidPhotoSnackbar(this.photoErrorNotLandscape);
                         return;
                     }
                     this.previewPhoto = reader.result; 
                 };               
             }
 
-            console.log(this.uploadedPhoto);
-            console.log(this.previewPhoto);
         }
     }
 
@@ -173,6 +175,7 @@ export class HorseAddUpdateComponent implements OnInit {
         this.fileInput.nativeElement.value="";
         this.previewPhoto = null;
         this.uploadedPhoto = null;
+        this.invalidPhoto = false;
     }
 
     openAddOwnerDialog() {
@@ -224,18 +227,16 @@ export class HorseAddUpdateComponent implements OnInit {
               }
             });
         } else {
-            debugger;
+
             this.horseFormData.append('id', this.horse.id.toString());
-            debugger;
+
             this.horseService.updateHorse(this.horseFormData)
             .subscribe({
-              next: () => {    
-                  debugger;          
+              next: () => {       
                   sessionStorage.setItem('message', `Horse Updated Successfully ${this.nameFromForm.value}`);
                   this.router.navigate(['/horse']);
               },
               error: err => {
-                  debugger;
                   console.log(err);
                   console.log("error occurred while updating horse");
               }
@@ -243,5 +244,10 @@ export class HorseAddUpdateComponent implements OnInit {
         }
     }
 
-    
+    displayInvalidPhotoSnackbar(message: string) {
+        this.snackbar.open(message, 'dismiss', {
+            duration: 5000,
+            panelClass: ['photo-error-snackbar']
+        });        
+    }    
 }

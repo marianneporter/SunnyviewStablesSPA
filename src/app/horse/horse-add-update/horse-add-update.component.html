@@ -87,25 +87,20 @@
                         <img class="small-photo"
                                 [src]="previewPhoto ? previewPhoto : (addMode ? null : horse.imageUrl)"
                                     alt=""/>       
-                    </div>     
-            
+                    </div>             
+                 
                     <button mat-raised-button
-                            class="upload-btn btn"
-                            (click)="fileInput.click()"  >
-                            {{ (!addMode && horse.imageUrl) || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
-                    </button>   
+                        class="upload-btn btn"
+                        (click)="fileInput.click()"  >
+                        {{ (!addMode && horse.imageUrl) || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
+                    </button>                   
 
                     <button mat-raised-button 
                             class="reset-btn btn"
                             *ngIf="previewPhoto"
                         (click)="clearUploadPhoto()">
                         Reset Photo                          
-                    </button>                          
-        
-                            <!-- <div class="" *ngIf="invalidPhoto">                           
-                                Sorry! photo is not valid
-                            </div>   -->        
-       
+                    </button>          
                     
                     <div class="submit-area">   
                         <br>                         

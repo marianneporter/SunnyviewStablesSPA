@@ -112,6 +112,7 @@ export class HorseListComponent implements OnInit {
 
         this.snackbar.open(this.statusMessage, 'dismiss', {
             duration: 5000
+        //    panelClass: ["photo-error-snackbar"]
         });
 
         sessionStorage.removeItem('message');

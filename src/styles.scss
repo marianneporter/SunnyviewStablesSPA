@@ -17,15 +17,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container {
     padding: 0.5rem 2rem;
     margin: 0 auto;
-
 }
 
 :root {
     --medium: 96-px;
 }
 
-.mat-form-field-required-marker {
-    color: red;
-}
+.photo-error-snackbar {
+    background-color: var(--color-warn);
+    color: white;
 
+    button {
+        color: white;
+    }
+}
 
