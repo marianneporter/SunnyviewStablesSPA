@@ -7,18 +7,23 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { TestForMobileGuard } from '../_guards/test-for-mobile.guard';
+import { MobileEntryComponent } from './mobile-entry/mobile-entry.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 const entryRoutes: Routes = [
     { path: 'entry', component: EntryPageComponent},
+    { path: 'mobile', component: MobileEntryComponent },       
     { path: '', component: EntryPageComponent,
-                canActivate: [TestForMobileGuard] }   
+                canActivate: [TestForMobileGuard] } 
 ]
 
 @NgModule({
   declarations: [
     EntryPageComponent,
     ToolbarComponent,
-    LoginComponent
+    LoginComponent,
+    MobileEntryComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,

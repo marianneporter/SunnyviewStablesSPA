@@ -8,49 +8,9 @@
     </button>           
 
     <h1>Sign in</h1>
-    <form novalidate
-          [formGroup]="loginForm" 
-          class="login-form"
-          #form="ngForm">
-        <div class="form-element">
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput 
-                       placeholder="Email"
-                       formControlName="email"
-                       (keypress)="userInput()">
-                <mat-hint>Enter email</mat-hint>
-                <mat-error *ngIf="email.hasError('required')">Please enter your email</mat-error>
-                <mat-error *ngIf="email.hasError('email')">Please enter a valid email</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-element">
-            <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input matInput
-                       type="password" 
-                       placeholder="Password"
-                       formControlName="password"
-                       autocomplete="current-password"
-                       (keypress)="userInput()">
-                <mat-hint>Enter password</mat-hint>
-                <mat-error *ngIf="password.hasError('required')">Please enter your password</mat-error>
-                <mat-error *ngIf="password.hasError('serverLoginError')">There is a problem with either the email or password</mat-error>
-            </mat-form-field>   
-        </div>
-        <div class="form-element">
-            <button mat-raised-button 
-                   color="primary"
-                   [disabled]="loginForm.pristine || loginForm.invalid"
-                   type="button"
-                   (click)="login()">Sign in
-            </button>
-        </div>       
-    </form>
-    <h4>form values: {{form.value | json}}</h4>
-    <h4>form.pristine {{form.pristine}}</h4>
-    <h4>form.invalid {{form.invalid}}</h4>
-    <h4>form.valid {{form.valid}}</h4>
-
+ 
+    <app-login-form (cancelLogin)="closeSlider()"
+                    (loginSuccess)="completedLogin()"></app-login-form>
+    
     
 </div>

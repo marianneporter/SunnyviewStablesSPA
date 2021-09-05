@@ -21,6 +21,8 @@ export class TestForMobileGuard implements CanActivate {
             if (this.loggedIn) {
                 this.router.navigate(['/horse']);
                 return false;
+            } else {
+                this.router.navigate(['/mobile']);
             }
         }
         return true; 
