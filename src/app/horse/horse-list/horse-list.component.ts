@@ -2,7 +2,7 @@ import {  Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Observable, of } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Horse } from 'src/app/_models/horse';
 import { HorseService } from 'src/app/_services/horse.service';
 
@@ -13,12 +13,14 @@ import { HorseService } from 'src/app/_services/horse.service';
 })
 export class HorseListComponent implements OnInit {
 
-    innerWidth: any
+    // innerWidth: any
 
-    @HostListener('window:resize', ['$event'])
-        onResize(event:any) {
-            this.innerWidth = window.innerWidth;
-    }
+    // @HostListener('window:resize', ['$event'])
+    //     onResize(event:any) {
+    //         this.innerWidth = window.innerWidth;
+    // }
+
+    isMobile: boolean = false;
 
     statusMessage : string;
 
@@ -40,19 +42,23 @@ export class HorseListComponent implements OnInit {
   
     constructor(private route: ActivatedRoute,
                 private router: Router,
+                private deviceService: DeviceDetectorService,
                 private horseService: HorseService,
-                private snackbar: MatSnackBar) { }
+                private snackbar: MatSnackBar) { 
+        debugger;
+    //    this.innerWidth = window.innerWidth;
+
+        //this.listMode = this.innerWidth > 600 ? "List" : "Card";
+        // this.isMobile = this.deviceService.isMobile();
+        // debugger;
+        this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
+    }
 
     ngOnInit(): void {
-        this.checkForMessage();
+        this.checkForMessage(); 
 
-        this.innerWidth = window.innerWidth;
-
-        this.listMode = this.innerWidth > 600 ? "List" : "Card";
-        
         this.route.data.subscribe(data => {
-            this.horseCount=data['horseCount'];         
-
+            this.horseCount=data['horseCount'];   
         });   
       
         this.loadHorses(0, (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize), false);
@@ -64,17 +70,12 @@ export class HorseListComponent implements OnInit {
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
-
-        this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false); 
- 
+        this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false);  
     }
 
-    loadMore() {
-      
+    loadMore() {      
         this.cardPageIndex++;
-
-        this.loadHorses(this.cardPageIndex, this.cardPageSize, true);
-      
+        this.loadHorses(this.cardPageIndex, this.cardPageSize, true);      
     }
 
     switchToCard() {

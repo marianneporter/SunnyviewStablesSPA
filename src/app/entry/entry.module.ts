@@ -6,10 +6,12 @@ import { EntryPageComponent } from './entry-page/entry-page.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { TestForMobileGuard } from '../_guards/test-for-mobile.guard';
 
 const entryRoutes: Routes = [
     { path: 'entry', component: EntryPageComponent},
-    { path: '', component: EntryPageComponent }   
+    { path: '', component: EntryPageComponent,
+                canActivate: [TestForMobileGuard] }   
 ]
 
 @NgModule({
