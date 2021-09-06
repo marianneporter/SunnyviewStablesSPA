@@ -52,8 +52,7 @@ export class LoginFormComponent implements OnInit {
     login() {
       
         this.authService.login({email: this.email.value, password: this.password.value}).subscribe(
-            () => {
- 
+            () => { 
                 this.loginSuccess.emit();        
             },
             (error: HttpErrorResponse) => {  

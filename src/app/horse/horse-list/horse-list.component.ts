@@ -13,13 +13,6 @@ import { HorseService } from 'src/app/_services/horse.service';
 })
 export class HorseListComponent implements OnInit {
 
-    // innerWidth: any
-
-    // @HostListener('window:resize', ['$event'])
-    //     onResize(event:any) {
-    //         this.innerWidth = window.innerWidth;
-    // }
-
     isMobile: boolean = false;
 
     statusMessage : string;
@@ -45,12 +38,7 @@ export class HorseListComponent implements OnInit {
                 private deviceService: DeviceDetectorService,
                 private horseService: HorseService,
                 private snackbar: MatSnackBar) { 
-        debugger;
-    //    this.innerWidth = window.innerWidth;
-
-        //this.listMode = this.innerWidth > 600 ? "List" : "Card";
-        // this.isMobile = this.deviceService.isMobile();
-        // debugger;
+ 
         this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
     }
 
@@ -113,7 +101,6 @@ export class HorseListComponent implements OnInit {
 
         this.snackbar.open(this.statusMessage, 'dismiss', {
             duration: 5000
-        //    panelClass: ["photo-error-snackbar"]
         });
 
         sessionStorage.removeItem('message');

@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TestForMobileGuard } from '../_guards/test-for-mobile.guard';
 import { MobileEntryComponent } from './mobile-entry/mobile-entry.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 const entryRoutes: Routes = [
     { path: 'entry', component: EntryPageComponent},
@@ -29,7 +30,8 @@ const entryRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(entryRoutes),
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     EntryPageComponent
