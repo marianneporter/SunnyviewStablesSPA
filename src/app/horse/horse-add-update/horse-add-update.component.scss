@@ -24,9 +24,6 @@
     align-items: center; 
 }   
 
-
-
-
 .horse-form {
     .form-fields {  
         @include grid-names();      
@@ -74,8 +71,7 @@
             display: flex;
             justify-content: center;
             column-gap: 3rem;
-            padding: 1.5rem 0;
-  
+            padding: 1.5rem 0;  
         
             button {
                 background-color: var(--color-success);
@@ -91,7 +87,6 @@
             }
         }
     }
-
 }
 
 

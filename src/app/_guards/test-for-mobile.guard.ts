@@ -22,7 +22,7 @@ export class TestForMobileGuard implements CanActivate {
                 this.router.navigate(['/horse']);
                 return false;
             } else {
-                this.router.navigate(['/mobile']);
+                this.router.navigate(['/mobile-entry']);
             }
         }
         return true; 

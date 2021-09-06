@@ -13,7 +13,7 @@ import { SharedModule } from '../shared/shared.module';
 
 const entryRoutes: Routes = [
     { path: 'entry', component: EntryPageComponent},
-    { path: 'mobile', component: MobileEntryComponent },       
+    { path: 'mobile-entry', component: MobileEntryComponent },       
     { path: '', component: EntryPageComponent,
                 canActivate: [TestForMobileGuard] } 
 ]

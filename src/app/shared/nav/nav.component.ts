@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/_services/auth.service';
 import { faHorse } from '@fortawesome/free-solid-svg-icons';
+import { EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +18,9 @@ export class NavComponent  implements OnInit {
     userName = '';
 
     constructor(private location: Location,
-                private authService: AuthService ) { }
+                private authService: AuthService,
+                private router: Router,
+                private deviceService: DeviceDetectorService ) { }
 
     ngOnInit() {
         this.userName = this.authService.userName;
@@ -23,8 +28,16 @@ export class NavComponent  implements OnInit {
 
     logout() {
         this.authService.logout();
-        this.location.go('/entry');
-        window.location.reload();    
+        debugger;
+
+        if (this.deviceService.isMobile()) {
+            this.location.go('/mobile-entry');
+        } else {
+            this.location.go('/entry');
+        }
+       
+        window.location.reload();  
+ 
     }
 
 }
