@@ -1,0 +1,15 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.form-element * {
+    width: 95%;
+}
+
+button {
+    height: 2.5rem;
+}

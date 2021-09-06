@@ -5,10 +5,10 @@
 <div class="form-element">
   <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput 
+      <input matInput         
              placeholder="Email"
-             formControlName="email"
-             (keypress)="userInput()">
+             formControlName="email"            
+             (focus)="userInput()">
       <mat-hint>Enter email</mat-hint>
       <mat-error *ngIf="email.hasError('required')">Please enter your email</mat-error>
       <mat-error *ngIf="email.hasError('email')">Please enter a valid email</mat-error>
@@ -22,7 +22,7 @@
              placeholder="Password"
              formControlName="password"
              autocomplete="current-password"
-             (keypress)="userInput()">
+             (focus)="userInput()">
       <mat-hint>Enter password</mat-hint>
       <mat-error *ngIf="password.hasError('required')">Please enter your password</mat-error>
       <mat-error *ngIf="password.hasError('serverLoginError')">There is a problem with either the email or password</mat-error>

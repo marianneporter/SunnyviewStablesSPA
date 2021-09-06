@@ -67,14 +67,13 @@ export class LoginFormComponent implements OnInit {
                     if (!this.deviceService.isMobile)
                     {
                         this.cancelLoginAttempt();
-                    }
-  
+                    }  
                 }
             }               
         )          
     }
 
-    userInput() {
+    userInput() {      
         if ( this.serverLoginError) {
             this.serverLoginError=false;
             this.updateValidators(false);
