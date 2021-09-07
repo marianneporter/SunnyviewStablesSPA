@@ -72,8 +72,12 @@ export class HorseAddUpdateComponent implements OnInit {
     uploadedPhoto : File = null;
     fileName ='';
     invalidPhoto = false;
+
     photoErrorInvalidFile = 'The file you attempted to upload was not a valid photo file';
     photoErrorNotLandscape = 'Photo must be in landscape format';
+    formNotChangedError = "Please edit horse, add/change photo file or cancel";
+    formInvalidError = "Form is not valid please correct errors and try again";
+
     previewPhoto: any;
 
     owners: Owner[];
@@ -141,7 +145,7 @@ export class HorseAddUpdateComponent implements OnInit {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
                 this.invalidPhoto=true;
-                this.displayInvalidPhotoSnackbar(this.photoErrorInvalidFile);
+                this.displayErrorSnackbar(this.photoErrorInvalidFile);
                 return;
             }
 
@@ -161,7 +165,7 @@ export class HorseAddUpdateComponent implements OnInit {
                     const width = img.naturalWidth;
                     if (height > width) {
                         this.invalidPhoto=true;
-                        this.displayInvalidPhotoSnackbar(this.photoErrorNotLandscape);
+                        this.displayErrorSnackbar(this.photoErrorNotLandscape);
                         return;
                     }
                     this.previewPhoto = reader.result; 
@@ -199,7 +203,19 @@ export class HorseAddUpdateComponent implements OnInit {
         )
     }
 
-    submitForm() {       
+    submitForm() {      
+        
+        if ( this.horseForm.invalid ) {
+            this.displayErrorSnackbar(this.formInvalidError)
+            return;
+        }
+
+        if (this.horseForm.untouched && !this.uploadedPhoto) {
+            this.displayErrorSnackbar(this.formNotChangedError)
+            return;
+        }           
+          
+
         this.horseFormData = new FormData();
         this.horseFormData.append('name', this.nameFromForm.value);
         this.horseFormData.append('sex', this.sexFromForm.value);
@@ -244,7 +260,7 @@ export class HorseAddUpdateComponent implements OnInit {
         }
     }
 
-    displayInvalidPhotoSnackbar(message: string) {
+    displayErrorSnackbar(message: string) {
         this.snackbar.open(message, 'dismiss', {
             duration: 5000,
             panelClass: ['photo-error-snackbar']

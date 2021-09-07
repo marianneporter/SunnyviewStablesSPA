@@ -13,13 +13,13 @@
                                     (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
             <li class="non-mobile"><button [disabled]="listMode=='List'"
                                     (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
-            <li><a [routerLink]="['/horse/add-edit/0']"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
+            <li *ngIf="updateAccessAllowed"><a [routerLink]="['/horse/add-edit/0']"><mat-icon>add</mat-icon><span> New Horse</span></a></li>
         </ul>
     </nav>
 
     
     <app-horse-list-element *ngIf="listMode=='List'"
-                             [horses]="horses"
+                             [horses]="horses"                          
                             (selectedId)="onHorseSelected($event)"></app-horse-list-element>
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Horse } from 'src/app/_models/horse';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-horse-detail',
@@ -11,13 +12,15 @@ export class HorseDetailComponent implements OnInit {
 
     horse: Horse;
 
-    constructor(private activatedRoute: ActivatedRoute) { }
+    updateAccessAllowed: boolean=false;
+
+    constructor(private activatedRoute: ActivatedRoute,
+                private authService: AuthService) { }
 
     ngOnInit(): void {
-        this.activatedRoute.data.subscribe(data => {
-        
-            this.horse=data['horse'];    
-          
+        this.updateAccessAllowed = this.authService.updateAccessAllowed;
+        this.activatedRoute.data.subscribe(data => {        
+            this.horse=data['horse'];            
         })   
     }
 

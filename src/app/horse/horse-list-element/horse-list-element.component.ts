@@ -11,6 +11,7 @@ import { Horse } from 'src/app/_models/horse';
 export class HorseListElementComponent implements OnInit {
 
     @Input() horses: Horse[];
+    @Input() updateAccessAllowed: boolean;
 
     @Output() selectedId = new EventEmitter<number>();
 

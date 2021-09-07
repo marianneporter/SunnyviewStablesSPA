@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Horse } from 'src/app/_models/horse';
+import { AuthService } from 'src/app/_services/auth.service';
 import { HorseService } from 'src/app/_services/horse.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { HorseService } from 'src/app/_services/horse.service';
 export class HorseListComponent implements OnInit {
 
     isMobile: boolean = false;
+    updateAccessAllowed = false;
 
     statusMessage : string;
 
@@ -35,6 +37,7 @@ export class HorseListComponent implements OnInit {
                 private router: Router,
                 private deviceService: DeviceDetectorService,
                 private horseService: HorseService,
+                private authService: AuthService,
                 private snackbar: MatSnackBar) { 
  
         this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
@@ -49,6 +52,7 @@ export class HorseListComponent implements OnInit {
       
         this.loadHorses(0, (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize), false);
         
+        this.updateAccessAllowed = this.authService.updateAccessAllowed;
     }
 
     onHorseSelected(id: number) {

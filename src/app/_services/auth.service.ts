@@ -23,9 +23,20 @@ export class AuthService {
 
     private _userName: string = '';
 
+    private _role: string = '';
+
     public get userName() {
         return this._userName;
     }
+
+    public get role() {
+        return this._role;
+    }
+
+    public get updateAccessAllowed() {
+        return this._role == 'Admin' || this._role == 'Manager';
+    }
+
 
     login(userLogin: UserLogin) : Observable<any> {
 
@@ -37,9 +48,14 @@ export class AuthService {
                 if (response) {
                     localStorage.setItem('token', response.token);
                     localStorage.setItem('user', JSON.stringify(response.user)); 
+                    debugger;
                     this._userName= `${response.user.firstName}`;            
                     this.decodedToken = this.jwtHelper.decodeToken(response.token); 
-                    this.loggedIn=true;    
+                    this.loggedIn=true; 
+                    console.log(this.decodedToken);
+                    console.log(this.decodedToken.role);
+                    this._role=(this.decodedToken.role);
+                    debugger;  
                 }         
             })
         )
@@ -47,18 +63,28 @@ export class AuthService {
 
     logout() {
         this.loggedIn=false;
+        this._userName='';
+        this._role='';
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
     
     setLoginStatus() {
         const token = localStorage.getItem('token');
-
-        if (token && !this.jwtHelper.isTokenExpired(token)) {
-            this.loggedIn=true;
-            let userFromStorage = JSON.parse(localStorage.getItem('user'));
-            this._userName = `${userFromStorage.firstName}`;
-        }              
+        
+        if (token) {
+            if (this.jwtHelper.isTokenExpired(token)) {
+                this.loggedIn=false;
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');   
+            } else {
+                this.loggedIn=true;
+                let userFromStorage = JSON.parse(localStorage.getItem('user'));
+                this._userName = `${userFromStorage.firstName}`;
+                this.decodedToken = this.jwtHelper.decodeToken(token);
+                this._role = this.decodedToken.role;
+            }
+        }
     }
-
-
+ 
 }

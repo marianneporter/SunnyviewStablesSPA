@@ -39,8 +39,8 @@
                    [routerLink]="['/horse']" >
                     <mat-icon>arrow_back</mat-icon>Back to list
                 </a>
-                <a mat-raised-button
-                        class="edit-button"
+                <a *ngIf="updateAccessAllowed" mat-raised-button
+                        class="edit-button"                        
                         [routerLink]="['/horse/add-edit', horse.id]" 
                         >Edit</a>
             </div>  
