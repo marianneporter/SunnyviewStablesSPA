@@ -36,12 +36,12 @@
             <div class="button-area">
                 <a mat-raised-button
                    class="back-button"
-                   [routerLink]="['/horse']" >
+                   [routerLink]="['/horse']" queryParamsHandling="merge" >
                     <mat-icon>arrow_back</mat-icon>Back to list
                 </a>
                 <a *ngIf="updateAccessAllowed" mat-raised-button
                         class="edit-button"                        
-                        [routerLink]="['/horse/add-edit', horse.id]" 
+                        [routerLink]="['/horse/add-edit', horse.id]" queryParamsHandling="merge"
                         >Edit</a>
             </div>  
     </div>

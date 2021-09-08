@@ -15,7 +15,9 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button [routerLink]="['/horse', horse.id]" >Details</button>
+          <button mat-raised-button
+                  [routerLink]="['/horse', horse.id]"
+                  queryParamsHandling="merge" >Details</button>
         </mat-card-actions>
       </mat-card>    
 </div>

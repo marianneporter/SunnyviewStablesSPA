@@ -234,12 +234,11 @@ export class HorseAddUpdateComponent implements OnInit {
             .subscribe({
               next: (data: AddReturn) => {
                      this.addReturn= { ...data };          
-                  alert(`Horse Added Successfully ${this.addReturn.name}`);
-                  sessionStorage.setItem('message', `Horse Added Successfully ${this.addReturn.name}`)
-                  this.router.navigate(['/horse']);
+                  sessionStorage.setItem('message', `${this.addReturn.name} has been added`)
+                  this.router.navigate(['/horse'], { queryParamsHandling: 'merge' });
               },
               error: err => {
-                  console.log("error occurred while adding horse");
+                  console.log("error occurred while adding horse"); 
               }
             });
         } else {
@@ -249,8 +248,8 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseService.updateHorse(this.horseFormData)
             .subscribe({
               next: () => {       
-                  sessionStorage.setItem('message', `Horse Updated Successfully ${this.nameFromForm.value}`);
-                  this.router.navigate(['/horse']);
+                  sessionStorage.setItem('message', `${this.nameFromForm.value} has been updated`);
+                  this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
               },
               error: err => {
                   console.log(err);

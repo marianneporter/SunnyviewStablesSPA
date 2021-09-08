@@ -40,7 +40,19 @@ export class HorseListComponent implements OnInit {
                 private authService: AuthService,
                 private snackbar: MatSnackBar) { 
  
-        this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
+        //this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
+        
+        if (this.deviceService.isMobile()) {
+            this.listMode = 'Card'
+        } else {
+            if (this.route.snapshot.queryParams['listMode']) {
+                this.listMode = this.route.snapshot.queryParams['listMode'];
+            } else {
+                this.listMode="List";
+            }
+        }
+
+        this.switchQueryParams();
     }
 
     ngOnInit(): void {
@@ -56,7 +68,7 @@ export class HorseListComponent implements OnInit {
     }
 
     onHorseSelected(id: number) {
-        this.router.navigate(['horse', id]);
+        this.router.navigate(['horse', id], { queryParamsHandling: 'merge' });
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
@@ -64,19 +76,21 @@ export class HorseListComponent implements OnInit {
     }
 
     loadMore() {      
-        this.cardPageIndex++;
+        this.cardPageIndex++; 
         this.loadHorses(this.cardPageIndex, this.cardPageSize, true);      
     }
 
     switchToCard() {
         this.cardPageIndex = 0;
         this.listMode = 'Card';
+        this.switchQueryParams();
         this.loadHorses(this.cardPageIndex, this.cardPageSize, false);
     }
 
     switchToList() {
         this.cardPageIndex = 0;
         this.listMode = 'List';
+        this.switchQueryParams();
         this.loadHorses(0, this.initialListPageSize, false);       
     }
 
@@ -107,5 +121,16 @@ export class HorseListComponent implements OnInit {
 
         sessionStorage.removeItem('message');
        
+    }
+
+    switchQueryParams() {
+
+        const urlTree = this.router.createUrlTree([], {
+            queryParams: { listMode: this.listMode },
+            queryParamsHandling: "merge",
+            preserveFragment: true });
+        
+        this.router.navigateByUrl(urlTree); 
+        
     }
 }

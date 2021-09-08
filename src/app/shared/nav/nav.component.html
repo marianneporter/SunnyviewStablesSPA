@@ -18,7 +18,8 @@
             </li>   
 
             <ng-container >
-                <li class="desktop-link">Horses</li>
+                <li class="desktop-link"
+                    [routerLink]="['/horse']" queryParamsHandling="merge">Horses</li>
                 <li class="desktop-link">About</li>
                 <li class="desktop-link">Contact</li>            
             </ng-container> 
