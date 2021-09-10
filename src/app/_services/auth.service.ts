@@ -23,18 +23,18 @@ export class AuthService {
 
     private _userName: string = '';
 
-    private _role: string = '';
+    private _role: string[] = [];
 
     public get userName() {
         return this._userName;
     }
 
-    public get role() {
-        return this._role;
-    }
+    // public get role() {
+    //     return this._role;
+    // }
 
     public get updateAccessAllowed() {
-        return this._role == 'Admin' || this._role == 'Manager';
+        return this._role.includes('Admin') || this._role.includes( 'Manager');
     }
 
 
@@ -61,12 +61,13 @@ export class AuthService {
     logout() {
         this.loggedIn=false;
         this._userName='';
-        this._role='';
+        this._role= [];
         localStorage.removeItem('token');
         localStorage.removeItem('user');
     }
     
     setLoginStatus() {
+        debugger;
         const token = localStorage.getItem('token');
         
         if (token) {
@@ -79,7 +80,10 @@ export class AuthService {
                 let userFromStorage = JSON.parse(localStorage.getItem('user'));
                 this._userName = `${userFromStorage.firstName}`;
                 this.decodedToken = this.jwtHelper.decodeToken(token);
-                this._role = this.decodedToken.role;
+               
+                this._role = typeof this.decodedToken.role == 'string'
+                             ? this._role = [this.decodedToken.role]
+                             : this._role = this.decodedToken.role;
             }
         }
     }
