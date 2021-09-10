@@ -1,10 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AuthService } from 'src/app/_services/auth.service';
-
 
 export function serverLoginValidator(serverLoginError: boolean) : ValidatorFn {
 
@@ -21,9 +20,8 @@ export function serverLoginValidator(serverLoginError: boolean) : ValidatorFn {
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-
-    @Output() loginSuccess = new EventEmitter<boolean>();
-    @Output() cancelLogin = new EventEmitter<boolean>();
+ 
+    @Output() loginSuccess = new EventEmitter<boolean>(); 
 
     loginForm: FormGroup;
 
@@ -62,8 +60,7 @@ export class LoginFormComponent implements OnInit {
                      this.updateValidators(true);
                 } else {
                     this.openErrorSnackbar();
-
-                    if (!this.deviceService.isMobile)
+                    if (!this.deviceService.isMobile())
                     {
                         this.cancelLoginAttempt();
                     }  
@@ -78,7 +75,6 @@ export class LoginFormComponent implements OnInit {
             this.updateValidators(false);
         }
     }
-
     
     updateValidators(status: boolean) {
         this.email.clearValidators();
@@ -88,15 +84,15 @@ export class LoginFormComponent implements OnInit {
         this.email.updateValueAndValidity();
         this.password.updateValueAndValidity();      
     }
-
     
-    openErrorSnackbar() {
-        this.matSnackBar.open('Login cannot be completed - please try later', 'Close');
+    openErrorSnackbar() {       
+        this.matSnackBar.open('Login cannot be completed - please try later', 'Close', {
+            duration: 5000
+        });
     }
 
     cancelLoginAttempt() {
-        this.cancelLogin.emit(true);
-
+ 
         this.loginForm.reset();
 
         Object.keys(this.loginForm.controls).forEach(key => {
@@ -110,6 +106,5 @@ export class LoginFormComponent implements OnInit {
         this.loginForm.markAsPristine();
         this.loginForm.markAsUntouched();
         this.loginForm.updateValueAndValidity();
-    }    
-
+    }   
 }

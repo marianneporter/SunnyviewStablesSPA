@@ -9,8 +9,9 @@
 
     <h1>Sign in</h1>
  
-    <app-login-form (cancelLogin)="closeSlider()"
-                    (loginSuccess)="completedLogin()"></app-login-form>
+    <app-login-form #form 
+                   (loginSuccess)="completedLogin()">
+    </app-login-form>
     
     
 </div>

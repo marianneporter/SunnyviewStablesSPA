@@ -26,7 +26,6 @@ export class EntryPageComponent implements OnInit {
     }
 
     enterApp() {
-     //   this.authService.loggedIn=true;
         this.router.navigate(['/horse']);
     }
 

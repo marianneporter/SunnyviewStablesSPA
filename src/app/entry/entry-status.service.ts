@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,15 @@ export class EntryStatusService {
 
   constructor() { }
 
-  loginRequested: boolean = false;  
-    
+  loginRequested = new BehaviorSubject<boolean>(false);
+ 
+
   loginRequestEnded() {
-      this.loginRequested=false;
+      this.loginRequested.next(false);
   }
 
   loginRequestStarted() {
-      this.loginRequested=true;
+      this.loginRequested.next(true);
   }
 
 }

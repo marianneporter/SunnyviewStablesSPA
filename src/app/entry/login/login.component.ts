@@ -1,10 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EntryStatusService } from '../entry-status.service';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/_services/auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginFormComponent } from '../login-form/login-form.component';
 
 
 
@@ -26,52 +23,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ]),         
 ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
     @Output() loginSuccess = new EventEmitter<boolean>();
 
-    get loginVisibility(): string {
-        return this.entryPageState.loginRequested ? 'visible' : 'invisible';       
+    @ViewChild(LoginFormComponent) 
+    form: LoginFormComponent;
+
+    loginVisibility = 'invisible';
+
+    constructor(private entryPageState: EntryStatusService) { 
+
+        this.entryPageState.loginRequested.subscribe(
+            (value) => this.loginVisibility = value ? 'visible' : 'invisible' )
     }
 
-    constructor(private entryPageState: EntryStatusService,
-                private fb: FormBuilder,
-                private authService: AuthService,
-                private matSnackBar: MatSnackBar) { }
-
-    ngOnInit(): void {
-   
-    }
-
-    cancelLoginAttempt() {
-        this.closeSlider();
-
-    //     this.loginForm.reset();
-
-    //     Object.keys(this.loginForm.controls).forEach(key => {
-    //         this.loginForm.get(key).setErrors(null);
-    //         this.loginForm.get(key).setValue(null);
-    //         this.loginForm.get(key).markAsPristine();
-    //         this.loginForm.get(key).markAsUntouched();
-    //         this.loginForm.get(key).updateValueAndValidity();           
-    //     });  
-    //    this.loginForm.markAsPristine();
-    //    this.loginForm.markAsUntouched();
-    //    this.loginForm.updateValueAndValidity();
-    }
-    
-    closeSlider() {   
+    cancelLoginAttempt() { 
+        this.form.cancelLoginAttempt();
         this.entryPageState.loginRequestEnded();
     }
 
     completedLogin() {
         this.loginSuccess.emit(true);
     }
-
-
-
-
-
-
-
 }

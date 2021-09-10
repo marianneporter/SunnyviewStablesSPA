@@ -48,12 +48,9 @@ export class AuthService {
                 if (response) {
                     localStorage.setItem('token', response.token);
                     localStorage.setItem('user', JSON.stringify(response.user)); 
-                    debugger;
                     this._userName= `${response.user.firstName}`;            
                     this.decodedToken = this.jwtHelper.decodeToken(response.token); 
                     this.loggedIn=true; 
-                    console.log(this.decodedToken);
-                    console.log(this.decodedToken.role);
                     this._role=(this.decodedToken.role);
                     debugger;  
                 }         
