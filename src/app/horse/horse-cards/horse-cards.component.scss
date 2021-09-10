@@ -7,17 +7,28 @@
     gap: 2rem;   
 }
 
+mat-card {
+  
+    margin-bottom: 2rem;
+    width: 20rem;
 
+    img {
+        display: block;
+        width: 95%;
+        height: auto;
+        margin: 0 auto;
+    }
 
-.mat-card {
-    display: grid;
-    background-color: white;
+  
 
-    margin-top: 2rem;
-    max-width: 20rem;
-
-    img[alt] {
-        padding-left: 1rem;
+    .mat-card-header {        
+        height: 6rem;
+        
+        padding-top: 0.5rem;
+    //     background-color: orange;
+    //    .mat-card-title {
+    //                 background-color: yellow;
+    //    }
     }
 
     .mat-card-actions {
@@ -26,6 +37,8 @@
         button {
             background-color: var(--color-success);
         }
+        padding: 0.75rem;
+        text-align: right;
     }
 }
 

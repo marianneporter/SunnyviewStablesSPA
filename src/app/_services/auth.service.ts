@@ -29,10 +29,6 @@ export class AuthService {
         return this._userName;
     }
 
-    // public get role() {
-    //     return this._role;
-    // }
-
     public get updateAccessAllowed() {
         return this._role.includes('Admin') || this._role.includes( 'Manager');
     }
@@ -67,7 +63,7 @@ export class AuthService {
     }
     
     setLoginStatus() {
-        debugger;
+        
         const token = localStorage.getItem('token');
         
         if (token) {
