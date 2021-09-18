@@ -17,18 +17,11 @@ mat-card {
         width: 95%;
         height: auto;
         margin: 0 auto;
-    }
-
-  
+    } 
 
     .mat-card-header {        
-        height: 6rem;
-        
-        padding-top: 0.5rem;
-    //     background-color: orange;
-    //    .mat-card-title {
-    //                 background-color: yellow;
-    //    }
+        height: 6rem;        
+        padding-top: 0.5rem;    
     }
 
     .mat-card-actions {
@@ -41,26 +34,3 @@ mat-card {
         text-align: right;
     }
 }
-
-// @media screen and (min-width: 767px) {
-//     .horse-cards {
-//         display: grid;
-//         grid-template-columns:  repeat(2, 20rem);
-//         grid-auto-rows: 37.5rem;
-//         justify-content: center;
-//         grid-gap: 2rem;
-//     }
-
-//     .horse-card {
-//         display: grid;
-
-//         .mat-card-actions {
-//             align-self: end;
-//             padding: 0 0.75rem 2rem 0;
-//             text-align: right;
-//         }
-//     }
-
-
-
-// }

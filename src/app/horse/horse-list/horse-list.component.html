@@ -3,12 +3,14 @@
     <header>
         <h1>Horses</h1>
         <div class="search-box">
-            <input placeholder=" search by horse's name"><button><mat-icon>search</mat-icon></button>
+            <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
+                  <button (click)="search()"
+                          [disabled]="!searchParam"><mat-icon>search</mat-icon></button>
         </div>
     </header>
    
     <nav class="horse-nav">
-        <ul>
+        <ul>  
             <li class="non-mobile"><button [disabled]="listMode=='Card'"
                                     (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
             <li class="non-mobile"><button [disabled]="listMode=='List'"

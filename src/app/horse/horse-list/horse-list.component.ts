@@ -1,9 +1,12 @@
 import {  Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { BehaviorSubject } from 'rxjs';
 import { Horse } from 'src/app/_models/horse';
+import { HorseData } from 'src/app/_models/horseData';
 import { AuthService } from 'src/app/_services/auth.service';
 import { HorseService } from 'src/app/_services/horse.service';
 
@@ -19,12 +22,16 @@ export class HorseListComponent implements OnInit {
 
     statusMessage : string;
 
+    horseData: HorseData;
+
     horses: Horse[];
+
+    searchParam="";
 
     listMode = "Card";
 
-    horseCount: number = 0 ;
-
+    horseCount: number = 0;
+  
     initialListPageSize = 2;
     pageSizeOptions = [2, 4, 6];
 
@@ -39,9 +46,7 @@ export class HorseListComponent implements OnInit {
                 private horseService: HorseService,
                 private authService: AuthService,
                 private snackbar: MatSnackBar) { 
- 
-        //this.listMode = this.deviceService.isMobile() ? 'Card' : 'List';
-        
+         
         if (this.deviceService.isMobile()) {
             this.listMode = 'Card'
         } else {
@@ -50,19 +55,20 @@ export class HorseListComponent implements OnInit {
             } else {
                 this.listMode="List";
             }
-        }
+        }       
 
         this.switchQueryParams();
     }
 
     ngOnInit(): void {
+        debugger;
         this.checkForMessage(); 
 
-        this.route.data.subscribe(data => {
-            this.horseCount=data['horseCount'];   
-        });   
-      
-        this.loadHorses(0, (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize), false);
+        this.route.data.subscribe(data=> {
+            this.horseData=data['horseData'];          
+            this.horseCount = this.horseData.searchCount;
+            this.horses=this.horseData.horses;         
+        });    
         
         this.updateAccessAllowed = this.authService.updateAccessAllowed;
     }
@@ -94,17 +100,26 @@ export class HorseListComponent implements OnInit {
         this.loadHorses(0, this.initialListPageSize, false);       
     }
 
-    loadHorses(pageIndex: number, pageSize: number, concatHorses: boolean) {
+    search() {
+        this.loadHorses(0,
+                       (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
+                       false);
+    }
+
+    loadHorses(pageIndex: number,
+               pageSize: number,            
+               concatHorses: boolean) {
      
-        let horsesFromApi: Horse[];
-        this.horseService.getHorses('',
-            'asc',
-            pageIndex,
-            pageSize ).subscribe(
-                (data: Horse[]) => {                    
-                    horsesFromApi = data;
-                    this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                               
-                } );       
+     
+        debugger;
+        this.horseService.getHorses( pageIndex, pageSize, this.searchParam).subscribe(
+            (data: HorseData) => {    
+                debugger;                
+      //          this.countBS.next(data.searchCount);
+                this.horseCount = data.searchCount;
+                let horsesFromApi = data.horses;
+                this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                               
+            } );       
     }
 
     checkForMessage() {
@@ -133,4 +148,5 @@ export class HorseListComponent implements OnInit {
         this.router.navigateByUrl(urlTree); 
         
     }
+
 }

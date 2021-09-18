@@ -26,6 +26,7 @@ export class EntryPageComponent implements OnInit {
     }
 
     enterApp() {
+        debugger;
         this.router.navigate(['/horse']);
     }
 
