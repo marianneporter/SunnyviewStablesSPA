@@ -27,12 +27,14 @@ export class HorseListComponent implements OnInit {
     horses: Horse[];
 
     searchParam="";
+    searchActive: boolean = false;
 
     listMode = "Card";
 
     horseCount: number = 0;
   
     initialListPageSize = 2;
+    currentPageSize = 2;
     pageSizeOptions = [2, 4, 6];
 
     cardPageIndex = 0;
@@ -61,7 +63,7 @@ export class HorseListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger;
+   
         this.checkForMessage(); 
 
         this.route.data.subscribe(data=> {
@@ -78,6 +80,7 @@ export class HorseListComponent implements OnInit {
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
+        this.currentPageSize=pageEvent.pageSize;
         this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false);  
     }
 
@@ -101,24 +104,34 @@ export class HorseListComponent implements OnInit {
     }
 
     search() {
+        alert("in search method");
+        console.log(this.paginator);
+        this.searchActive=true;
         this.loadHorses(0,
                        (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
                        false);
     }
 
+    resetSearch() {
+        this.searchParam = '';
+        this.searchActive = false;
+        this.loadHorses(0,
+            (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
+            false);        
+
+    }
+
     loadHorses(pageIndex: number,
                pageSize: number,            
                concatHorses: boolean) {
-     
-     
-        debugger;
+ 
         this.horseService.getHorses( pageIndex, pageSize, this.searchParam).subscribe(
-            (data: HorseData) => {    
-                debugger;                
-      //          this.countBS.next(data.searchCount);
+            (data: HorseData) => {     
                 this.horseCount = data.searchCount;
+ 
                 let horsesFromApi = data.horses;
-                this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                               
+                this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;
+                                               
             } );       
     }
 
@@ -137,6 +150,8 @@ export class HorseListComponent implements OnInit {
         sessionStorage.removeItem('message');
        
     }
+
+   
 
     switchQueryParams() {
 

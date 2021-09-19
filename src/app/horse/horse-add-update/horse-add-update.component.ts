@@ -264,5 +264,7 @@ export class HorseAddUpdateComponent implements OnInit {
             duration: 5000,
             panelClass: ['photo-error-snackbar']
         });        
-    }    
+    }   
+    
+
 }

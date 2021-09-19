@@ -4,8 +4,18 @@
         <h1>Horses</h1>
         <div class="search-box">
             <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
-                  <button (click)="search()"
-                          [disabled]="!searchParam"><mat-icon>search</mat-icon></button>
+            <div class="search-btns">
+                <button class="reset-search-btn" (click)="resetSearch()" 
+                        [ngClass]="{'search-term-present' : searchActive,
+                                    'no-search-term' : !searchActive } ">
+                    <mat-icon>clear</mat-icon>
+                </button>
+                <button class="search-btn"
+                        [disabled]="!searchParam"
+                        (click)="search()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>            
         </div>
     </header>
    
@@ -22,17 +32,23 @@
         </ul>
     </nav>
 
-    
-    <app-horse-list-element *ngIf="listMode=='List'"
-                             [horses]="horses"                          
-                            (selectedId)="onHorseSelected($event)"></app-horse-list-element>
+    <div *ngIf="horseCount == 0"
+         class="no-horses">No Horses Found beginning with {{searchParam}}</div>
+
+    <ng-container *ngIf="horseCount > 0"> 
+        <app-horse-list-element *ngIf="listMode=='List'"
+                                [horses]="horses"                          
+                                (selectedId)="onHorseSelected($event)"></app-horse-list-element>
 
 
-    <app-horse-cards *ngIf="listMode=='Card'"
-                     [horses]="horses"></app-horse-cards>                        
+        <app-horse-cards *ngIf="listMode=='Card'"
+                         [horses]="horses"></app-horse-cards>  
+    </ng-container>
+                      
  
     <footer>
-        <mat-paginator *ngIf="listMode=='List'"
+        <mat-paginator 
+            *ngIf="listMode=='List' && horseCount > currentPageSize"
             [length]="horseCount"
             [pageSize]="initialListPageSize"
             [pageSizeOptions]="pageSizeOptions"

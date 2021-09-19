@@ -52,8 +52,6 @@ export class HorseService {
 
         return this.http.get<number>(url)
             .pipe(
-                tap((data) => {console.log(data); debugger;}),
-
                 catchError(() => of(0))
             )              
     } 

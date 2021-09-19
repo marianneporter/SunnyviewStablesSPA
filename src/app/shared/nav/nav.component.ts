@@ -28,8 +28,7 @@ export class NavComponent  implements OnInit {
 
     logout() {
         this.authService.logout();
-        debugger;
-
+      
         if (this.deviceService.isMobile()) {
             this.location.go('/mobile-entry');
         } else {
