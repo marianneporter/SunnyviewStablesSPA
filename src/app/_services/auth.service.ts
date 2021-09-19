@@ -48,7 +48,7 @@ export class AuthService {
                     this.decodedToken = this.jwtHelper.decodeToken(response.token); 
                     this.loggedIn=true; 
                     this._role=(this.decodedToken.role);
-                    debugger;  
+                 
                 }         
             })
         )

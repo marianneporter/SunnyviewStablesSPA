@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,13 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './mobile-entry.component.html',
   styleUrls: ['./mobile-entry.component.scss']
 })
-export class MobileEntryComponent implements OnInit {
+export class MobileEntryComponent  {
 
     constructor(private router: Router) { }
 
-    ngOnInit(): void {
-        debugger;
-    }
 
     loginSuccess() {
         this.router.navigate(['/horse']);
