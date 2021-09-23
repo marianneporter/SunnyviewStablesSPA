@@ -5,7 +5,9 @@
             <h2>{{horse.name}}</h2>
 
             <div class="image-area">
-                <img [src]="horse.imageUrl" alt="image of {{horse.name}}">
+                <img [src]="horse.imageUrl"
+                     onerror="this.style.border=0" 
+                     alt="image of {{horse.name}}">
             </div>      
  
             <div class="detail-item">

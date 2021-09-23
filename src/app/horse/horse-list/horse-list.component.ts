@@ -1,13 +1,13 @@
-import {  Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { BehaviorSubject } from 'rxjs';
 import { Horse } from 'src/app/_models/horse';
 import { HorseData } from 'src/app/_models/horseData';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ConstantsService } from 'src/app/_services/constants.service';
 import { HorseService } from 'src/app/_services/horse.service';
 
 @Component({
@@ -33,21 +33,27 @@ export class HorseListComponent implements OnInit {
 
     horseCount: number = 0;
   
-    initialListPageSize = 2;
-    currentPageSize = 2;
-    pageSizeOptions = [2, 4, 6];
-
+    initialListPageSize: number;
+    currentPageSize:number;
+    pageSizeOptions: number[];
     cardPageIndex = 0;
-    cardPageSize = 12;   
+    cardPageSize:number;  
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
   
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private deviceService: DeviceDetectorService,
+                private constants: ConstantsService,
                 private horseService: HorseService,
                 private authService: AuthService,
                 private snackbar: MatSnackBar) { 
+
+        this.initialListPageSize = this.constants.listPageSize;
+        this.currentPageSize     = this.constants.listPageSize;
+        this.pageSizeOptions     = this.constants.listPageSizeOptions;
+        this.cardPageSize        = this.constants.cardPageSize;
+
          
         if (this.deviceService.isMobile()) {
             this.listMode = 'Card'
@@ -104,8 +110,6 @@ export class HorseListComponent implements OnInit {
     }
 
     search() {
-        alert("in search method");
-        console.log(this.paginator);
         this.searchActive=true;
         this.loadHorses(0,
                        (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
@@ -117,8 +121,12 @@ export class HorseListComponent implements OnInit {
         this.searchActive = false;
         this.loadHorses(0,
             (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
-            false);        
+            false);  
+    }
 
+    returnToList() {
+        this.searchParam='';
+        this.loadHorses(0, this.currentPageSize, false);
     }
 
     loadHorses(pageIndex: number,
@@ -127,8 +135,7 @@ export class HorseListComponent implements OnInit {
  
         this.horseService.getHorses( pageIndex, pageSize, this.searchParam).subscribe(
             (data: HorseData) => {     
-                this.horseCount = data.searchCount;
- 
+                this.horseCount = data.searchCount; 
                 let horsesFromApi = data.horses;
                 this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;
                                                

@@ -2,6 +2,7 @@
 
 .horse-detail {
     max-width: 45rem;
+    min-width: 35rem;
     background-color: white;
     padding: 0.5rem;    
      
@@ -81,16 +82,16 @@
             width: 15rem;
         }
     } 
-
+    
     .image-area {
         margin-top: 2rem;
 
         img {
             max-width: 50%;
-            height: auto;  
-
+            height: auto; 
             border: .1rem ridge var(--color-primary);
             border-radius: 1rem;
         }     
-    }  
+    }
+    
 }

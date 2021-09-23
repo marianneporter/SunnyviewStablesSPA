@@ -1,65 +1,71 @@
 <app-nav></app-nav>
-<main class="container">
-    <header>
-        <h1>Horses</h1>
-        <div class="search-box">
-            <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
-            <div class="search-btns">
-                <button class="reset-search-btn" (click)="resetSearch()" 
-                        [ngClass]="{'search-term-present' : searchActive,
-                                    'no-search-term' : !searchActive } ">
-                    <mat-icon>clear</mat-icon>
-                </button>
-                <button class="search-btn"
-                        [disabled]="!searchParam"
-                        (click)="search()">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </div>            
+<div class="container">
+    <main>
+        <header>
+            <h1>Horses</h1>
+            <div class="search-box">
+                <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
+                <div class="search-btns">
+                    <button class="reset-search-btn" (click)="resetSearch()" 
+                            [ngClass]="{'search-term-present' : searchActive,
+                                        'no-search-term' : !searchActive } ">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                    <button class="search-btn"
+                            [disabled]="!searchParam"
+                            (click)="search()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>            
+            </div>
+        </header>
+       
+        <nav class="horse-nav">
+            <ul>  
+                <li class="non-mobile"><button [disabled]="listMode=='Card'"
+                                        (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
+                <li class="non-mobile"><button [disabled]="listMode=='List'"
+                                        (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
+                <li *ngIf="updateAccessAllowed">
+                    <a [routerLink]="['/horse/add-edit/0']" queryParamsHandling="merge">
+                        <mat-icon>add</mat-icon><span> New Horse</span>
+                    </a></li>
+            </ul>
+        </nav>
+    
+        <div *ngIf="horseCount == 0"  class="no-horses">            
+             <p>No Horses Found beginning with {{searchParam}}</p>
+             <button mat-raised-button 
+                     color="accent"
+                     (click)="returnToList()">See All Horses</button>
         </div>
-    </header>
-   
-    <nav class="horse-nav">
-        <ul>  
-            <li class="non-mobile"><button [disabled]="listMode=='Card'"
-                                    (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
-            <li class="non-mobile"><button [disabled]="listMode=='List'"
-                                    (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
-            <li *ngIf="updateAccessAllowed">
-                <a [routerLink]="['/horse/add-edit/0']" queryParamsHandling="merge">
-                    <mat-icon>add</mat-icon><span> New Horse</span>
-                </a></li>
-        </ul>
-    </nav>
-
-    <div *ngIf="horseCount == 0"
-         class="no-horses">No Horses Found beginning with {{searchParam}}</div>
-
-    <ng-container *ngIf="horseCount > 0"> 
-        <app-horse-list-element *ngIf="listMode=='List'"
-                                [horses]="horses"                          
-                                (selectedId)="onHorseSelected($event)"></app-horse-list-element>
-
-
-        <app-horse-cards *ngIf="listMode=='Card'"
-                         [horses]="horses"></app-horse-cards>  
-    </ng-container>
-                      
+    
+        <div *ngIf="horseCount > 0"> 
+            <app-horse-list-element *ngIf="listMode=='List'"
+                                    [horses]="horses"                          
+                                    (selectedId)="onHorseSelected($event)"></app-horse-list-element>
+    
+    
+            <app-horse-cards *ngIf="listMode=='Card'"
+                             [horses]="horses"></app-horse-cards>  
+        </div>
+                          
+     
+        <footer>
+            <mat-paginator 
+                *ngIf="listMode=='List' && horseCount > currentPageSize"
+                [length]="horseCount"
+                [pageSize]="initialListPageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)=pageChangeEvent($event) #paginator></mat-paginator>   
  
-    <footer>
-        <mat-paginator 
-            *ngIf="listMode=='List' && horseCount > currentPageSize"
-            [length]="horseCount"
-            [pageSize]="initialListPageSize"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)=pageChangeEvent($event) #paginator></mat-paginator>   
+            <button *ngIf="listMode=='Card'
+                          && horses
+                          && horseCount > horses.length"
+                     mat-raised-button color="primary"
+                     (click)="loadMore()">Load more</button>
+        </footer>     
         
-        <button *ngIf="listMode=='Card'
-                      && horses
-                      && horses.length < horseCount"
-                 mat-raised-button color="primary"
-                 (click)="loadMore()">Load more</button>
-    </footer>
- 
+    </main>
 
-</main>
+</div>

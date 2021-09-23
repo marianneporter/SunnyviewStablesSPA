@@ -8,6 +8,7 @@ import { Horse } from '../_models/horse';
 import { HorseData } from '../_models/horseData';
 import { HorseDataFromAPI } from '../_models/horseDataFromAPI';
 import { HorseDto } from '../_models/horseDTO';
+import { ConstantsService } from './constants.service';
 import { UtilityService } from './utility.service';
 
 @Injectable({
@@ -16,35 +17,35 @@ import { UtilityService } from './utility.service';
 export class HorseService {
 
     constructor(private http: HttpClient,
-                private utility: UtilityService) { }
+                private utility: UtilityService,
+                private constants: ConstantsService) { }
  
     getHorses( pageIndex =0,
-               pageSize=2,
+               pageSize=this.constants.listPageSize,
                searchParam=""): Observable<HorseData> {
 
-            let params = new HttpParams();
-            params = params.append("pageIndex", pageIndex.toString());
-            params = params.append("pageSize", pageSize.toString()); 
+        let params = new HttpParams();
+        params = params.append("pageIndex", pageIndex.toString());
+        params = params.append("pageSize", pageSize.toString()); 
+    
+        if (searchParam) {
+            params = params.append("search", searchParam); 
+        }                 
         
-            if (searchParam) {
-                params = params.append("search", searchParam); 
-            }   
-              
-            
-            const url = environment.baseUrl + 'horses';
+        const url = environment.baseUrl + 'horses';
 
-            return this.http.get<HorseDataFromAPI>(url,{ params: params })
-                .pipe(
-                    map(data => {
-                   
-                        let horseData: HorseData = {
-                            
-                            searchCount: data.count,
-                            horses: data.horses.map(h => this.utility.mapHorseDtoToHorse(h))
-                        }
-                        return horseData;
-                    })
-            )
+        return this.http.get<HorseDataFromAPI>(url,{ params: params })
+            .pipe(
+                map(data => {
+                    console.log(data);
+                    let horseData: HorseData = {
+                    
+                        searchCount: data.count,
+                        horses: data.horses.map(h => this.utility.mapHorseDtoToHorse(h))
+                    }
+                    return horseData;
+                })
+        )
     }   
 
     getHorseCount() {

@@ -10,11 +10,16 @@ export class UtilityService {
     constructor() { }
 
     mapHorseDtoToHorse(horseDto: HorseDto):Horse {
-        let owners =  horseDto.owners[0].firstName + ' ' + horseDto.owners[0].lastName;     
 
-        for (let i=1; i<horseDto.owners.length; i++) {
-            owners += (i == horseDto.owners.length -1) ? ' and ' : ', ';
-            owners += horseDto.owners[i].firstName + ' ' +  horseDto.owners[i].lastName;
+        let owners='';
+ 
+        if (horseDto.owners.length != 0 ) {
+            owners =  horseDto.owners[0].firstName + ' ' + horseDto.owners[0].lastName;     
+
+            for (let i=1; i<horseDto.owners.length; i++) {
+                owners += (i == horseDto.owners.length -1) ? ' and ' : ', ';
+                owners += horseDto.owners[i].firstName + ' ' +  horseDto.owners[i].lastName;
+            }
         }
  
         return {
