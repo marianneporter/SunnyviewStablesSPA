@@ -192,12 +192,9 @@ export class HorseAddUpdateComponent implements OnInit {
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
                 if (result) {
-                    alert("owner added!");
                     this.addedOwner = {...result};
-                    console.log(this.addedOwner);
                     this.ownersSelect.unshift({id: this.addedOwner.id.toString(),
                                                name: `${this.addedOwner.firstName} ${this.addedOwner.lastName}`});
-                    alert('no owner added');
                 }
             }
         )

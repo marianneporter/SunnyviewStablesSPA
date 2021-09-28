@@ -1,51 +1,56 @@
 <app-nav></app-nav>
 <div class="whole-page">
-    <div class="horse-detail">
-      
-            <h2>{{horse.name}}</h2>
+    <div class="horse-detail">      
 
-            <div class="image-area">
-                <img [src]="horse.imageUrl"
-                     onerror="this.style.border=0" 
-                     alt="image of {{horse.name}}">
-            </div>      
+        <h2 class="name">{{horse.name}}</h2>
+
+        <div class="image-area">
+            <img [src]="horse.imageUrl" class="img"
+                    onerror="this.style.border=0" 
+                    alt="no image of {{horse.name}} available yet">
+        </div>   
  
-            <div class="detail-item">
+        <div class="info-area">
+            <div class="info-item">
                 <div class="label">Height:</div>
-                <div class="value">{{horse.heightHands}}</div>
+                <div class="value">{{horse.heightHands}}</div>        
             </div>
-
-            <div class="detail-item">
+ 
+            <div class="info-item">
                 <div class="label">Sex:</div>
                 <div class="value">{{horse.sex}}</div>
-            </div>        
-       
-            <div class="detail-item">
+            </div>
+
+            <div class="info-item">
                 <div class="label">Colour:</div>
                 <div class="value">{{horse.colour}}</div>
             </div>
 
-            <div class="detail-item">
+            <div class="info-item">
                 <div class="label">Date of Birth:</div>
                 <div class="value">{{horse.dob | date: 'd MMM y'}}</div>
             </div>
-       
-            <div class="detail-item">
-                <div class="label">Owners:</div>
-                <div class="value">{{horse.displayOwners}}</div>           
+    
+            <div class="owners-item">
+                <div class="owners-label">Owners:</div>
+                <div class="owners-value">{{horse.displayOwners}}</div>     
             </div>
+
+        </div>
  
-            <div class="button-area">
-                <a mat-raised-button
-                   class="back-button"
-                   [routerLink]="['/horse']" queryParamsHandling="merge" >
-                    <mat-icon>arrow_back</mat-icon>Back to list
-                </a>
-                <a *ngIf="updateAccessAllowed" mat-raised-button
-                        class="edit-button"                        
-                        [routerLink]="['/horse/add-edit', horse.id]" queryParamsHandling="merge"
-                        >Edit</a>
-            </div>  
+        <a mat-raised-button
+            class="back-button"
+            [routerLink]="['/horse']" queryParamsHandling="merge" >
+            <mat-icon>arrow_back</mat-icon>Back to list
+        </a>
+        
+        <a mat-raised-button
+           *ngIf="updateAccessAllowed" 
+            class="edit-button"                        
+            [routerLink]="['/horse/add-edit', horse.id]" queryParamsHandling="merge"
+            >Edit
+        </a>
+
     </div>
 </div>
 

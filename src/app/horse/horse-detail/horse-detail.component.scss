@@ -1,46 +1,74 @@
 @import "../../../scss/mixins";
 
-.horse-detail {
-    max-width: 45rem;
-    min-width: 35rem;
+@mixin grid-names {
+    .name { grid-area: name}
+    .image-area { grid-area: photo }
+    .info-area {grid-area: info}
+    .back-button { grid-area: back}
+    .edit-button { grid-area: edit}
+}
+
+.horse-detail { 
+    @include grid-names();   
+    display: grid;
     background-color: white;
-    padding: 0.5rem;    
+    padding: 1rem; 
+    border-radius: 0.5rem;
      
-    display: grid;    
-    grid-template-columns: 1fr;
-    grid-template-rows : repeat(8, min-content);  
-    background-color: white;
-   
+    grid-template-areas: "name name name name"
+                         "photo photo photo photo"
+                         "info info info info"                
+                         "back back back back"
+                         "edit edit edit edit";                    
+     
+    h2 {
+        margin-bottom: 0.5rem;
+    }
+
     .image-area {
         img {
             max-width: 100%;
-            height: auto;           
+            height: auto;   
+            border-radius: 0.5rem;        
         }     
-    } 
+    }  
 
-    .button-area {
-        display: flex;
-        justify-content: space-between;
-
-        button, a {
-            margin-top: 1.5rem;    
-            color: white;  
-            width: 40%;
-        }
-        
-        .back-button {
-            background-color: var(--color-secondary);
+    .info-area {
+        .info-item{
+             padding: 0.5rem;
+            .label, .value {
+                display: inline-block;
+            }
+            .label {
+                width: 6rem;
+            }
         }
 
-        .edit-button {
-            background-color: var(--color-success);
+        .owners-item {
+            padding: 0.5rem;
+            .owners-label, .owners-value {  
+                display: inline-block;
+            }
+
+            .owners-label {
+                width: 6rem;
+            } 
         }
     }
 
-    .detail-item {
-        display: grid;
-        grid-template-columns:  4fr 8fr;
-        padding: 0.5rem 1rem;
+    
+    .mat-raised-button {
+        color: white;
+        margin-top: 0.5rem;
+        padding: 0.3rem 0;
+    }
+            
+    .back-button {
+        background-color: var(--color-secondary);
+    }
+
+    .edit-button {
+        background-color: var(--color-success);
     }
 }
 
@@ -48,50 +76,75 @@
     @media  (min-height: 400px) {
         .whole-page {
             @include grazing-horse-background;
-            height: var(--main-area-height);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+                     height: var(--main-area-height);
+                     display: flex;
+                     justify-content: center;
+                     align-items: center;
         }        
     }
 
     .horse-detail {
-        grid-template-columns: 4fr 8fr;
-        grid-template-rows: repeat(7, min-content);   
-        padding: 3.5rem;       
-    }
+        width: 40rem;
+        height:auto;
+  
+        grid-template-areas: "name . . . .  "
+                             ". photo photo photo . "
+                             "info info info info info"                                               
+                             "back back . edit edit";
 
-    h2 {
-        margin: 0;
-    }
+        gap: 0;
+        row-gap: 1rem;
+        padding: 2rem 0 2rem 2.5rem;
+     
 
-    .detail-item {
-        grid-template-columns: 3fr 9fr;
-    }
-
-    .detail-item {
-        grid-column: span 2;
-    }
-
-    .button-area {
-        grid-column: span 2;
-        display: flex;
-        justify-content: flex-end;
-
-        button {
-            width: 15rem;
+        h2 {
+            padding-left: 2rem;
         }
-    } 
-    
-    .image-area {
-        margin-top: 2rem;
 
-        img {
-            max-width: 50%;
-            height: auto; 
-            border: .1rem ridge var(--color-primary);
-            border-radius: 1rem;
-        }     
+        .image-area {
+            img {
+                max-width: 20rem;
+                height: auto;
+                margin-left: 5rem;     
+            }     
+        }  
+ 
+        .info-area {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            margin: 1.5rem 0 1rem 4rem;   
+
+            .info-item:nth-child(odd) {
+                .label {
+                    width: 4rem;
+                }               
+            }
+
+            .info-item:nth-child(even) {
+                .label {
+                    width: 6rem;
+                }
+            }
+
+            .owners-item {
+                grid-column: span 2;
+                .owners-label {
+                    width: 4rem;
+                }
+            }
+        }
+
+        .back-button, .edit-button {
+            width: 10rem;
+            padding: 0.1rem;
+        }
+
+        .back-button {
+            margin-left: 2.5rem;          
+        }
+
+        .edit-button {
+            margin-right: 5rem;
+        }        
     }
-    
 }

@@ -16,15 +16,19 @@
 }
 
 .wrapper {
-    height: var(--main-area-height);    
+    height: var(--main-area-height);        
     width: 100%; 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;  
-    align-items: center; 
+    align-items: center;   
+    padding-top: 0.5rem; 
 }   
 
 .horse-form {
+
+    border-radius: 0.5rem;
+
     .form-fields {  
         @include grid-names();      
         display: grid;

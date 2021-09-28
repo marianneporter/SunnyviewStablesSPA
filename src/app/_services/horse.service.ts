@@ -37,7 +37,6 @@ export class HorseService {
         return this.http.get<HorseDataFromAPI>(url,{ params: params })
             .pipe(
                 map(data => {
-                    console.log(data);
                     let horseData: HorseData = {
                     
                         searchCount: data.count,
@@ -76,9 +75,5 @@ export class HorseService {
     updateHorse(horseFormData: FormData) : Observable<any> {   
         const url = environment.baseUrl + 'horses';     
         return this.http.patch<any>(url, horseFormData);
-    }   
-
-  
-  
-
+    }  
 }
