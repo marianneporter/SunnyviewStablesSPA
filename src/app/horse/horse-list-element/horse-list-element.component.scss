@@ -1,6 +1,8 @@
 .grid { 
     display: grid;     
     grid-template-columns: 5rem repeat(6, minmax(max-content, 10rem)); 
+    grid-template-rows: 3rem;
+    grid-auto-rows: 5.5rem;
     justify-content: center;
     margin-top: 1.5rem;
 }
@@ -14,14 +16,13 @@
 }
 
 .col {  
-
     max-width: 10rem;
     padding: 0.5rem; 
     border-bottom: 0.05rem solid #b8b8b8;
 }
 
 .image-col {
-    padding: 0;
+    padding: 0.85rem 0;
     img {
         max-width: 100%;
         height: auto;       
