@@ -8,10 +8,11 @@
 }
 
 mat-card {
-  
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 2rem;
     width: 20rem;
-
+  
     img {
         display: block;
         width: 95%;
@@ -26,11 +27,11 @@ mat-card {
 
     .mat-card-actions {
         align-self: end;
-        justify-self: right;
+        margin-left: 12.5rem;
         button {
             background-color: var(--color-success);
         }
         padding: 0.75rem;
-        text-align: right;
+  
     }
 }

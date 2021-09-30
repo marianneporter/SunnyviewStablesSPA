@@ -184,16 +184,17 @@ export class HorseAddUpdateComponent implements OnInit {
 
     openAddOwnerDialog() {
         const dialogConfig = new MatDialogConfig();
-
-        dialogConfig.autoFocus = true;  
-        
-        this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);
+        dialogConfig.autoFocus = true;          
+        this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);     
+     
         
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
                 if (result) {
                     this.addedOwner = {...result};
-                    this.ownersSelect.unshift({id: this.addedOwner.id.toString(),
+                    this.addNewOwnerToForm();
+                  
+                    this.ownersSelect.push({id: this.addedOwner.id.toString(),
                                                name: `${this.addedOwner.firstName} ${this.addedOwner.lastName}`});
                 }
             }
@@ -254,6 +255,11 @@ export class HorseAddUpdateComponent implements OnInit {
               }
             });            
         }
+    }
+
+    addNewOwnerToForm() {
+        let currOwners = this.horseForm.controls['owners'].value;
+        currOwners.push(this.addedOwner.id.toString());
     }
 
     displayErrorSnackbar(message: string) {

@@ -87,7 +87,7 @@
         width: 40rem;
         height:auto;
   
-        grid-template-areas: "name . . . .  "
+        grid-template-areas: "name name name . .  "
                              ". photo photo photo . "
                              "info info info info info"                                               
                              "back back . edit edit";

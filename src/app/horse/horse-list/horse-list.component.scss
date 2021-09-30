@@ -37,9 +37,10 @@ h1 {
     margin-left: 0.5rem;
 }
 
-.horse-nav ul{
+.horse-nav{
     display: flex;
     list-style-type: none;
+    margin-top: 0.5rem;
 
     li {
         button, a {
@@ -83,7 +84,7 @@ h1 {
 footer {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    margin: 0.5rem 0 2rem 0;
 }
 
 .search-term-present {

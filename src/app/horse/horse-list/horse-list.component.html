@@ -18,20 +18,18 @@
                     </button>
                 </div>            
             </div>
-        </header>
-       
-        <nav class="horse-nav">
-            <ul>  
-                <li class="non-mobile"><button [disabled]="listMode=='Card'"
-                                        (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
-                <li class="non-mobile"><button [disabled]="listMode=='List'"
-                                        (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
-                <li *ngIf="updateAccessAllowed">
-                    <a [routerLink]="['/horse/add-edit/0']" queryParamsHandling="merge">
-                        <mat-icon>add</mat-icon><span> New Horse</span>
-                    </a></li>
-            </ul>
-        </nav>
+        </header>       
+   
+        <ul class="horse-nav">  
+            <li class="non-mobile"><button [disabled]="listMode=='Card'"
+                                    (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
+            <li class="non-mobile"><button [disabled]="listMode=='List'"
+                                    (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
+            <li *ngIf="updateAccessAllowed">
+                <a [routerLink]="['/horse/add-edit/0']" queryParamsHandling="merge">
+                    <mat-icon>add</mat-icon><span> New Horse</span>
+                </a></li>
+        </ul>      
     
         <div *ngIf="horseCount == 0"  class="no-horses">            
              <p>No Horses Found beginning with {{searchParam}}</p>

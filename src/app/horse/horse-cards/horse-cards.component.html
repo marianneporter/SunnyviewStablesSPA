@@ -2,18 +2,13 @@
     <mat-card *ngFor="let horse of horses"
               class="horse-card">
         <mat-card-header>
-          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+       
           <mat-card-title>{{horse.name}}</mat-card-title>
           <mat-card-subtitle>Owned by: {{horse.displayOwners}}</mat-card-subtitle>
         </mat-card-header>
+        
         <img mat-card-image [src]="horse.imageUrl" alt="Photo of {{horse.name}}">
-        <!-- <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-        </mat-card-content> -->
+    
         <mat-card-actions>
           <button mat-raised-button
                   [routerLink]="['/horse', horse.id]"
