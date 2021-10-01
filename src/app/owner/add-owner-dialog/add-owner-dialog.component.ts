@@ -34,7 +34,7 @@ export class AddOwnerDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.ownerForm = this.fb.group({
-            email :  ['', [Validators.required]],
+            email :  ['', [Validators.required, Validators.email]],
             firstName  : ['', [Validators.required]],
             lastName  : ['', [Validators.required]]                   
         })

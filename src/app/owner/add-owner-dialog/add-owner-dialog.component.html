@@ -1,14 +1,14 @@
 <div class="dialog-container">
     <h2 mat-dialog-title>Add Owner</h2>
     <form novalidate
-          [formGroup]="ownerForm">
+          [formGroup]="ownerForm" >
         <mat-dialog-content>
       
             <mat-form-field>
                 <input matInput
                         placeholder="Email"
                        formControlName="email">
-                 <mat-error *ngIf="emailFromForm.invalid">Please enter email</mat-error>
+                 <mat-error *ngIf="emailFromForm.invalid">Please enter a valid email</mat-error>
             </mat-form-field>
           
             <mat-form-field>
@@ -29,11 +29,13 @@
         
         <mat-dialog-actions class="dialog-actions">
             <a class="mat-raised-button" (click)="close()">Close</a>
-            <button class="mat-raised-button mat-primary" type="button" (click)="addOwner()">Add Owner</button>
+            <button class="mat-raised-button mat-primary"
+                    type="button"
+                    [disabled]="ownerForm.invalid"
+                    (click)="addOwner()">Add Owner</button>
         </mat-dialog-actions>
     
     </form>
-     
-    
+
     
 </div>
