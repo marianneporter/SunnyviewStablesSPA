@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Resolve} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Horse } from '../_models/horse';
 import { HorseData } from '../_models/horseData';
 import { HorseService } from '../_services/horse.service';
 
@@ -13,7 +12,17 @@ export class HorseListResolver implements Resolve<HorseData> {
    
     constructor(private horseService : HorseService ) {}
 
-    resolve(): Observable<HorseData> {
-        return this.horseService.getHorses();
+    resolve(route: ActivatedRouteSnapshot): Observable<HorseData> {
+        debugger;
+        if (route.queryParamMap.get('pageSize')) {
+            const pageSize= +route.queryParamMap.get('pageSize')
+            debugger;
+            return this.horseService.getHorses(0, pageSize);
+        } else {
+            debugger;
+            return this.horseService.getHorses();
+        }
+
+       
     }     
 }

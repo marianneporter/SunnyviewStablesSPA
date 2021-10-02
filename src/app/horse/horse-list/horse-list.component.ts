@@ -82,7 +82,11 @@ export class HorseListComponent implements OnInit {
     }
 
     onHorseSelected(id: number) {
-        this.router.navigate(['horse', id], { queryParamsHandling: 'merge' });
+  //      this.router.navigate(['horse', id], { queryParamsHandling: 'merge' });
+        this.router.navigate( ['horse', id],
+                              { queryParams: { pageSize: this.listMode=='List'
+                                               ? this.currentPageSize : this.cardPageSize},
+                                queryParamsHandling: 'merge' });
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
@@ -90,14 +94,14 @@ export class HorseListComponent implements OnInit {
         this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false);  
     }
 
-    loadMore() {      
+    loadMore() {    
         this.cardPageIndex++; 
         this.loadHorses(this.cardPageIndex, this.cardPageSize, true);      
     }
 
     switchToCard() {
         this.cardPageIndex = 0;
-        this.listMode = 'Card';
+        this.listMode = 'Card';        
         this.switchQueryParams();
         this.loadHorses(this.cardPageIndex, this.cardPageSize, false);
     }
@@ -132,14 +136,15 @@ export class HorseListComponent implements OnInit {
     loadHorses(pageIndex: number,
                pageSize: number,            
                concatHorses: boolean) {
- 
+   
         this.horseService.getHorses( pageIndex, pageSize, this.searchParam).subscribe(
             (data: HorseData) => {     
                 this.horseCount = data.searchCount; 
                 let horsesFromApi = data.horses;
                 this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;
-                                               
-            } );       
+                              
+            } ); 
+     
     }
 
     checkForMessage() {
@@ -158,12 +163,11 @@ export class HorseListComponent implements OnInit {
        
     }
 
-   
-
     switchQueryParams() {
 
         const urlTree = this.router.createUrlTree([], {
-            queryParams: { listMode: this.listMode },
+            queryParams: { listMode: this.listMode,
+                           pageSize: this.listMode=="List" ? this.currentPageSize : this.cardPageSize },
             queryParamsHandling: "merge",
             preserveFragment: true });
         

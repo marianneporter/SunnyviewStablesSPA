@@ -250,7 +250,6 @@ export class HorseAddUpdateComponent implements OnInit {
                   this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
               },
               error: err => {
-                  console.log(err);
                   console.log("error occurred while updating horse");
               }
             });            
@@ -260,6 +259,7 @@ export class HorseAddUpdateComponent implements OnInit {
     addNewOwnerToForm() {
         let currOwners = this.horseForm.controls['owners'].value;
         currOwners.push(this.addedOwner.id.toString());
+        this.horseForm.patchValue( {owners: currOwners} );
     }
 
     displayErrorSnackbar(message: string) {

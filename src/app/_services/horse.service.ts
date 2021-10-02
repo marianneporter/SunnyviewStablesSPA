@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -18,12 +19,14 @@ export class HorseService {
 
     constructor(private http: HttpClient,
                 private utility: UtilityService,
+                private deviceService: DeviceDetectorService,
                 private constants: ConstantsService) { }
  
     getHorses( pageIndex =0,
-               pageSize=this.constants.listPageSize,
+               pageSize= this.deviceService.isMobile() ? 
+                         this.constants.cardPageSize : this.constants.listPageSize,
                searchParam=""): Observable<HorseData> {
-
+ 
         let params = new HttpParams();
         params = params.append("pageIndex", pageIndex.toString());
         params = params.append("pageSize", pageSize.toString()); 
@@ -31,7 +34,7 @@ export class HorseService {
         if (searchParam) {
             params = params.append("search", searchParam); 
         }                 
-        
+        debugger;
         const url = environment.baseUrl + 'horses';
 
         return this.http.get<HorseDataFromAPI>(url,{ params: params })
@@ -42,6 +45,7 @@ export class HorseService {
                         searchCount: data.count,
                         horses: data.horses.map(h => this.utility.mapHorseDtoToHorse(h))
                     }
+
                     return horseData;
                 })
         )

@@ -58,7 +58,6 @@ export class AddOwnerDialogComponent implements OnInit {
     }
 
     close() {
-        console.log('closing');
         this.dialogRef.close();
     }
 
