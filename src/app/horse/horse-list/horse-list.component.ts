@@ -156,7 +156,7 @@ export class HorseListComponent implements OnInit {
         };
 
         this.snackbar.open(this.statusMessage, 'dismiss', {
-            duration: 5000
+            duration: 6000
         });
 
         sessionStorage.removeItem('message');

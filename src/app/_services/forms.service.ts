@@ -26,7 +26,8 @@ export class FormsService {
         { id: 'Skewbald', name: 'Skewbald'},
         { id: 'Piebald', name: 'Piebald'},
         { id: 'Roan', name: 'Roan'},  
-        { id: 'Spotted', name: 'Spotted'}           
+        { id: 'Spotted', name: 'Spotted'},
+        { id: 'Palomino', name: 'Palomino'}           
     ]
  
     horseHeights = [

@@ -34,7 +34,7 @@ export class HorseService {
         if (searchParam) {
             params = params.append("search", searchParam); 
         }                 
-        debugger;
+
         const url = environment.baseUrl + 'horses';
 
         return this.http.get<HorseDataFromAPI>(url,{ params: params })

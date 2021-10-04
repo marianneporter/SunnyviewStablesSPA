@@ -8,6 +8,7 @@ import { AddReturn } from 'src/app/_models/addReturn';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
 import { Horse } from 'src/app/_models/horse';
 import { Owner } from 'src/app/_models/owner';
+import { UpdateReturn } from 'src/app/_models/updateReturn';
 import { DatesService } from 'src/app/_services/dates.service';
 import { FormsService } from 'src/app/_services/forms.service';
 import { HorseService } from 'src/app/_services/horse.service';
@@ -30,44 +31,20 @@ export class HorseAddUpdateComponent implements OnInit {
     addMode = true;
 
     addReturn: AddReturn;
+    updateReturn: UpdateReturn;
 
     // getters for select lists
-    get heights():SelectItem[] {
-        return this.formsService.horseHeights;
-    }
-
-    get colours():SelectItem[] {
-        return this.formsService.colours;
-    }
-
-    get sexes():SelectItem[] {
-        return this.formsService.sexes;
-    }
+    get heights():SelectItem[] { return this.formsService.horseHeights; }
+    get colours():SelectItem[] { return this.formsService.colours; }
+    get sexes():SelectItem[]   { return this.formsService.sexes; }
 
     //getters for form elements
-    get nameFromForm() {
-        return this.horseForm.get('name');
-    }
-
-    get dobFromForm() {
-        return this.horseForm.get('dob');
-    } 
-
-    get sexFromForm() {
-        return this.horseForm.get('sex');
-    }
-
-    get colourFromForm() {
-        return this.horseForm.get('colour');
-    }
-
-    get heightFromForm() {
-        return this.horseForm.get('height');
-    }
-    
-    get ownersFromForm() {
-        return this.horseForm.get('owners');
-    }
+    get nameFromForm()   { return this.horseForm.get('name'); }
+    get dobFromForm()    { return this.horseForm.get('dob'); } 
+    get sexFromForm()    { return this.horseForm.get('sex'); }
+    get colourFromForm() { return this.horseForm.get('colour'); }
+    get heightFromForm() { return this.horseForm.get('height'); }    
+    get ownersFromForm() { return this.horseForm.get('owners'); }
 
     uploadedPhoto : File = null;
     fileName ='';
@@ -75,8 +52,12 @@ export class HorseAddUpdateComponent implements OnInit {
 
     photoErrorInvalidFile = 'The file you attempted to upload was not a valid photo file';
     photoErrorNotLandscape = 'Photo must be in landscape format';
-    formNotChangedError = "Please edit horse, add/change photo file or cancel";
-    formInvalidError = "Form is not valid please correct errors and try again";
+    formNotChangedError = 'Please edit horse, add/change photo file or cancel';
+    formInvalidError = 'Form is not valid please correct errors and try again';
+    successStatus = (horseName, op) => { return `${horseName} has been ${op} successfully`};
+    successStatusWithPhotoError = (horseName, op) => {return `${horseName} has been ${op} successfully.  Photo uploaded was invalid`};
+    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};
+    
 
     previewPhoto: any;
 
@@ -115,8 +96,6 @@ export class HorseAddUpdateComponent implements OnInit {
             this.populateOwnerSelect();
             this.initialiseForm();          
         });
-       
-
     }
 
     initialiseForm() {
@@ -127,7 +106,7 @@ export class HorseAddUpdateComponent implements OnInit {
             sex  :  [ this.addMode ? '' : this.horse.sex, [Validators.required]],
             colour: [ this.addMode ? '' : this.horse.colour, [Validators.required]],
             height: [ this.addMode ? ''  : this.horse.heightHands, [Validators.required]],
-            owners: [ this.addMode ? '' : this.horse.owners.map(o => o.id.toString()), [Validators.required]]                       
+            owners: [ this.addMode ? [] : this.horse.owners.map(o => o.id.toString()), [Validators.required]]                       
         })
     }
 
@@ -191,6 +170,7 @@ export class HorseAddUpdateComponent implements OnInit {
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
                 if (result) {
+               
                     this.addedOwner = {...result};
                     this.addNewOwnerToForm();
                   
@@ -225,17 +205,24 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseFormData.append('ownerIds', ownerId )
         });
 
-        this.horseFormData.append('imageFile', this.uploadedPhoto);
-
+        if (this.uploadedPhoto) {
+            this.horseFormData.append('imageFile', this.uploadedPhoto);
+        }
+        
         if (this.addMode) {
             this.horseService.addHorse(this.horseFormData)
             .subscribe({
               next: (data: AddReturn) => {
-                     this.addReturn= { ...data };          
-                  sessionStorage.setItem('message', `${this.addReturn.name} has been added`)
+                  this.addReturn= { ...data };                   
+
+                  let message = this.createStatusMessage(this.nameFromForm.value,
+                                                         this.horseForm.touched,
+                                                         this.addReturn.photoUploaded);
+
+                  sessionStorage.setItem('message', message);                 
                   this.router.navigate(['/horse'], { queryParamsHandling: 'merge' });
               },
-              error: err => {
+              error: err => {              
                   console.log("error occurred while adding horse"); 
               }
             });
@@ -245,21 +232,47 @@ export class HorseAddUpdateComponent implements OnInit {
 
             this.horseService.updateHorse(this.horseFormData)
             .subscribe({
-              next: () => {       
-                  sessionStorage.setItem('message', `${this.nameFromForm.value} has been updated`);
-                  this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
+                next: (data) => {   
+                    this.updateReturn = { ...data };                    
+
+                    let message = this.createStatusMessage(this.nameFromForm.value,
+                                                           this.horseForm.touched,
+                                                           this.updateReturn.photoUploaded);
+
+                    sessionStorage.setItem('message', message);
+                    this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
               },
-              error: err => {
-                  console.log("error occurred while updating horse");
+                error: err => {
+                    console.log("error occurred while updating horse");
               }
             });            
         }
     }
 
     addNewOwnerToForm() {
+        
         let currOwners = this.horseForm.controls['owners'].value;
+   
         currOwners.push(this.addedOwner.id.toString());
+  
         this.horseForm.patchValue( {owners: currOwners} );
+  
+    }
+
+    createStatusMessage(horseName:string, dataUpdated: boolean, photoUploadSuccess: boolean):string {
+    
+        const photoUploadError = this.uploadedPhoto && !photoUploadSuccess;
+        const operation = this.addMode ? 'added' : 'updated';
+      
+        if (dataUpdated && photoUploadError) {
+            return this.successStatusWithPhotoError(horseName, operation);
+        }
+        
+        if (!dataUpdated && photoUploadError) {
+            return this.photoErrorOnServer(horseName);
+        }
+
+        return this.successStatus(horseName, operation);
     }
 
     displayErrorSnackbar(message: string) {
@@ -268,6 +281,4 @@ export class HorseAddUpdateComponent implements OnInit {
             panelClass: ['photo-error-snackbar']
         });        
     }   
-    
-
 }
