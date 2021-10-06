@@ -12,7 +12,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
 
 const entryRoutes: Routes = [
-    { path: 'entry', component: EntryPageComponent},
+    { path: 'entry', component: EntryPageComponent,
+                     canActivate: [TestForMobileGuard]},
     { path: 'mobile-entry', component: MobileEntryComponent },       
     { path: '', component: EntryPageComponent,
                 canActivate: [TestForMobileGuard] } 
