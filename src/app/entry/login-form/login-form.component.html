@@ -25,7 +25,7 @@
                 (focus)="userInput()">
         <mat-hint>Enter password</mat-hint>
         <mat-error *ngIf="password.hasError('required')">Please enter your password</mat-error>
-        <mat-error *ngIf="password.hasError('serverLoginError')">There is a problem with either the email or password</mat-error>
+        <mat-error *ngIf="password.hasError('serverLoginError')">Cannot find this email / password combination</mat-error>
     </mat-form-field>   
     </div>
     <div class="form-element">
