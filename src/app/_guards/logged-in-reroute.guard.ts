@@ -5,20 +5,20 @@ import { AuthService } from "../_services/auth.service";
 @Injectable({
        providedIn: 'root'
 })
-export class UpdateGuard implements CanActivate {
+export class LoggedInRerouteGuard implements CanActivate {
 
     constructor(private authService: AuthService,
                 private router: Router ) {}
 
-    updateAllowed: boolean = this.authService.updateAllowed;    
-
+    loggedIn: boolean = this.authService.loggedIn;
+   
     canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): boolean {
 
-        if (!this.updateAllowed) {
-            this.router.navigate(['/entry']);
+        if (this.loggedIn) {
+            this.router.navigate(['/horse']);
         }
 
-        return this.updateAllowed;
+        return true; 
 
     }  
 }

@@ -10,11 +10,13 @@ import { TestForMobileGuard } from '../_guards/test-for-mobile.guard';
 import { MobileEntryComponent } from './mobile-entry/mobile-entry.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { LoggedInRerouteGuard } from '../_guards/logged-in-reroute.guard';
 
 const entryRoutes: Routes = [
     { path: 'entry', component: EntryPageComponent,
                      canActivate: [TestForMobileGuard]},
-    { path: 'mobile-entry', component: MobileEntryComponent },       
+    { path: 'mobile-entry', component: MobileEntryComponent,
+                            canActivate: [LoggedInRerouteGuard] },       
     { path: '', component: EntryPageComponent,
                 canActivate: [TestForMobileGuard] } 
 ]

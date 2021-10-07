@@ -17,6 +17,7 @@ export class TestForMobileGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): boolean {
+        
         if (this.deviceService.isMobile()) {
             if (this.loggedIn) {
                 this.router.navigate(['/horse']);
