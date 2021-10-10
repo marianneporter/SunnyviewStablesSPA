@@ -91,8 +91,9 @@ export class AuthService {
                           ? this._role = [this.decodedToken.role]
                           : this._role = this.decodedToken.role;
 
-        this._updateAllowed = this._role.includes('Manager' || 'Admin' );
-   
+        this._updateAllowed =    this._role.includes('Manager')
+                              || this._role.includes('Admin');
+     
     }
  
 }

@@ -4,6 +4,8 @@
 
 export const environment = {
     production: false,
-    baseUrl: "https://localhost:44360/api/"  
+    baseUrl: "https://localhost:44398/api/",
+    jwtAllowedDomains: 'localhost:44398',
+    jwtDisallowedRoutes: 'https://localhost:44360/api/auth/login'  
 };
 

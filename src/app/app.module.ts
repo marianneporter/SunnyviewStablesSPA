@@ -10,6 +10,8 @@ import { HorseModule } from './horse/horse.module';
 import { SharedModule } from './shared/shared.module';
 import { AddOwnerDialogComponent } from './owner/add-owner-dialog/add-owner-dialog.component';
 import { OwnerModule } from './owner/owner.module';
+import { environment } from 'src/environments/environment';
+
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -32,8 +34,8 @@ export const appRoutes: Routes = [
     JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ['localhost:44360'],
-          disallowedRoutes: ['https://localhost:44360/api/auth/login'],
+          allowedDomains: [environment.jwtAllowedDomains],
+          disallowedRoutes: [environment.jwtDisallowedRoutes]
         },
     }),
     EntryModule,
