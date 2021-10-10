@@ -1,4 +1,3 @@
-import { Horse } from "./horse";
 import { HorseDto } from "./horseDTO";
 
 export interface HorseDataFromAPI {

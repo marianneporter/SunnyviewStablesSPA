@@ -78,11 +78,11 @@ export class HorseListComponent implements OnInit {
             this.horses=this.horseData.horses;         
         });    
         
-        this.updateAccessAllowed = this.authService.updateAccessAllowed;
+        this.updateAccessAllowed = this.authService.updateAllowed;
     }
 
     onHorseSelected(id: number) {
-  //      this.router.navigate(['horse', id], { queryParamsHandling: 'merge' });
+        
         this.router.navigate( ['horse', id],
                               { queryParams: { pageSize: this.listMode=='List'
                                                ? this.currentPageSize : this.cardPageSize},

@@ -7,8 +7,6 @@ import { LoginResponse } from '../_models/auth/loginResponse';
 import { UserLogin } from '../_models/auth/userLogin';
 import { Observable } from 'rxjs';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -37,11 +35,7 @@ export class AuthService {
         return this._userName;
     }
 
-    public get updateAccessAllowed() {
-        return this._role.includes('Admin') || this._role.includes( 'Manager');
-    }
-
-
+  
     login(userLogin: UserLogin) : Observable<any> {
 
         const url = environment.baseUrl + "auth/login";

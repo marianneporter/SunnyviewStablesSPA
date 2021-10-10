@@ -18,10 +18,9 @@ export class HorseDetailComponent implements OnInit {
                 private authService: AuthService) { }
 
     ngOnInit(): void {
-        this.updateAccessAllowed = this.authService.updateAccessAllowed;
+        this.updateAccessAllowed = this.authService.updateAllowed;
         this.activatedRoute.data.subscribe(data => {        
             this.horse=data['horse'];            
         })   
     }
-
 }

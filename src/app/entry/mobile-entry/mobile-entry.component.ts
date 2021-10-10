@@ -10,7 +10,6 @@ export class MobileEntryComponent  {
 
     constructor(private router: Router) { }
 
-
     loginSuccess() {
         this.router.navigate(['/horse']);
     }

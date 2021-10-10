@@ -1,4 +1,3 @@
-import { Owner } from "./owner";
 import { OwnerDto } from "./ownerDTO";
 
 export interface HorseDto {

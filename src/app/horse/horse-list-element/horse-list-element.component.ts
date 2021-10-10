@@ -23,7 +23,4 @@ export class HorseListElementComponent implements OnInit {
     horseSelected(id: number) {
         this.selectedId.emit(id);
     }
-
-
-
 }

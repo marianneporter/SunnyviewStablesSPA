@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import { forkJoin, Observable } from "rxjs";
-import { Horse } from "../_models/horse";
 import { HorseService } from "../_services/horse.service";
 import { OwnersService } from "../_services/owners.service";
 

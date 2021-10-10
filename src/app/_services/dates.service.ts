@@ -27,8 +27,6 @@ export class DatesService {
                         this.todaysDate.getMonth(),
                         this.todaysDate.getDate());
      
-    }
-
-    
+    }    
 
 }

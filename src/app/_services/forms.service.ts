@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class FormsService {
 
-
-
     sexes = [
         { id: 'Gelding', name: 'Gelding'},
         { id: 'Mare', name: 'Mare'},

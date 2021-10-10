@@ -8,8 +8,6 @@ export class ErrorService {
 
     constructor(private router: Router) { }
 
-
-
     noHorsesError() {
         let errorMessage =  "noHorses";
         this.routeToErrorPage(errorMessage);

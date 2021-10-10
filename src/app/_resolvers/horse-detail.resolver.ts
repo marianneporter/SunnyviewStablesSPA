@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import { Observable } from "rxjs";
 import { Horse } from "../_models/horse";
-import { Owner } from "../_models/owner";
 import { HorseService } from "../_services/horse.service";
-import { OwnersService } from "../_services/owners.service";
 
 @Injectable({
     providedIn: 'root'
