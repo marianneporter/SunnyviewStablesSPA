@@ -22,9 +22,10 @@
     }
 }
 
-.entry-text {
+.photo-area {
     display: flex; 
     justify-content: space-between;  
+    padding-left: 1rem;
 }
 
 .main-heading {
@@ -45,8 +46,8 @@
 }
 
 .login-btn, .enter-app-btn { 
-    padding: 0 2rem;  
-    margin-top: 1rem; 
+    padding: 0  2rem;  
+    margin-top: 1.5rem; 
     margin-right: 1rem;   
 }
 
