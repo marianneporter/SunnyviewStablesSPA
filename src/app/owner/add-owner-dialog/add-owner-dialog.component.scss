@@ -1,26 +1,44 @@
-.dialog-container {
-    height: 40rem;
-    width: 25rem;
-}
-
 .mat-form-field {
     display: block;  
-    margin-top: 0.5rem; 
+    margin-top: 0.5rem;  
+    width: 90%; 
+    margin: 0 auto;
 }
 
 .mat-dialog-actions {
-    display: flex;
-    justify-content: center;
-    column-gap: 2rem;
+    .mat-raised-button {
+        display: block;
+        height: 2rem;
+        width: 95%;
+        text-align: center;    
+    }
 
-    a {
+    a {      
         background-color: var(--color-secondary);
         color: white;
     }
 
-    button {
+    button {       
         background-color: var(--color-success);
     }
+}
 
+@media screen and (min-width: 768px) {
+
+    // .dialog-container {
+    //     max-height: 40rem;
+    //     max-width: 25rem;  
+    // }
+
+    .mat-dialog-actions {
+        display: flex;
+        justify-content: center;
+        column-gap: 2rem;
+
+        .mat-raised-button {
+            height: 2rem;
+            width: 8rem;
+        }
+    }
 }
 

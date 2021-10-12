@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
 import { AddReturn } from 'src/app/_models/addReturn';
 import { SelectItem } from 'src/app/_models/forms/selectItem';
@@ -79,7 +80,8 @@ export class HorseAddUpdateComponent implements OnInit {
                  private formsService: FormsService,
                  private horseService: HorseService,
                  private datesService: DatesService,
-                 private router: Router) { }
+                 private router: Router,
+                 private deviceService: DeviceDetectorService) { }
 
     ngOnInit(): void {
 
@@ -163,7 +165,19 @@ export class HorseAddUpdateComponent implements OnInit {
 
     openAddOwnerDialog() {
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = true;          
+        dialogConfig.autoFocus = true;   
+    
+        if (this.deviceService.isMobile()) {
+            dialogConfig.maxWidth = '100vw';
+            dialogConfig.maxHeight = '100vh';
+            dialogConfig.height = '100%';
+            dialogConfig.width = '100%';
+            dialogConfig.panelClass = 'full-screen-width';        
+        } else {
+            dialogConfig.width = '25rem';
+            dialogConfig.height = '30rem';
+        }
+
         this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);     
      
         
