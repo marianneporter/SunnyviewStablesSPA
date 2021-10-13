@@ -8,27 +8,24 @@
 .mat-dialog-actions {
     .mat-raised-button {
         display: block;
-        height: 2rem;
+        height: 2.25rem;
         width: 95%;
-        text-align: center;    
+        text-align: center;          
     }
 
-    a {      
+    a {    
+        margin: 0 auto;
         background-color: var(--color-secondary);
         color: white;
     }
 
-    button {       
+    button {   
+        margin: 0.75rem auto 0 auto;   
         background-color: var(--color-success);
     }
 }
 
 @media screen and (min-width: 768px) {
-
-    // .dialog-container {
-    //     max-height: 40rem;
-    //     max-width: 25rem;  
-    // }
 
     .mat-dialog-actions {
         display: flex;

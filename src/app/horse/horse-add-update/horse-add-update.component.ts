@@ -171,16 +171,14 @@ export class HorseAddUpdateComponent implements OnInit {
             dialogConfig.maxWidth = '100vw';
             dialogConfig.maxHeight = '100vh';
             dialogConfig.height = '100%';
-            dialogConfig.width = '100%';
-            dialogConfig.panelClass = 'full-screen-width';        
+            dialogConfig.minWidth = '100%';
         } else {
             dialogConfig.width = '25rem';
             dialogConfig.height = '30rem';
         }
 
         this.addOwnerDialogRef = this.addOwnerDialog.open(AddOwnerDialogComponent, dialogConfig);     
-     
-        
+         
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
                 if (result) {
