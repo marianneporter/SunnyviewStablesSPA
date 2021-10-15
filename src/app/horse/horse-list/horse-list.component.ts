@@ -26,8 +26,7 @@ export class HorseListComponent implements OnInit {
 
     horses: Horse[];
 
-    searchParam="";
-    searchActive: boolean = false;
+    searchParam=null;
 
     listMode = "Card";
 
@@ -65,7 +64,7 @@ export class HorseListComponent implements OnInit {
             }
         }       
 
-        this.switchQueryParams();
+        this.switchListModeParams();
     }
 
     ngOnInit(): void {
@@ -76,9 +75,14 @@ export class HorseListComponent implements OnInit {
             this.horseData=data['horseData'];          
             this.horseCount = this.horseData.searchCount;
             this.horses=this.horseData.horses;         
-        });    
+        });  
+        
+        if (this.route.snapshot.queryParams['search']) {
+            this.searchParam = this.route.snapshot.queryParams['search'];
+        }
         
         this.updateAccessAllowed = this.authService.updateAllowed;
+
     }
 
     onHorseSelected(id: number) {
@@ -102,34 +106,34 @@ export class HorseListComponent implements OnInit {
     switchToCard() {
         this.cardPageIndex = 0;
         this.listMode = 'Card';        
-        this.switchQueryParams();
+        this.switchListModeParams();
         this.loadHorses(this.cardPageIndex, this.cardPageSize, false);
     }
 
     switchToList() {
         this.cardPageIndex = 0;
         this.listMode = 'List';
-        this.switchQueryParams();
+        this.switchListModeParams();
         this.loadHorses(0, this.initialListPageSize, false);       
     }
 
     search() {
-        this.searchActive=true;
+        this.switchSearchParams();
         this.loadHorses(0,
                        (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
                        false);
     }
 
     resetSearch() {
-        this.searchParam = '';
-        this.searchActive = false;
+        this.searchParam = null;
+        this.switchSearchParams();
         this.loadHorses(0,
             (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
             false);  
     }
 
     returnToList() {
-        this.searchParam='';
+        this.searchParam=null;
         this.loadHorses(0, this.currentPageSize, false);
     }
 
@@ -163,7 +167,7 @@ export class HorseListComponent implements OnInit {
        
     }
 
-    switchQueryParams() {
+    switchListModeParams() {
 
         const urlTree = this.router.createUrlTree([], {
             queryParams: { listMode: this.listMode,
@@ -173,6 +177,16 @@ export class HorseListComponent implements OnInit {
         
         this.router.navigateByUrl(urlTree); 
         
+    }
+
+    switchSearchParams() {
+
+        const urlTree = this.router.createUrlTree([], {
+            queryParams: { search: this.searchParam },
+            queryParamsHandling: "merge",
+            preserveFragment: true });
+        
+        this.router.navigateByUrl(urlTree);         
     }
 
 }

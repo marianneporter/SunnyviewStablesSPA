@@ -22,22 +22,24 @@ export class HorseService {
                 private deviceService: DeviceDetectorService,
                 private constants: ConstantsService) { }
  
-    getHorses( pageIndex =0,
-               pageSize= this.deviceService.isMobile() ? 
-                         this.constants.cardPageSize : this.constants.listPageSize,
-               searchParam=""): Observable<HorseData> {
- 
-        let params = new HttpParams();
-        params = params.append("pageIndex", pageIndex.toString());
-        params = params.append("pageSize", pageSize.toString()); 
-    
-        if (searchParam) {
-            params = params.append("search", searchParam); 
-        }                 
-
+    getHorses( pageIndex: number =0,
+               pageSize:number = this.deviceService.isMobile() ? 
+                                 this.constants.cardPageSize : this.constants.listPageSize,
+               searchParam:string =""): Observable<HorseData> {
+      
         const url = environment.baseUrl + 'horses';
 
-        return this.http.get<HorseDataFromAPI>(url,{ params: params })
+        let params = new HttpParams();
+     
+        params = params.append("pageIndex", pageIndex.toString());  
+        params = params.append("pageSize", pageSize.toString()); 
+        
+        if (searchParam) {
+            console.log('search is ' + searchParam);
+            params = params.append("search", searchParam); 
+        }               
+
+        return this.http.get<HorseDataFromAPI>(url, { params: params })
             .pipe(
                 map(data => {
                     let horseData: HorseData = {

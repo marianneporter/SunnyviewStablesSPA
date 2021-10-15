@@ -7,8 +7,8 @@
                 <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
                 <div class="search-btns">
                     <button class="reset-search-btn" (click)="resetSearch()" 
-                            [ngClass]="{'search-term-present' : searchActive,
-                                        'no-search-term' : !searchActive } ">
+                            [ngClass]="{'search-term-present' : searchParam,
+                                        'no-search-term' : !searchParam } ">
                         <mat-icon>clear</mat-icon>
                     </button>
                     <button class="search-btn"
