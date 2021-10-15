@@ -181,6 +181,7 @@ export class HorseAddUpdateComponent implements OnInit {
          
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
+                console.log(result);
                 if (result) {
                
                     this.addedOwner = {...result};
@@ -290,7 +291,7 @@ export class HorseAddUpdateComponent implements OnInit {
     displayErrorSnackbar(message: string) {
         this.snackbar.open(message, 'dismiss', {
             duration: 5000,
-            panelClass: ['photo-error-snackbar']
+            panelClass: ['error-snackbar']
         });        
     }   
 }
