@@ -35,7 +35,6 @@ export class HorseService {
         params = params.append("pageSize", pageSize.toString()); 
         
         if (searchParam) {
-            console.log('search is ' + searchParam);
             params = params.append("search", searchParam); 
         }               
 

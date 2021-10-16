@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -181,9 +182,7 @@ export class HorseAddUpdateComponent implements OnInit {
          
         this.addOwnerDialogRef.afterClosed().subscribe(
             (result) => {
-                console.log(result);
-                if (result) {
-               
+                if (result) {               
                     this.addedOwner = {...result};
                     this.addNewOwnerToForm();
                   
