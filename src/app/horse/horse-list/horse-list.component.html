@@ -4,11 +4,13 @@
         <header>
             <h1>Horses</h1>
             <div class="search-box">
-                <input placeholder=" search by horse's name" [(ngModel)]="searchParam">
+                <input placeholder=" search by horse's name"
+                        [(ngModel)]="searchParam"
+                        (keyup)="checkSearchKey($event)">
                 <div class="search-btns">
                     <button class="reset-search-btn" (click)="resetSearch()" 
-                            [ngClass]="{'search-term-present' : searchParam,
-                                        'no-search-term' : !searchParam } ">
+                            [ngClass]="{'search-term-present' : showResetSearch,
+                                        'no-search-term' : !showResetSearch } ">
                         <mat-icon>clear</mat-icon>
                     </button>
                     <button class="search-btn"

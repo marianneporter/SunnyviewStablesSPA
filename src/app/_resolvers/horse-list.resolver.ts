@@ -14,10 +14,11 @@ export class HorseListResolver implements Resolve<HorseData> {
 
     resolve(route: ActivatedRouteSnapshot): Observable<HorseData> {
 
-        const pageSize = route.queryParamMap.get('pageSize') ? +route.queryParamMap.get('pageSize') : undefined;
-        const search   = route.queryParamMap.get('search')   ? route.queryParamMap.get('search') : undefined;
+        const pageSize  = route.queryParamMap.get('pageSize') ? +route.queryParamMap.get('pageSize') : undefined;
+        const pageIndex = route.queryParamMap.get('pageIndex') ? +route.queryParamMap.get('pageIndex') : 0;
+        const search    = route.queryParamMap.get('search')   ? route.queryParamMap.get('search') : undefined;
     
-        return this.horseService.getHorses(0, pageSize, search);
+        return this.horseService.getHorses(pageIndex, pageSize, search);
        
     }     
 }
