@@ -15,19 +15,10 @@
     .submit-area { grid-area: submit}
 }
 
-.wrapper {
-    height: var(--main-area-height);        
-    width: 100%; 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;  
-    align-items: center;   
-    padding-top: 0.5rem; 
-}   
-
 .horse-form {
 
     border-radius: 0.5rem;
+    padding: 1rem;
 
     .form-fields {  
         @include grid-names();      
@@ -97,6 +88,17 @@
 
 
 @media screen and (min-width: 768px) { 
+    
+    .wrapper {
+        height: var(--main-area-height);        
+        width: 100%; 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;  
+        align-items: center;   
+        padding-top: 0.5rem; 
+    }   
+
     .add-update-page {
         @include grazing-horse-background;
     }  
@@ -104,6 +106,7 @@
     .horse-form {
         background-color: white;
         width: 40rem;
+        padding: 0;
 
         .form-fields {
             display: grid;  

@@ -58,8 +58,7 @@ export class HorseAddUpdateComponent implements OnInit {
     formInvalidError = 'Form is not valid please correct errors and try again';
     successStatus = (horseName, op) => { return `${horseName} has been ${op} successfully`};
     successStatusWithPhotoError = (horseName, op) => {return `${horseName} has been ${op} successfully.  Photo uploaded was invalid`};
-    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};
-    
+    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};    
 
     previewPhoto: any;
 
@@ -70,9 +69,7 @@ export class HorseAddUpdateComponent implements OnInit {
     minDob: Date = this.datesService.subtractYearsFromToday(40);
     maxDob: Date = this.datesService.todaysDate;
 
-    addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;
-
-    
+    addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;    
 
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
@@ -122,7 +119,7 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     onPhotoAdded(event) {
-         this.fileName = event.target.files[0].name;
+        this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
@@ -192,6 +189,16 @@ export class HorseAddUpdateComponent implements OnInit {
             }
         )
     }
+    
+    addNewOwnerToForm() {
+        
+        let currOwners = this.horseForm.controls['owners'].value;
+   
+        currOwners.push(this.addedOwner.id.toString());
+  
+        this.horseForm.patchValue( {owners: currOwners} );
+  
+    }
 
     submitForm() {      
         
@@ -259,16 +266,6 @@ export class HorseAddUpdateComponent implements OnInit {
               }
             });            
         }
-    }
-
-    addNewOwnerToForm() {
-        
-        let currOwners = this.horseForm.controls['owners'].value;
-   
-        currOwners.push(this.addedOwner.id.toString());
-  
-        this.horseForm.patchValue( {owners: currOwners} );
-  
     }
 
     createStatusMessage(horseName:string, dataUpdated: boolean, photoUploadSuccess: boolean):string {
