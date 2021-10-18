@@ -169,10 +169,8 @@ export class HorseListComponent implements OnInit {
             (data: HorseData) => {     
                 this.horseCount = data.searchCount; 
                 let horsesFromApi = data.horses;
-                this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;
-                              
-            } ); 
-     
+                this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                              
+            } );      
     }
 
     checkForMessage() {

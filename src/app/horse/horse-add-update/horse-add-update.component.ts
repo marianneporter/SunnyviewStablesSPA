@@ -31,6 +31,7 @@ export class HorseAddUpdateComponent implements OnInit {
     horse: Horse;
 
     addMode = true;
+    listMode = false;
 
     addReturn: AddReturn;
     updateReturn: UpdateReturn;
@@ -92,6 +93,8 @@ export class HorseAddUpdateComponent implements OnInit {
             } else {
                 this.owners = data['addUpdateData'];
             }
+
+            this.listMode = this.route.queryParams['listMode'] == 'list';
 
             this.populateOwnerSelect();
             this.initialiseForm();          
@@ -210,8 +213,7 @@ export class HorseAddUpdateComponent implements OnInit {
         if (this.horseForm.untouched && !this.uploadedPhoto) {
             this.displayErrorSnackbar(this.formNotChangedError)
             return;
-        }           
-          
+        }             
 
         this.horseFormData = new FormData();
         this.horseFormData.append('name', this.nameFromForm.value);
@@ -232,14 +234,10 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseService.addHorse(this.horseFormData)
             .subscribe({
               next: (data: AddReturn) => {
-                  this.addReturn= { ...data };                   
+                  this.addReturn= { ...data };  
+                  this.addUpdateMessageAndRouting(this.addReturn.id,
+                                                  this.addReturn.photoUploaded);                 
 
-                  let message = this.createStatusMessage(this.nameFromForm.value,
-                                                         this.horseForm.touched,
-                                                         this.addReturn.photoUploaded);
-
-                  sessionStorage.setItem('message', message);                 
-                  this.router.navigate(['/horse'], { queryParamsHandling: 'merge' });
               },
               error: err => {              
                   console.log("error occurred while adding horse"); 
@@ -252,20 +250,32 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseService.updateHorse(this.horseFormData)
             .subscribe({
                 next: (data) => {   
-                    this.updateReturn = { ...data };                    
-
-                    let message = this.createStatusMessage(this.nameFromForm.value,
-                                                           this.horseForm.touched,
-                                                           this.updateReturn.photoUploaded);
-
-                    sessionStorage.setItem('message', message);
-                    this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
+                    this.updateReturn = { ...data };  
+                    
+                    this.addUpdateMessageAndRouting( this.nameFromForm.value,
+                                                     this.updateReturn.photoUploaded);
               },
                 error: err => {
                     console.log("error occurred while updating horse");
               }
             });            
         }
+    }
+
+    addUpdateMessageAndRouting( id: number,
+                                photoUploaded: boolean) {
+
+        let message = this.createStatusMessage(this.nameFromForm.value,
+                      this.horseForm.touched,
+                      photoUploaded);  
+                      
+        sessionStorage.setItem('message', message);   
+
+        if (this.listMode) {
+            this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
+        } else {
+            this.router.navigate(['/horse', this.horse.id], { queryParamsHandling: 'merge' } );
+        }          
     }
 
     createStatusMessage(horseName:string, dataUpdated: boolean, photoUploadSuccess: boolean):string {
