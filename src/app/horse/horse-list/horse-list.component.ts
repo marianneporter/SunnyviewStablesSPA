@@ -88,8 +88,6 @@ export class HorseListComponent implements OnInit {
     }
 
     onHorseSelected(id: number) {
-        console.log('in onHorseSelected - paginator');
-        console.log(this.paginator);
         this.router.navigate( ['horse', id],
                               { queryParams: { pageSize: this.listMode=='List'
                                                ? this.currentPageSize : this.cardPageSize},

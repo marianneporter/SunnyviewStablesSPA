@@ -1,8 +1,6 @@
-
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AddOwnerDialogComponent } from 'src/app/owner/add-owner-dialog/add-owner-dialog.component';
@@ -14,6 +12,7 @@ import { UpdateReturn } from 'src/app/_models/updateReturn';
 import { DatesService } from 'src/app/_services/dates.service';
 import { FormsService } from 'src/app/_services/forms.service';
 import { HorseService } from 'src/app/_services/horse.service';
+import { MessageService } from 'src/app/_services/message.service';
 
 @Component({
   selector: 'app-horse-add-update',
@@ -74,7 +73,7 @@ export class HorseAddUpdateComponent implements OnInit {
 
     constructor( private route: ActivatedRoute,
                  private addOwnerDialog: MatDialog,
-                 private snackbar: MatSnackBar,
+                 private messageService: MessageService,
                  private fb: FormBuilder,
                  private formsService: FormsService,
                  private horseService: HorseService,
@@ -127,7 +126,7 @@ export class HorseAddUpdateComponent implements OnInit {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
                 this.invalidPhoto=true;
-                this.displayErrorSnackbar(this.photoErrorInvalidFile);
+                this.messageService.displayErrorSnackbar(this.photoErrorInvalidFile);
                 return;
             }
 
@@ -147,7 +146,7 @@ export class HorseAddUpdateComponent implements OnInit {
                     const width = img.naturalWidth;
                     if (height > width) {
                         this.invalidPhoto=true;
-                        this.displayErrorSnackbar(this.photoErrorNotLandscape);
+                        this.messageService.displayErrorSnackbar(this.photoErrorNotLandscape);
                         return;
                     }
                     this.previewPhoto = reader.result; 
@@ -206,12 +205,12 @@ export class HorseAddUpdateComponent implements OnInit {
     submitForm() {      
         
         if ( this.horseForm.invalid ) {
-            this.displayErrorSnackbar(this.formInvalidError)
+            this.messageService.displayErrorSnackbar(this.formInvalidError)
             return;
         }
 
         if (this.horseForm.untouched && !this.uploadedPhoto) {
-            this.displayErrorSnackbar(this.formNotChangedError)
+            this.messageService.displayErrorSnackbar(this.formNotChangedError)
             return;
         }             
 
@@ -234,6 +233,7 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseService.addHorse(this.horseFormData)
             .subscribe({
               next: (data: AddReturn) => {
+ 
                   this.addReturn= { ...data };  
                   this.addUpdateMessageAndRouting(this.addReturn.id,
                                                   this.addReturn.photoUploaded);                 
@@ -250,9 +250,8 @@ export class HorseAddUpdateComponent implements OnInit {
             this.horseService.updateHorse(this.horseFormData)
             .subscribe({
                 next: (data) => {   
-                    this.updateReturn = { ...data };  
-                    
-                    this.addUpdateMessageAndRouting( this.nameFromForm.value,
+                    this.updateReturn = { ...data };                      
+                    this.addUpdateMessageAndRouting( this.horse.id,
                                                      this.updateReturn.photoUploaded);
               },
                 error: err => {
@@ -264,17 +263,17 @@ export class HorseAddUpdateComponent implements OnInit {
 
     addUpdateMessageAndRouting( id: number,
                                 photoUploaded: boolean) {
-
+     
         let message = this.createStatusMessage(this.nameFromForm.value,
                       this.horseForm.touched,
                       photoUploaded);  
                       
-        sessionStorage.setItem('message', message);   
+             this.messageService.storeStatusMessage('message', message); 
 
         if (this.listMode) {
             this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
         } else {
-            this.router.navigate(['/horse', this.horse.id], { queryParamsHandling: 'merge' } );
+            this.router.navigate(['/horse', id], { queryParamsHandling: 'merge' } );
         }          
     }
 
@@ -293,11 +292,4 @@ export class HorseAddUpdateComponent implements OnInit {
 
         return this.successStatus(horseName, operation);
     }
-
-    displayErrorSnackbar(message: string) {
-        this.snackbar.open(message, 'dismiss', {
-            duration: 5000,
-            panelClass: ['error-snackbar']
-        });        
-    }   
 }
