@@ -17,10 +17,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: 0 auto;
 }
 
-:root {
-    --medium: 96-px;
-}
-
 .error-snackbar {
     background-color: var(--color-warn);
     color: white;
