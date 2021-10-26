@@ -95,31 +95,31 @@ export class HorseListComponent implements OnInit {
     }
 
     pageChangeEvent(pageEvent: PageEvent) {
-        console.log('in page change event - pageevent');
-        console.log(pageEvent);
-
         this.pageIndexToQS(pageEvent.pageIndex);
         this.currentPageSize=pageEvent.pageSize;
-        this.loadHorses(pageEvent.pageIndex, pageEvent.pageSize, false);  
+        this.loadHorses(pageEvent.pageIndex,
+                        pageEvent.pageSize,
+                        false,
+                        this.searchParam);  
     }
 
     loadMore() {    
         this.cardPageIndex++; 
-        this.loadHorses(this.cardPageIndex, this.cardPageSize, true);      
+        this.loadHorses(this.cardPageIndex, this.cardPageSize, true, this.searchParam);      
     }
 
     switchToCard() {
         this.cardPageIndex = 0;
         this.listMode = 'Card';        
         this.switchListModeParams();
-        this.loadHorses(this.cardPageIndex, this.cardPageSize, false);
+        this.loadHorses(this.cardPageIndex, this.cardPageSize, false, this.searchParam);
     }
 
     switchToList() {
         this.cardPageIndex = 0;
         this.listMode = 'List';
         this.switchListModeParams();
-        this.loadHorses(0, this.initialListPageSize, false);       
+        this.loadHorses(0, this.initialListPageSize, false, this.searchParam);       
     }
 
     search() {
@@ -128,7 +128,8 @@ export class HorseListComponent implements OnInit {
         this.showResetSearch=true;      
         this.loadHorses(0,
                        (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
-                       false);
+                       false,
+                       this.searchParam);
     }
 
     checkSearchKey(event) {
@@ -150,22 +151,19 @@ export class HorseListComponent implements OnInit {
         this.showResetSearch = false;
         this.switchSearchParams();
         this.loadHorses(0,
-            (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
-            false);  
-    }
-
-    returnToList() {
-        this.searchParam=null;
-        this.loadHorses(0, this.currentPageSize, false);
+                       (this.listMode=='List' ? this.initialListPageSize : this.cardPageSize),                     
+                        false,
+                        this.searchParam);  
     }
 
     loadHorses(pageIndex: number,
                pageSize: number,            
-               concatHorses: boolean) {
+               concatHorses: boolean,
+               searchParam: string) {
    
-        this.horseService.getHorses( pageIndex, pageSize, this.searchParam).subscribe(
-            (data: HorseData) => {     
-                this.horseCount = data.searchCount; 
+        this.horseService.getHorses( pageIndex, pageSize, searchParam).subscribe(
+            (data: HorseData) => {   
+                this.horseCount = data.searchCount;   
                 let horsesFromApi = data.horses;
                 this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                              
             } );      

@@ -33,11 +33,12 @@
                 </a></li>
         </ul>      
     
-        <div *ngIf="horseCount == 0"  class="no-horses">            
-             <p>No Horses Found beginning with {{searchParam}}</p>
+        <div *ngIf="searchParam != null && horseCount == 0"  class="no-horses">            
+             <p>No Horses Found beginning with {{  searchParam[0].toUpperCase()
+                                                 + (searchParam.substring(1) ? searchParam.substring(1) : '')}}</p>                             
              <button mat-raised-button 
                      color="accent"
-                     (click)="returnToList()">See All Horses</button>
+                     (click)="resetSearch()">See All Horses</button>
         </div>
     
         <div *ngIf="horseCount > 0"> 
