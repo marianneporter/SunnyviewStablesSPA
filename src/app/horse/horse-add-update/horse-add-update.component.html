@@ -4,6 +4,7 @@
         <form class="horse-form"
             *ngIf="horseForm"
             novalidate
+            autoComplete="off"
             [formGroup]="horseForm">
         
             <div class="form-fields">   
@@ -22,10 +23,12 @@
                     <input matInput [matDatepicker]="picker"
                             formControlName="dob"
                             [min]="minDob" [max]="maxDob" 
+                            readonly
                             required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="dobFromForm.invalid">Please select horse's date of birth</mat-error>
+                    <mat-datepicker #picker></mat-datepicker>    
+                    <mat-error *ngIf="dobFromForm.errors?.horseDOBRange">Please select valid date of birth</mat-error>
+                    <mat-error *ngIf="dobFromForm.errors?.required">Please select horse's date of birth</mat-error>        
                 </mat-form-field>      
             
                 <mat-form-field appearance="fill" class="sex-field">

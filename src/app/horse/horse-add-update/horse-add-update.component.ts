@@ -58,15 +58,15 @@ export class HorseAddUpdateComponent implements OnInit {
     formInvalidError = 'Form is not valid please correct errors and try again';
     successStatus = (horseName, op) => { return `${horseName} has been ${op} successfully`};
     successStatusWithPhotoError = (horseName, op) => {return `${horseName} has been ${op} successfully.  Photo uploaded was invalid`};
-    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};    
-
+    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};   
+ 
     previewPhoto: any;
 
     owners: Owner[];
     ownersSelect: SelectItem[];
     addedOwner: Owner;
 
-    minDob: Date = this.datesService.subtractYearsFromToday(40);
+    minDob: Date = this.datesService.subtractYearsFromToday(30);
     maxDob: Date = this.datesService.todaysDate;
 
     addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;    
@@ -99,11 +99,13 @@ export class HorseAddUpdateComponent implements OnInit {
             this.initialiseForm();          
         });
     }
-
+;
     initialiseForm() {
- 
         this.horseForm = this.fb.group({
-            name :  [ this.addMode ? '' : this.horse.name, [Validators.required]],
+            name :  [ this.addMode ? '' : this.horse.name, [Validators.required, 
+                                                            Validators.minLength(5),
+                                                            Validators.maxLength(25),
+                                                            Validators.pattern('^[a-zA-Z -]*$') ] ],
             dob  :  [ this.addMode ? '' : this.horse.dob, [Validators.required]],
             sex  :  [ this.addMode ? '' : this.horse.sex, [Validators.required]],
             colour: [ this.addMode ? '' : this.horse.colour, [Validators.required]],
