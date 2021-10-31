@@ -32,8 +32,6 @@ export class HorseAddUpdateComponent implements OnInit {
 
     @ViewChild("fileInput")  fileInput: ElementRef;
 
-    validDobSexMatcher = new ValidDobSexMatcher();
-
     horseForm: FormGroup;
 
     horseFormData: FormData;
@@ -64,15 +62,7 @@ export class HorseAddUpdateComponent implements OnInit {
 
     uploadedPhoto : File = null;
     fileName ='';
-    invalidPhoto = false;
-
-    photoErrorInvalidFile = 'The file you attempted to upload was not a valid photo file';
-    photoErrorNotLandscape = 'Photo must be in landscape format';
-    formNotChangedError = 'Please edit horse, add/change photo file or cancel';
-    formInvalidError = 'Form is not valid please correct errors and try again';
-    successStatus = (horseName, op) => { return `${horseName} has been ${op} successfully`};
-    successStatusWithPhotoError = (horseName, op) => {return `${horseName} has been ${op} successfully.  Photo uploaded was invalid`};
-    photoErrorOnServer = (horseName) => { return `Photo for ${horseName} could not be added due to invalid format`};   
+    invalidPhoto = false;   
  
     previewPhoto: any;
 
@@ -83,7 +73,9 @@ export class HorseAddUpdateComponent implements OnInit {
     minDob: Date = this.datesService.subtractYearsFromToday(30);
     maxDob: Date = this.datesService.todaysDate;
 
-    addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;    
+    addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;     
+    
+    validDobSexMatcher = new ValidDobSexMatcher();
 
     constructor( private route: ActivatedRoute,
                  private validatorService: ValidatorService,
@@ -114,7 +106,7 @@ export class HorseAddUpdateComponent implements OnInit {
             this.initialiseForm();          
         });
     }
-;
+
     initialiseForm() {
         this.horseForm = this.fb.group({
             name :  [ this.addMode ? '' : this.horse.name, [Validators.required, 
@@ -145,7 +137,7 @@ export class HorseAddUpdateComponent implements OnInit {
             var mimeType = event.target.files[0].type;
             if (mimeType.match(/image\/*/) == null) {
                 this.invalidPhoto=true;
-                this.messageService.displayErrorSnackbar(this.photoErrorInvalidFile);
+                this.messageService.displayErrorSnackbar(this.messageService.photoErrorInvalidFile);
                 return;
             }
 
@@ -165,13 +157,12 @@ export class HorseAddUpdateComponent implements OnInit {
                     const width = img.naturalWidth;
                     if (height > width) {
                         this.invalidPhoto=true;
-                        this.messageService.displayErrorSnackbar(this.photoErrorNotLandscape);
+                        this.messageService.displayErrorSnackbar(this.messageService.photoErrorNotLandscape);
                         return;
                     }
                     this.previewPhoto = reader.result; 
                 };               
             }
-
         }
     }
 
@@ -211,25 +202,21 @@ export class HorseAddUpdateComponent implements OnInit {
         )
     }
     
-    addNewOwnerToForm() {
-        
-        let currOwners = this.horseForm.controls['owners'].value;
-   
-        currOwners.push(this.addedOwner.id.toString());
-  
-        this.horseForm.patchValue( {owners: currOwners} );
-  
+    addNewOwnerToForm() {                
+        let currOwners = this.horseForm.controls['owners'].value;   
+        currOwners.push(this.addedOwner.id.toString());  
+        this.horseForm.patchValue( {owners: currOwners} );  
     }
 
-    submitForm() {      
-        
+    submitForm() {  
+
         if ( this.horseForm.invalid ) {
-            this.messageService.displayErrorSnackbar(this.formInvalidError)
+            this.messageService.displayErrorSnackbar(this.messageService.formInvalidError)
             return;
         }
 
         if (this.horseForm.untouched && !this.uploadedPhoto) {
-            this.messageService.displayErrorSnackbar(this.formNotChangedError)
+            this.messageService.displayErrorSnackbar(this.messageService.formNotChangedError)
             return;
         }             
 
@@ -283,32 +270,18 @@ export class HorseAddUpdateComponent implements OnInit {
     addUpdateMessageAndRouting( id: number,
                                 photoUploaded: boolean) {
      
-        let message = this.createStatusMessage(this.nameFromForm.value,
+        let message = this.messageService.createStatusMessage(this.nameFromForm.value,
                       this.horseForm.touched,
-                      photoUploaded);  
+                      photoUploaded,
+                      this.uploadedPhoto ? true : false,
+                      this.addMode);  
                       
-             this.messageService.storeStatusMessage('message', message); 
+        this.messageService.storeStatusMessage('message', message); 
 
         if (this.listMode) {
             this.router.navigate(['/horse'], { queryParamsHandling: 'merge' } );
         } else {
             this.router.navigate(['/horse', id], { queryParamsHandling: 'merge' } );
         }          
-    }
-
-    createStatusMessage(horseName:string, dataUpdated: boolean, photoUploadSuccess: boolean):string {
-    
-        const photoUploadError = this.uploadedPhoto && !photoUploadSuccess;
-        const operation = this.addMode ? 'added' : 'updated';
-      
-        if (dataUpdated && photoUploadError) {
-            return this.successStatusWithPhotoError(horseName, operation);
-        }
-        
-        if (!dataUpdated && photoUploadError) {
-            return this.photoErrorOnServer(horseName);
-        }
-
-        return this.successStatus(horseName, operation);
     }
 }
