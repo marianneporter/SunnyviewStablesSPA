@@ -11,7 +11,15 @@ export class DatesService {
         this.todaysDate = new Date();
         this.todaysDate.setHours(0, 0, 0, 0); 
     }
-     
+
+    msToYears = (ms) => Math.floor(ms / 31536000000); 
+
+    getAge(dob) {
+        let today = new Date();
+        let msDiff = today.getTime() - dob.getTime();
+        return this.msToYears(msDiff);
+    }
+        
     convertJSDateToYYYYMMDD(jsDate: Date): string {
         let dd=jsDate.getDate().toString();
         let mm=(jsDate.getMonth()+1).toString();
@@ -27,6 +35,5 @@ export class DatesService {
                         this.todaysDate.getMonth(),
                         this.todaysDate.getDate());
      
-    }    
-
+    }   
 }

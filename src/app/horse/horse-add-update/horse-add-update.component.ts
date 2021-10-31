@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -13,6 +14,14 @@ import { DatesService } from 'src/app/_services/dates.service';
 import { FormsService } from 'src/app/_services/forms.service';
 import { HorseService } from 'src/app/_services/horse.service';
 import { MessageService } from 'src/app/_services/message.service';
+import { ValidatorService } from 'src/app/_services/validator.service';
+
+/** Error on formgroup for invalid age/sex combination */
+export class ValidDobSexMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        return control.parent.invalid && control.touched;
+    }
+}
 
 @Component({
   selector: 'app-horse-add-update',
@@ -22,6 +31,8 @@ import { MessageService } from 'src/app/_services/message.service';
 export class HorseAddUpdateComponent implements OnInit {
 
     @ViewChild("fileInput")  fileInput: ElementRef;
+
+    validDobSexMatcher = new ValidDobSexMatcher();
 
     horseForm: FormGroup;
 
@@ -36,17 +47,20 @@ export class HorseAddUpdateComponent implements OnInit {
     updateReturn: UpdateReturn;
 
     // getters for select lists
-    get heights():SelectItem[] { return this.formsService.horseHeights; }
-    get colours():SelectItem[] { return this.formsService.colours; }
-    get sexes():SelectItem[]   { return this.formsService.sexes; }
+    get heights():SelectItem[] { return this.formsService.horseHeights }
+    get colours():SelectItem[] { return this.formsService.colours }
+    get sexes():SelectItem[]   { return this.formsService.sexes }
 
     //getters for form elements
     get nameFromForm()   { return this.horseForm.get('name'); }
-    get dobFromForm()    { return this.horseForm.get('dob'); } 
-    get sexFromForm()    { return this.horseForm.get('sex'); }
+ 
     get colourFromForm() { return this.horseForm.get('colour'); }
     get heightFromForm() { return this.horseForm.get('height'); }    
     get ownersFromForm() { return this.horseForm.get('owners'); }
+ 
+    get dobFromForm()    { return this.horseForm.get('dobSexGroup.dob')}
+    get sexFromForm()    { return this.horseForm.get('dobSexGroup.sex') }
+    get dobSexGroup()    { return this.horseForm.get('dobSexGroup')}
 
     uploadedPhoto : File = null;
     fileName ='';
@@ -72,6 +86,7 @@ export class HorseAddUpdateComponent implements OnInit {
     addOwnerDialogRef: MatDialogRef<AddOwnerDialogComponent>;    
 
     constructor( private route: ActivatedRoute,
+                 private validatorService: ValidatorService,
                  private addOwnerDialog: MatDialog,
                  private messageService: MessageService,
                  private fb: FormBuilder,
@@ -106,8 +121,10 @@ export class HorseAddUpdateComponent implements OnInit {
                                                             Validators.minLength(5),
                                                             Validators.maxLength(25),
                                                             Validators.pattern('^[a-zA-Z -]*$') ] ],
-            dob  :  [ this.addMode ? '' : this.horse.dob, [Validators.required]],
-            sex  :  [ this.addMode ? '' : this.horse.sex, [Validators.required]],
+            dobSexGroup : this.fb.group( {
+                dob  :  [ this.addMode ? '' : this.horse.dob, [Validators.required]],
+                sex  :  [ this.addMode ? '' : this.horse.sex, [Validators.required]],
+            }, {validators: this.validatorService.dobSexGroupValidator}),
             colour: [ this.addMode ? '' : this.horse.colour, [Validators.required]],
             height: [ this.addMode ? ''  : this.horse.heightHands, [Validators.required]],
             owners: [ this.addMode ? [] : this.horse.owners.map(o => o.id.toString()), [Validators.required]]                       

@@ -18,28 +18,34 @@
                     <mat-error *ngIf="nameFromForm.invalid">Please enter horse's name</mat-error>
                 </mat-form-field>
         
-                <mat-form-field appearance="fill" class="dob-field form-field">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker"
-                            formControlName="dob"
-                            [min]="minDob" [max]="maxDob" 
-                            readonly
-                            required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>    
-                    <mat-error *ngIf="dobFromForm.errors?.horseDOBRange">Please select valid date of birth</mat-error>
-                    <mat-error *ngIf="dobFromForm.errors?.required">Please select horse's date of birth</mat-error>        
-                </mat-form-field>      
-            
-                <mat-form-field appearance="fill" class="sex-field">
-                    <mat-label>Sex</mat-label>
-                    <mat-select formControlName="sex" required>
-                        <mat-option *ngFor="let sex of sexes"
-                                    [value]="sex.id" required> {{sex.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="nameFromForm.invalid">Please select horse's sex</mat-error>
-                </mat-form-field>        
+                <ng-container formGroupName="dobSexGroup">
+                    <mat-form-field appearance="fill" class="dob-field form-field">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                                formControlName="dob"
+                                [min]="minDob" [max]="maxDob" 
+                                readonly
+                                required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>  
+                        <mat-error *ngIf="dobFromForm.errors?.required">Please select horse's date of birth</mat-error>   
+                        <mat-error *ngIf="dobFromForm.errors?.horseDOBRange">Please select valid date of birth</mat-error>
+                    </mat-form-field>      
+                
+                    <mat-form-field appearance="fill" class="sex-field">
+                        <mat-label>Sex</mat-label>
+                        <mat-select formControlName="sex"
+                                    required
+                                    [errorStateMatcher]="validDobSexMatcher">
+                            <mat-option *ngFor="let sex of sexes"
+                                        [value]="sex.id" required> {{sex.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="sexFromForm.errors?.required">Please select horse's sex</mat-error>
+                        <mat-error *ngIf="dobSexGroup.errors?.ageSexErrorYoungHorse">Horse under 4 years must be Filly, Colt or Gelding</mat-error> 
+                        <mat-error *ngIf="dobSexGroup.errors?.ageSexErrorMatureHorse">Horse over 3 years must be Mare, Stallion or Gelding</mat-error> 
+                    </mat-form-field>                        
+                </ng-container>    
             
                 <mat-form-field appearance="fill" class="colour-field">
                     <mat-label>Colour</mat-label>
