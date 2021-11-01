@@ -32,7 +32,8 @@ export class MessageService {
     }
     
     displayErrorSnackbar(message: string) {
-        this.snackBar.open(message, 'dismiss', {
+      
+        this.snackBar.open(message, 'dismiss', {           
             duration: 5000,
             panelClass: ['error-snackbar']
         });        

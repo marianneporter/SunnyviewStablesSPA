@@ -131,12 +131,13 @@ export class HorseAddUpdateComponent implements OnInit {
         } );                 
     }
 
-    onPhotoAdded(event) {
+    onPhotoAdded(event) {   
+          
         this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
-            var mimeType = event.target.files[0].type;
+            var mimeType = event.target.files[0].type;         
             if (mimeType.match(/image\/*/) == null) {
-                this.invalidPhoto=true;
+                this.invalidPhoto=true;            
                 this.messageService.displayErrorSnackbar(this.messageService.photoErrorInvalidFile);
                 return;
             }
@@ -284,4 +285,5 @@ export class HorseAddUpdateComponent implements OnInit {
             this.router.navigate(['/horse', id], { queryParamsHandling: 'merge' } );
         }          
     }
+
 }

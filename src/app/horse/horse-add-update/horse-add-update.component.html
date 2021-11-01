@@ -86,8 +86,9 @@
                 </div>
 
                 <input 
-                    type="file"                    
-                    (change)="onPhotoAdded($event)"
+                    type="file"  
+                    (click)="fileInput.value=null"                  
+                    (change)="onPhotoAdded($event)"                           
                     #fileInput>    
 
                 <div *ngIf="(addMode && previewPhoto) || (!addMode && (horse.imageUrl || uploadedPhoto ))"
@@ -126,4 +127,3 @@
         </form>           
     </div>        
 </div>
-
