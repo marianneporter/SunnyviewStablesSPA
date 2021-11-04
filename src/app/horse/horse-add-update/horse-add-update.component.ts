@@ -140,6 +140,7 @@ export class HorseAddUpdateComponent implements OnInit {
             if (mimeType.match(/image\/*/) == null) {
                 this.invalidPhoto=true;            
                 this.messageService.displayErrorSnackbar(this.messageService.photoErrorInvalidFile);
+                this.uploadedPhoto = null;
                 return;
             }
 
@@ -160,6 +161,7 @@ export class HorseAddUpdateComponent implements OnInit {
                     if (height > width) {
                         this.invalidPhoto=true;
                         this.messageService.displayErrorSnackbar(this.messageService.photoErrorNotLandscape); 
+                        this.uploadedPhoto = null;
                         return;
                     }
                     this.previewPhoto = reader.result; 
@@ -243,17 +245,21 @@ export class HorseAddUpdateComponent implements OnInit {
         if (this.addMode) {
             this.horseService.addHorse(this.horseFormData)
             .subscribe({
-              next: (data: AddReturn) => {
- 
-                  this.addReturn= { ...data };  
+                next: (data: AddReturn) => {
 
-                  this.addUpdateMessageAndRouting(this.addReturn.id,
-                                                  this.addReturn.photoUploaded);                 
+                    this.addReturn= { ...data };  
 
-              },
-              error: err => {              
-                  console.log("error occurred while adding horse"); 
-              }
+                    if (this.uploadedPhotoAttempt && !this.addReturn.photoUploaded) {
+                        this.messageService.displayErrorSnackbar(this.messageService.photoErrorOnServer(this.horse.name));
+                        return;                      
+                    }
+
+                    this.addUpdateMessageAndRouting(this.addReturn.id,
+                                                    this.addReturn.photoUploaded);    
+                },
+                error: err => {              
+                    console.log("error occurred while adding horse"); 
+                }
             });
         } else {
 
