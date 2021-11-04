@@ -41,19 +41,15 @@ export class MessageService {
     
     createStatusMessage(horseName:string,
                         dataUpdated: boolean,
+                        photoUploadAttempt,
                         photoUploadSuccess: boolean,
-                        uploadedPhoto: boolean,
                         addMode: boolean):string {
     
-        const photoUploadError = uploadedPhoto && !photoUploadSuccess;
+        const photoUploadError = photoUploadAttempt && !photoUploadSuccess;
         const operation = addMode ? 'added' : 'updated';
       
         if (dataUpdated && photoUploadError) {
             return this.successStatusWithPhotoError(horseName, operation);
-        }
-        
-        if (!dataUpdated && photoUploadError) {
-            return this.photoErrorOnServer(horseName);
         }
 
         return this.successStatus(horseName, operation);

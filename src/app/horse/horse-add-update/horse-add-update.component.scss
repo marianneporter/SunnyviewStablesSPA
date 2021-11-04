@@ -10,8 +10,8 @@
     .owners-select { grid-area: owners}
     .add-new-owner-wrapper {grid-area: add-owner}
     .previewPhotoWrapper { grid-area: photo}
-    .upload-btn { grid-area: upload-btn}
-    .reset-btn { grid-area: reset-btn}
+    .upload-photo-btn { grid-area: upload-photo-btn}
+    .reset-photo-btn { grid-area: reset-photo-btn}
     .submit-area { grid-area: submit}
 }
 
@@ -32,8 +32,9 @@
             "height height"
             "owners owners"
             "add-owner add-owner"
-            "photo upload-btn"
-            "photo reset-btn"
+            "photo upload-photo-btn"
+            "photo reset-photo-btn"
+            "submit submit"
             "submit submit";
 
         gap: 1rem;
@@ -58,21 +59,21 @@
             .small-photo {
                 max-width: 100%;
                 max-height: 7rem;
+                margin-left: 1rem;
             }            
         } 
 
-        .btn {
+        .photo-btn {
             height: 2.5rem;
             width: 7.5rem;               
         } 
         
         .buttons-area {
-            display: flex;
-            justify-content: center;
-            column-gap: 3rem;
+
             padding: 1.5rem 0;  
         
             button {
+                margin-top: 0.75rem;
                 background-color: var(--color-success);
             }
         
@@ -82,14 +83,12 @@
             }
         
             button, a  {
-                padding: 0.25rem 2rem;
+                width: 100%;
+                padding: 0.15rem 2rem;
             }
         }
     }
 }
-
-
-
 
 @media screen and (min-width: 768px) { 
     
@@ -113,30 +112,43 @@
         padding: 0;
 
         .form-fields {
-            display: grid;  
-            padding: 1rem; 
-         
-            
+            padding: 1rem;             
             grid-template-areas:
                   "title title title title" 
                   "name name name ."
                   "dob dob sex sex"
                   "colour colour height height"
-                  "owners owners photo upload-btn"
-                  "add-owner add-owner photo reset-btn"
+                  "owners owners photo upload-photo-btn"
+                  "add-owner add-owner photo reset-photo-btn"
                   "submit submit submit submit";
 
             .mat-form-field {
                 width:95%;
             }
 
-            .btn {
+            .photo-btn {
                 height: 3rem;
                 width: 7.5rem;               
             }
 
-            .reset-btn {
+            .reset-photo-btn {
                 margin-top: -1.5rem;
+            }
+
+            .submit-area {
+                .buttons-area {
+                    display: flex;
+                    justify-content: center;
+                    column-gap: 3rem;
+
+                   button {
+                       margin-top: 0;
+                   }
+
+                   button, a {
+                       width: auto;
+                   }
+                }
             }
         }
     }     

@@ -99,13 +99,13 @@
                 </div>             
                 
                 <button mat-raised-button
-                    class="upload-btn btn"
+                    class="upload-photo-btn photo-btn"
                     (click)="fileInput.click()"  >
                     {{ (!addMode && horse.imageUrl) || uploadedPhoto ? 'Change Photo' : 'Add Photo' }}                         
                 </button>                   
 
                 <button mat-raised-button 
-                        class="reset-btn btn"
+                        class="reset-photo-btn photo-btn"
                         *ngIf="previewPhoto"
                     (click)="clearUploadPhoto()">
                     Reset Photo                          

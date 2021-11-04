@@ -63,6 +63,7 @@ export class HorseAddUpdateComponent implements OnInit {
     uploadedPhoto : File = null;
     fileName ='';
     invalidPhoto = false;   
+    uploadedPhotoAttempt: boolean = false;
  
     previewPhoto: any;
 
@@ -110,7 +111,7 @@ export class HorseAddUpdateComponent implements OnInit {
     initialiseForm() {
         this.horseForm = this.fb.group({
             name :  [ this.addMode ? '' : this.horse.name, [Validators.required, 
-                                                            Validators.minLength(5),
+                                                            Validators.minLength(2),
                                                             Validators.maxLength(25),
                                                             Validators.pattern('^[a-zA-Z -]*$') ] ],
             dobSexGroup : this.fb.group( {
@@ -132,7 +133,7 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     onPhotoAdded(event) {   
-          
+
         this.fileName = event.target.files[0].name;
         if (event.target.files.length > 0) {
             var mimeType = event.target.files[0].type;         
@@ -153,12 +154,12 @@ export class HorseAddUpdateComponent implements OnInit {
             reader.onload = (_event) => { 
                 const img = new Image();
                 img.src = reader.result as string;
-                img.onload = () => {
+                img.onload = () => { 
                     const height = img.naturalHeight;
                     const width = img.naturalWidth;
                     if (height > width) {
                         this.invalidPhoto=true;
-                        this.messageService.displayErrorSnackbar(this.messageService.photoErrorNotLandscape);
+                        this.messageService.displayErrorSnackbar(this.messageService.photoErrorNotLandscape); 
                         return;
                     }
                     this.previewPhoto = reader.result; 
@@ -231,9 +232,12 @@ export class HorseAddUpdateComponent implements OnInit {
         this.ownersFromForm.value.forEach(ownerId => {
             this.horseFormData.append('ownerIds', ownerId )
         });
-
+        
         if (this.uploadedPhoto) {
             this.horseFormData.append('imageFile', this.uploadedPhoto);
+            this.uploadedPhotoAttempt = true;
+        } else {
+            this.uploadedPhotoAttempt = false;
         }
         
         if (this.addMode) {
@@ -242,6 +246,7 @@ export class HorseAddUpdateComponent implements OnInit {
               next: (data: AddReturn) => {
  
                   this.addReturn= { ...data };  
+
                   this.addUpdateMessageAndRouting(this.addReturn.id,
                                                   this.addReturn.photoUploaded);                 
 
@@ -258,6 +263,12 @@ export class HorseAddUpdateComponent implements OnInit {
             .subscribe({
                 next: (data) => {   
                     this.updateReturn = { ...data };                      
+                                       
+                    if (!this.horseForm.touched && this.uploadedPhotoAttempt && !this.updateReturn.photoUploaded) {
+                       this.messageService.displayErrorSnackbar(this.messageService.photoErrorOnServer(this.horse.name));
+                       return;
+                    }  
+                                  
                     this.addUpdateMessageAndRouting( this.horse.id,
                                                      this.updateReturn.photoUploaded);
               },
@@ -270,12 +281,18 @@ export class HorseAddUpdateComponent implements OnInit {
 
     addUpdateMessageAndRouting( id: number,
                                 photoUploaded: boolean) {
-     
+    
+
+        if ( !this.horseForm.touched && !photoUploaded ) {
+            this.messageService.displayErrorSnackbar(this.messageService.photoErrorInvalidFile);
+            return;
+        }         
+  
         let message = this.messageService.createStatusMessage(this.nameFromForm.value,
-                      this.horseForm.touched,
-                      photoUploaded,
-                      this.uploadedPhoto ? true : false,
-                      this.addMode);  
+            this.horseForm.touched,
+            this.uploadedPhotoAttempt,
+            photoUploaded,
+            this.addMode);   
                       
         this.messageService.storeStatusMessage('message', message); 
 
