@@ -25,8 +25,7 @@ export class EntryPageComponent implements OnInit {
         this.entryPageState.loginRequestStarted();
     }
 
-    enterApp() {
-   
+    enterApp() {   
         this.router.navigate(['/horse']);
     }
 

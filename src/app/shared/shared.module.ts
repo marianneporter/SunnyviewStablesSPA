@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ErrorComponent } from './error/error.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DemoWarningComponent } from './demo-warning/demo-warning.component';
 
 const sharedRoutes: Routes = [
     { path: 'error', component: ErrorComponent }  
@@ -15,7 +16,8 @@ const sharedRoutes: Routes = [
 @NgModule({
   declarations: [
       NavComponent,
-      ErrorComponent
+      ErrorComponent,
+      DemoWarningComponent
   ],
   imports: [
       CommonModule,
@@ -24,9 +26,9 @@ const sharedRoutes: Routes = [
       FontAwesomeModule,
      
   ],
-  exports: [
-     
-      NavComponent
+  exports: [     
+      NavComponent,
+      DemoWarningComponent
   ]
 })
 export class SharedModule { }

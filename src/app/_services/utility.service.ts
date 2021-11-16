@@ -14,8 +14,7 @@ export class UtilityService {
         let owners='';
  
         if (horseDto.owners.length != 0 ) {
-            owners =  horseDto.owners[0].firstName + ' ' + horseDto.owners[0].lastName;     
-
+            owners =  horseDto.owners[0].firstName + ' ' + horseDto.owners[0].lastName; 
             for (let i=1; i<horseDto.owners.length; i++) {
                 owners += (i == horseDto.owners.length -1) ? ' and ' : ', ';
                 owners += horseDto.owners[i].firstName + ' ' +  horseDto.owners[i].lastName;
