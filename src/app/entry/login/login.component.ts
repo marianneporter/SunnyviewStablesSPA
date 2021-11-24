@@ -12,13 +12,13 @@ import { LoginFormComponent } from '../login-form/login-form.component';
   animations: [  
     trigger('loginVisibility', [
         state('visible', style ({
-            right: '0'  
+            transform: 'translateX(0)'
         })),
         state('invisible', style ({          
-            right: '-20rem',    
+            transform: 'translateX(20rem)'   
         })), 
         transition('visible <=> invisible', [
-            animate('1s linear')
+            animate('0.5s linear')
         ])  
     ]),         
 ]

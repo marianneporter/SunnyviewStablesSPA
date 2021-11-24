@@ -18,7 +18,12 @@ export class EntryPageComponent implements OnInit {
         return this.authService.loggedIn;
     }
 
+    loginInProgress: boolean = false;
+
     ngOnInit(): void {
+        this.entryPageState.loginRequested.subscribe(
+            (loginInProgress) => this.loginInProgress = loginInProgress 
+        )
     }
 
     startLogin() {
