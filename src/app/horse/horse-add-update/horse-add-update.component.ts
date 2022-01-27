@@ -213,7 +213,6 @@ export class HorseAddUpdateComponent implements OnInit {
     }
 
     submitForm() {  
-
         if ( this.horseForm.invalid ) {
             this.messageService.displayErrorSnackbar(this.messageService.formInvalidError)
             return;
