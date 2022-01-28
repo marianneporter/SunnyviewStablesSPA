@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -30,11 +30,20 @@ export class ValidDobSexMatcher implements ErrorStateMatcher {
 })
 export class HorseAddUpdateComponent implements OnInit {
 
+    @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {        
+      if (this.horseForm.dirty) {
+        $event.returnValue = true;
+      }    
+    }
+
     @ViewChild("fileInput")  fileInput: ElementRef;
 
     horseForm: FormGroup;
 
     horseFormData: FormData;
+
+    formSubmitted=false;
 
     horse: Horse;
 
@@ -210,6 +219,7 @@ export class HorseAddUpdateComponent implements OnInit {
         let currOwners = this.horseForm.controls['owners'].value;   
         currOwners.push(this.addedOwner.id.toString());  
         this.horseForm.patchValue( {owners: currOwners} );  
+        this.horseForm.markAsTouched();
     }
 
     submitForm() {  
@@ -221,7 +231,9 @@ export class HorseAddUpdateComponent implements OnInit {
         if (this.horseForm.untouched && !this.uploadedPhoto) {
             this.messageService.displayErrorSnackbar(this.messageService.formNotChangedError)
             return;
-        }             
+        }   
+        
+        this.formSubmitted=true;
 
         this.horseFormData = new FormData();
         this.horseFormData.append('name', this.nameFromForm.value);

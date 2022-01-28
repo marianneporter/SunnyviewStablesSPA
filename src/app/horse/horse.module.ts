@@ -15,6 +15,7 @@ import { HorseAddUpdateResolver } from 'src/app/_resolvers/horse-add-update.reso
 import { HorseDetailComponent } from './horse-detail/horse-detail.component';
 import { HorseDetailResolver } from 'src/app/_resolvers/horse-detail.resolver';
 import { HorseCardsComponent } from './horse-cards/horse-cards.component';
+import { UnsavedChangesGuard } from '../_guards/unsaved-changes.guard';
 
 
 const horseRoutes: Routes = [
@@ -23,7 +24,8 @@ const horseRoutes: Routes = [
                      canActivate: [AuthGuard] },    
     { path: 'horse/add-edit/:id', component: HorseAddUpdateComponent,
                          resolve: { addUpdateData: HorseAddUpdateResolver }, 
-                         canActivate: [AuthGuard, UpdateGuard] }, 
+                         canActivate: [AuthGuard, UpdateGuard],
+                         canDeactivate: [UnsavedChangesGuard] }, 
     { path: 'horse/:id', component: HorseDetailComponent,
                          resolve: { horse: HorseDetailResolver }, 
                          canActivate: [AuthGuard] },                        
@@ -51,7 +53,8 @@ const horseRoutes: Routes = [
     HorseAddUpdateComponent
   ],
   providers: [ 
-    HorseInterceptorProvider
+    HorseInterceptorProvider,
+    UnsavedChangesGuard
   ],
 })
 export class HorseModule { }
