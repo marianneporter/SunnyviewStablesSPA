@@ -15,6 +15,8 @@
     .submit-area { grid-area: submit}
 }
 
+
+
 .horse-form {
 
     border-radius: 0.5rem;
@@ -90,11 +92,19 @@
     }
 }
 
-@media screen and (min-width: 768px) { 
+@media screen and (min-width: 500px) {
+    .wrapper {
+        max-width: 25rem;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 768px) and (min-height: 650px) { 
     
     .wrapper {
         height: var(--main-area-height);        
         width: 100%; 
+        max-width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;  
@@ -102,9 +112,10 @@
         padding-top: 0.5rem; 
     }   
 
-    .add-update-page {
-        @include grazing-horse-background;
-    }  
+    .add-update-page {      
+        @include grazing-horse-background;            
+    } 
+     
 
     .horse-form {
         background-color: white;
