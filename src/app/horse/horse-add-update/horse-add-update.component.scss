@@ -16,9 +16,22 @@
 }
 
 
+@media screen and (max-width: 767px),
+       screen and (max-height: 649px) {
+        .wrapper {
+            background: #F5FCE8 url("../../../assets/mobilebackground.jpg") no-repeat;
+            background-size: cover;
+            padding: 1rem;
+        }  
+        .horse-form {
+           
+            max-width: 25rem;   
+            margin: 0 auto;     
+    }       
+}
 
 .horse-form {
-
+    background-color: white;
     border-radius: 0.5rem;
     padding: 1rem;
 
@@ -92,17 +105,10 @@
     }
 }
 
-@media screen and (min-width: 500px) {
-    .wrapper {
-        max-width: 25rem;
-        margin: 0 auto;
-    }
-}
-
 @media screen and (min-width: 768px) and (min-height: 650px) { 
     
     .wrapper {
-        height: var(--main-area-height);        
+        height: var(--main-area-height);       
         width: 100%; 
         max-width: 100%;
         display: flex;
@@ -114,11 +120,10 @@
 
     .add-update-page {      
         @include grazing-horse-background;            
-    } 
-     
+    }      
 
     .horse-form {
-        background-color: white;
+   
         width: 40rem;
         padding: 0;
 
