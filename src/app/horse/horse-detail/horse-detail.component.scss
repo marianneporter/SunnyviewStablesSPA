@@ -8,6 +8,8 @@
     .edit-button { grid-area: edit}
 }
 
+
+
 .horse-detail { 
     @include grid-names();   
     display: grid;
@@ -71,16 +73,42 @@
     }
 }
 
-@media screen and (min-width: 600px) {
-    @media  (min-height: 400px) {
+@media screen and (max-width: 767px),
+       screen and (max-height: 649px) {
         .whole-page {
-            @include grazing-horse-background;
-                     height: var(--main-area-height);
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-        }        
-    }
+            background: #F5FCE8 url("../../../assets/mobilebackground.jpg") no-repeat;
+            background-size: cover;
+            padding: 1rem;
+            min-height: 100vh;
+
+            @media (min-width: 400px ) and (orientation: landscape)  {
+                padding: 2rem 5rem;
+            } 
+            
+            @media (min-width: 600px ) and (orientation: landscape)  {
+                padding: 2rem 10rem;
+            } 
+            
+            @media (min-width: 800px ) and (orientation: landscape)  {
+                padding: 2rem 15rem;
+            } 
+        }  
+
+        .horse-detail {         
+            margin: 0 auto;              
+        }           
+}
+
+@media screen and (min-width: 768px) and (min-height: 650px) {
+   
+    .whole-page {
+        @include grazing-horse-background;
+                    height: var(--main-area-height);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+    }        
+
 
     .horse-detail {
         width: 40rem;
