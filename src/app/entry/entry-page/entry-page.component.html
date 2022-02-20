@@ -1,4 +1,4 @@
-<div class="photo-area" >
+<div class="large-screen-entry" >
    
         <div class="main-heading">
             <h1>Sunnyview Stables</h1>
@@ -24,4 +24,12 @@
             <app-login (loginSuccess)="enterApp()"></app-login>
         </div>   
    
+</div>
+
+<div class="small-screen-login">
+    <h1 class="heading">Sunnyview Stables</h1>
+    <div class="form-area">
+        <h2>Sign In</h2>
+        <app-login-form (loginSuccess)="enterApp()"></app-login-form>
+    </div>   
 </div>

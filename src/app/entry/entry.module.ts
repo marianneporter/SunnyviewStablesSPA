@@ -6,19 +6,12 @@ import { EntryPageComponent } from './entry-page/entry-page.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { TestForMobileGuard } from '../_guards/test-for-mobile.guard';
-import { MobileEntryComponent } from './mobile-entry/mobile-entry.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
-import { LoggedInRerouteGuard } from '../_guards/logged-in-reroute.guard';
 
 const entryRoutes: Routes = [
-    { path: 'entry', component: EntryPageComponent,
-                     canActivate: [TestForMobileGuard]},
-    { path: 'mobile-entry', component: MobileEntryComponent,
-                            canActivate: [LoggedInRerouteGuard] },       
-    { path: '', component: EntryPageComponent,
-                canActivate: [TestForMobileGuard] } 
+    { path: 'entry', component: EntryPageComponent, },       
+    { path: '', component: EntryPageComponent } 
 ]
 
 @NgModule({
@@ -26,7 +19,6 @@ const entryRoutes: Routes = [
     EntryPageComponent,
     ToolbarComponent,
     LoginComponent,
-    MobileEntryComponent,
     LoginFormComponent
   ],
   imports: [
