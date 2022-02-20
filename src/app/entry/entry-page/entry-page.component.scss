@@ -8,6 +8,14 @@
         max-width: 100vw;
         height: 100vh;         
     }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
 }
 
 @media only screen and (orientation: portrait) {
@@ -20,6 +28,16 @@
         max-width: 100vw;
         height: 100vh;         
     }
+
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+
 }
 
 .photo-area {
@@ -35,14 +53,12 @@
     flex-grow: 1;
 
     h1 {
-        font-size: 3rem;
-        margin-top: 2.5rem;
+        margin-top: 2.5rem;       
     }    
     
     h3 {
         padding-left: 2rem;
         margin-top: 1rem;
-        font-size: 2rem;
     }
 }
 
