@@ -55,13 +55,14 @@ export class HorseListComponent implements OnInit {
         this.cardPageSize        = this.constants.cardPageSize;
 
          
-        if (this.deviceService.isMobile()) {
+        this.isMobile=this.deviceService.isMobile();
+        if (this.isMobile) {
             this.listMode = 'Card'
         } else {
             if (this.route.snapshot.queryParams['listMode']) {
                 this.listMode = this.route.snapshot.queryParams['listMode'];
             } else {
-                this.listMode="List";
+                this.listMode="Card";
             }
         }       
 

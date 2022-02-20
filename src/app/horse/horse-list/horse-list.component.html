@@ -23,9 +23,9 @@
         </header>       
    
         <ul class="horse-nav">  
-            <li class="non-mobile"><button [disabled]="listMode=='Card'"
+            <li class="list-option" [ngClass]="{'no-show': isMobile }"><button [disabled]="listMode=='Card'"
                                     (click)="switchToCard()" ><mat-icon class="c">view_module</mat-icon><span> Card View</span></button></li>
-            <li class="non-mobile"><button [disabled]="listMode=='List'"
+            <li class="list-option" [ngClass]="{'no-show': isMobile }"><button [disabled]="listMode=='List'"
                                     (click)="switchToList()"><mat-icon class="c">view_headline</mat-icon><span>List View</span></button></li>
             <li *ngIf="updateAccessAllowed">
                 <a [routerLink]="['/horse/add-edit/0']" queryParamsHandling="merge">
