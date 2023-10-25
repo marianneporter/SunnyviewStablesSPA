@@ -53,8 +53,7 @@ export class LoginFormComponent implements OnInit {
             () => { 
                 this.loginSuccess.emit();        
             },
-            (error: HttpErrorResponse) => {  
-  
+            (error: HttpErrorResponse) => {             
                 if (error.status == 401) { 
                      this.serverLoginError=true;
                      this.updateValidators(true);

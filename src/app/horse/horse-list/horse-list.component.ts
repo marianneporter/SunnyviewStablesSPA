@@ -164,8 +164,10 @@ export class HorseListComponent implements OnInit {
    
         this.horseService.getHorses( pageIndex, pageSize, searchParam).subscribe(
             (data: HorseData) => {   
+                 console.log('in loadHorses method of horse list component');
                 this.horseCount = data.searchCount;   
                 let horsesFromApi = data.horses;
+                console.log(horsesFromApi);
                 this.horses= concatHorses ? this.horses.concat(horsesFromApi) : horsesFromApi;                              
             } );      
     }

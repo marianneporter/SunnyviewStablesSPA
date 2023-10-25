@@ -5,10 +5,11 @@
         <h2 class="name">{{horse.name}}</h2>
 
         <div class="image-area">
-            <img [src]="horse.imageUrl" class="img"
+            <img [src]= "horse.imageUrl ? horse.imageUrl : 'assets/horseplaceholder1.png'" 
+                    class="img"
                     onerror="this.style.border=0" 
                     alt="no image of {{horse.name}} available yet">
-        </div>   
+        </div>         
  
         <div class="info-area">
             <div class="info-item">

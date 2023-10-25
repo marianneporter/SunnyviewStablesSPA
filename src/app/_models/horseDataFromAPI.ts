@@ -1,6 +1,7 @@
 import { HorseDto } from "./horseDTO";
 
 export interface HorseDataFromAPI {
-    count: number;
+    countAll: number;
+    searchCount: number;
     horses: HorseDto[];   
  }

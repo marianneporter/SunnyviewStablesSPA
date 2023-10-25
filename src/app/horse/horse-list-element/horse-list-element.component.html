@@ -10,7 +10,7 @@
          *ngFor="let horse of horses"
          (click)="horseSelected(horse.id)">
         <div class="col image-col">
-            <img [src]= "horse.imageUrl ? horse.imageUrl : 'assets/images/horse_placeholder.jpg'" />
+            <img [src]= "horse.imageUrl ? horse.imageUrl : 'assets/horseplaceholder1.png'" />
         </div>
         <div class="col">{{horse.name}}</div> 
         <div class="col">{{horse.heightHands}}</div>

@@ -1,13 +1,13 @@
 <div class="horse-cards">
     <mat-card *ngFor="let horse of horses"
               class="horse-card">
-        <mat-card-header>
-       
+        <mat-card-header>       
           <mat-card-title>{{horse.name}}</mat-card-title>
           <mat-card-subtitle>Owned by: {{horse.displayOwners}}</mat-card-subtitle>
         </mat-card-header>
         
-        <img mat-card-image [src]="horse.imageUrl" alt="Photo of {{horse.name}}">
+        <img mat-card-image  [src]= "horse.imageUrl ? horse.imageUrl : 'assets/horseplaceholder1.png'" 
+                             alt="Photo of {{horse.name}}">
     
         <mat-card-actions>
           <button mat-raised-button

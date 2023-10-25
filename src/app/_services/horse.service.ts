@@ -26,7 +26,7 @@ export class HorseService {
                pageSize:number = this.deviceService.isMobile() ? 
                                  this.constants.cardPageSize : this.constants.listPageSize,
                searchParam:string =""): Observable<HorseData> {
-      
+        console.log('in get horses'); 
         const url = environment.baseUrl + 'horses';
 
         let params = new HttpParams();
@@ -38,18 +38,24 @@ export class HorseService {
             params = params.append("search", searchParam); 
         }               
 
+        console.log('just about to return data');
         return this.http.get<HorseDataFromAPI>(url, { params: params })
             .pipe(
                 map(data => {
+                    console.log('received horse data');
                     let horseData: HorseData = {
-                    
-                        searchCount: data.count,
+                        countAll: data.countAll,
+                        searchCount: data.searchCount,
                         horses: data.horses.map(h => this.utility.mapHorseDtoToHorse(h))
                     }
-
                     return horseData;
+                }),
+                catchError((error) => {
+                    console.log('error caught in getHorses');
+                    console.log(error);
+                    return of(null);
                 })
-        )
+            )
     }   
 
     getHorseCount() {
@@ -81,4 +87,5 @@ export class HorseService {
         const url = environment.baseUrl + 'horses';     
         return this.http.patch<any>(url, horseFormData);
     }  
+ 
 }

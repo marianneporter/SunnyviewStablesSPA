@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../SunnysideStablesAPI/SunnysideStablesAPI/wwwroot",
+            "outputPath": "../../cSharp/SunnysideStablesAPI/SunnysideStablesAPI/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
