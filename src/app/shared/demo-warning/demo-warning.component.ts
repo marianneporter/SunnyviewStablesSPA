@@ -4,31 +4,34 @@ import { AppStateService } from 'src/app/_services/app-state.service';
 
 @Component({
   selector: 'app-demo-warning',
-  templateUrl: './demo-warning.component.html',
-  styleUrls: ['./demo-warning.component.scss'],
+  templateUrl: './demo-warning.component.html',  styleUrls: ['./demo-warning.component.scss'],
   animations: [  
     trigger('warningVisibility', [
         state('visible', style ({
-            opacity: '1',          
+            opacity: 1,
+            backgroundColor: '#ff8c00',
+            display: 'inline-block'                    
         })),
-        state('invisible', style ({          
-            opacity: '0',            
+        state('invisible', style ({  
+            opacity: 0,       
+            backgroundColor: 'transparent',
+            display: 'none'          
         })),     
         transition('visible => invisible', [
             animate('2s ease')
         ]) 
     ]),
-    trigger('warningPosition', [
-        state('there', style ({
-            top: '10rem',         
-        })),
-        state('notThere', style ({          
-            top: '-40rem',            
-        })), 
-        transition('there => notThere', [
-            animate('0.1s 2s ease')
-        ]),       
-    ]) 
+    // trigger('warningPosition', [
+    //     state('there', style ({
+    //         top: '10rem',         
+    //     })),
+    //     state('notThere', style ({          
+    //         top: '-40rem',            
+    //     })), 
+    //     transition('there => notThere', [
+    //         animate('0.1s 2s ease')
+    //     ]),       
+    // ]) 
   ]          
 })
 export class DemoWarningComponent implements OnInit {
