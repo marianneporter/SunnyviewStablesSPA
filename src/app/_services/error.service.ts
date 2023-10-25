@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorService {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router,
+                private messageService: MessageService) { }
 
-    noHorsesError() {
-        let errorMessage =  "noHorses";
-        this.routeToErrorPage(errorMessage);
+    handleError(errorResponse: HttpErrorResponse) {       
+        this.messageService.displayErrorSnackbar("Sorry! Sunnyview Stables Application is not Available - please try later");
+        this.router.navigate(['/entry']);
     }
 
-    routeToErrorPage(errorMessage: string) {
-        this.router.navigate(['/error'], { queryParams: { error: errorMessage } });
-    }
 }

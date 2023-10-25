@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginResponse } from '../_models/auth/loginResponse';
 import { UserLogin } from '../_models/auth/userLogin';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +50,7 @@ export class AuthService {
                     this._userName= `${response.user.firstName}`;            
                     this.setTokenDetails(response.token);
                 }         
-            })
+            }) 
         )
     }  
 

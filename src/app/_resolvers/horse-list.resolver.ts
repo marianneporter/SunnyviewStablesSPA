@@ -19,6 +19,7 @@ export class HorseListResolver implements Resolve<HorseData> {
         const pageIndex = route.queryParamMap.get('pageIndex') ? +route.queryParamMap.get('pageIndex') : 0;
         const search    = route.queryParamMap.get('search')   ? route.queryParamMap.get('search') : undefined;
       
-        return this.horseService.getHorses(pageIndex, pageSize, search);       
+        return this.horseService.getHorses(pageIndex, pageSize, search);  
+   
     }     
 }
