@@ -5,6 +5,10 @@
     grid-auto-rows: 5.5rem;
     justify-content: center;
     margin-top: 1.5rem;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .grid-data {

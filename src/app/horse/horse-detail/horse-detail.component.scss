@@ -8,8 +8,6 @@
     .edit-button { grid-area: edit}
 }
 
-
-
 .horse-detail { 
     @include grid-names();   
     display: grid;
@@ -66,10 +64,18 @@
             
     .back-button {
         background-color: var(--color-secondary);
+
+        &:hover {
+            background-color: var(--color-secondary-darker);
+        }
     }
 
     .edit-button {
         background-color: var(--color-success);
+
+        &:hover {
+            background-color: var(--color-success-darker);
+        }
     }
 }
 

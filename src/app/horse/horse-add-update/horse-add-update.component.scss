@@ -90,11 +90,19 @@
             button {
                 margin-top: 0.75rem;
                 background-color: var(--color-success);
+
+                &:hover {
+                    background-color: var(--color-success-darker);
+                }
             }
         
             a {
                 background-color: var(--color-secondary);
                 color: white;
+
+                &:hover {
+                    background-color: var(--color-secondary-darker);
+                }
             }
         
             button, a  {

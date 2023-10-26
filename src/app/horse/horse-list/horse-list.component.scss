@@ -19,12 +19,16 @@ header {
 
         input {
             padding: 0.5rem 0 0.5rem 0.5rem;
-            font-size: 1rem;
+            font-size: 1rem;        
         }
 
         button {
             background-color: white;
             border: 0.075rem solid #A0A0A0;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }
@@ -52,8 +56,14 @@ h1 {
         a {
             text-decoration: none;
             color: black;
+        } 
+
+        :hover {
+            cursor: pointer;
         }
     }
+
+
 }
 
 .no-horses {
@@ -68,7 +78,7 @@ h1 {
 
     p {   
         font-size: 1.2rem;
-      text-align: center;
+        text-align: center;
     }
 
     button {
